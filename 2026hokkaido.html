@@ -333,7 +333,9 @@
             <li class="transit">[JR] 삿포로 → 호시미 이동 (약 24분)</li>
             <li>점심: 스프카레 Kufuu (호시미역 도보 3분)</li>
             <li class="transit">[JR] 호시미 → 오타루 이동 (약 15~20분)</li>
-            <li>오타루 도착 · 시내 이동, 16:00 숙소 체크인</li>
+            <li>오타루 도착 · 시내 잠시 구경</li>
+            <li class="transit">오타루역 → 숙소: 송영버스</li>
+            <li>16:00 숙소 체크인</li>
             <li>저녁: 숙소 석식 (2식 플랜 포함)</li>
           </ul>
           <button class="meal-btn" onclick="openMeal('day3','12.7 (월) · 삿포로 → 오타루')">
@@ -362,7 +364,9 @@
           </div>
           <ul class="schedule">
             <li>조식: 숙소 조식 (2식 플랜 포함)</li>
-            <li class="note">11:00 체크아웃 · 코인락커 이용, 오타루 시내 짧게 구경</li>
+            <li class="note">11:00 체크아웃</li>
+            <li class="transit">숙소 → 오타루역: 택시</li>
+            <li>오타루역 코인락커 이용, 오타루 시내 짧게 구경</li>
             <li class="warn">늦어도 11:30까지는 오타루역 출발 (공항 도착 여유 확보)</li>
             <li class="transit">[JR] 오타루 → 삿포로 이동 (약 32분)</li>
             <li>점심: 스미레 (삿포로역 인근)</li>
@@ -387,26 +391,25 @@
     <div class="map-card">
       <p class="map-title">이동 경로</p>
       <svg viewBox="0 0 380 220" width="100%" style="display:block; height:auto;">
+        <line x1="80" y1="60" x2="300" y2="60" stroke="#3E6C8C" stroke-width="2"/>
         <line x1="80" y1="60" x2="200" y2="40" stroke="#B3893F" stroke-width="2" stroke-dasharray="5,5"/>
-        <line x1="80" y1="60" x2="200" y2="40" stroke="#3E6C8C" stroke-width="2" opacity="0.45"/>
-        <line x1="80" y1="60" x2="120" y2="150" stroke="#2F5C4A" stroke-width="2"/>
-        <line x1="120" y1="150" x2="300" y2="60" stroke="#AD4C3C" stroke-width="2" stroke-dasharray="5,5"/>
+        <line x1="80" y1="60" x2="120" y2="150" stroke="#3E6C8C" stroke-width="2"/>
 
         <circle cx="80" cy="60" r="6" fill="#3E6C8C"/>
         <circle cx="200" cy="40" r="6" fill="#B3893F"/>
         <circle cx="120" cy="150" r="6" fill="#2F5C4A"/>
-        <circle cx="300" cy="60" r="6" fill="#AD4C3C"/>
+        <circle cx="300" cy="60" r="6" fill="#3E6C8C"/>
 
         <text x="55" y="80" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A2E">삿포로</text>
         <text x="185" y="28" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A2E">비에이</text>
         <text x="95" y="172" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A2E">오타루</text>
-        <text x="262" y="52" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A2E">신치토세공항</text>
+        <text x="240" y="52" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A2E">신치토세공항</text>
       </svg>
       <div class="map-legend">
-        <span><span class="legend-line dashed"></span> 항공</span>
-        <span><span class="legend-line"></span> JR/지하철</span>
+        <span><span class="legend-line"></span> JR</span>
         <span><span class="legend-line dashed" style="border-top-color:#B3893F;"></span> 투어버스</span>
       </div>
+      <p style="margin:12px 8px 0; font-size:11.5px; color:var(--ink-soft); line-height:1.5;">공항↔오타루는 항상 삿포로를 거쳐요 (직행 노선 없음). 오타루 구간은 JR 외에 송영버스(오타루역→숙소)·택시(오타루 시내·숙소→오타루역)를 함께 이용합니다.</p>
     </div>
 
     <div class="route-list">
@@ -424,11 +427,11 @@
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
-        <div class="txt"><b>삿포로 → 오타루</b><span>JR · 12.7(월) · 호시미 경유 (점심)</span></div>
+        <div class="txt"><b>삿포로 → 오타루</b><span>JR · 12.7(월) · 호시미 경유(점심) · 오타루역→숙소 송영버스</span></div>
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
-        <div class="txt"><b>오타루 → 신치토세</b><span>JR · 12.8(화) · 삿포로 경유 (점심)</span></div>
+        <div class="txt"><b>오타루 → 신치토세</b><span>숙소→오타루역 택시 · JR · 12.8(화) · 삿포로 경유(점심)</span></div>
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg></div>
@@ -708,11 +711,11 @@
       connectors:[{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'프리미어 투어 버스'}],
       map: mapFrame(['Sapporo, Japan','Biei, Hokkaido, Japan']) },
     { day:'Day 03', date:'12.7(월)', seg:'seg-otaru', stops:['삿포로맥주박물관','삿포로역','호시미역 (스프카레 Kufuu)','오타루역','Otaru Korakuen'],
-      connectors:[{icon:'transit',text:'도보/시내이동'},{icon:'transit',text:'JR · 약 24분'},{icon:'transit',text:'JR · 약 15~20분'},{icon:'transit',text:'도보'}],
+      connectors:[{icon:'transit',text:'도보/시내이동'},{icon:'transit',text:'JR · 약 24분'},{icon:'transit',text:'JR · 약 15~20분'},{icon:'transit',text:'송영버스'}],
       map: mapFrame(['Sapporo Beer Museum, Japan','Sapporo Station, Japan','Hoshimi Station, Japan','Otaru Station, Japan','Otaru Korakuen, Japan']) },
-    { day:'Day 04', date:'12.8(화)', seg:'seg-otaru', stops:['오타루 시내','오타루역','삿포로역 (스미레)','신치토세공항'],
-      connectors:[{icon:'transit',text:'도보'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'JR · 약 37분'}],
-      map: mapFrame(['Otaru, Japan','Otaru Station, Japan','Sapporo Station, Japan','New Chitose Airport, Japan']) }
+    { day:'Day 04', date:'12.8(화)', seg:'seg-otaru', stops:['Otaru Korakuen','오타루역','삿포로역 (스미레)','신치토세공항'],
+      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'JR · 약 37분'}],
+      map: mapFrame(['Otaru Korakuen, Japan','Otaru Station, Japan','Sapporo Station, Japan','New Chitose Airport, Japan']) }
   ];
   function renderDailyRoutes(){
     const segLabels = {'seg-sapporo':'삿포로 · 비에이','seg-otaru':'오타루'};
