@@ -156,7 +156,9 @@
   .drd::before{ content:""; position:absolute; left:5px; top:7px; bottom:7px; width:2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
   .drd-stop{ position: relative; margin-bottom: 2px; }
   .drd-stop .dot{ position:absolute; left:-22px; top:2px; width:11px; height:11px; border-radius:50%; background: var(--surface); border: 2.5px solid var(--sapporo); z-index:1; }
-  .drd-stop .label{ font-size: 13px; font-weight: 700; color: var(--ink); padding-top: 0; }
+  .drd-stop .label{ font-size: 13px; font-weight: 700; color: var(--ink); padding-top: 0; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  .drd-stop .label::after{ content: ''; width: 11px; height: 11px; flex-shrink: 0; opacity: 0.45; background: currentColor; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>') no-repeat center / contain; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>') no-repeat center / contain; }
+  .drd-stop .label:active{ opacity: 0.6; }
   .drd-connector{ position: relative; margin: 3px 0 14px; padding-left: 2px; display:flex; align-items:center; gap:6px; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
   .drd-connector svg{ width: 12px; height: 12px; opacity: 0.75; flex-shrink:0; }
   .daily-route-card.seg-otaru .drd-stop .dot{ border-color: var(--otaru); }
@@ -369,7 +371,9 @@
             <li>오타루역 코인락커 이용, 오타루 시내 짧게 구경</li>
             <li class="warn">늦어도 11:30까지는 오타루역 출발 (공항 도착 여유 확보)</li>
             <li class="transit">[JR] 오타루 → 삿포로 이동 (약 32분)</li>
-            <li>점심: 스미레 (삿포로역 인근)</li>
+            <li class="transit">삿포로역 → 스스키노역: 지하철 약 5분</li>
+            <li>점심: 스미레 스스키노점</li>
+            <li class="transit">스스키노역 → 삿포로역: 지하철 약 5분 (복귀)</li>
             <li class="transit">[JR] 삿포로 → 신치토세공항 이동 (약 37분)</li>
             <li class="note">14:00까지 신치토세공항 도착</li>
             <li class="flight">16:00 CTS 출발 <span class="tag">7C1504</span></li>
@@ -448,10 +452,10 @@
 
     <div class="budget-summary">
       <div class="total-label">Total Budget</div>
-      <div class="total-amount">₩ 3,873,803</div>
+      <div class="total-amount">₩ 3,878,803</div>
       <div class="split">
         <div><div class="k">지출완료</div><div class="v paid">₩ 2,997,723</div></div>
-        <div><div class="k">지출예정</div><div class="v planned">₩ 876,080</div></div>
+        <div><div class="k">지출예정</div><div class="v planned">₩ 881,080</div></div>
       </div>
     </div>
     <p class="budget-note">파란색 = 이미 지출한 항목 · 빨간색 = 지출 예정(예산) 항목입니다.</p>
@@ -490,7 +494,8 @@
       <div class="budget-day-head"><span class="b-day">Day 04</span><span class="b-date">12.8(화) · 오타루 → 귀국</span></div>
       <div class="cost-row"><div class="cost-label">조식 · 숙소 조식<small>2식 플랜 포함</small></div><div class="cost-amount muted">-</div></div>
       <div class="cost-row"><div class="cost-label">코인락커<small>¥2,000</small></div><div class="cost-amount paid">₩18,300</div></div>
-      <div class="cost-row"><div class="cost-label">점심 · 스미레<small>삿포로역 인근, 경유</small></div><div class="cost-amount planned">₩30,000</div></div>
+      <div class="cost-row"><div class="cost-label">점심 · 스미레 스스키노점<small>삿포로역에서 지하철 왕복 약 10분</small></div><div class="cost-amount planned">₩30,000</div></div>
+      <div class="cost-row"><div class="cost-label">지하철 · 삿포로↔스스키노 왕복</div><div class="cost-amount planned">₩5,000</div></div>
       <div class="cost-row"><div class="cost-label">[JR] 오타루 → 공항<small>삿포로 경유 · ¥4,080</small></div><div class="cost-amount paid">₩37,332</div></div>
       <div class="cost-row"><div class="cost-label">Jeju Air 7C1504<small>Day 01 항공권에 포함</small></div><div class="cost-amount muted">-</div></div>
     </div>
@@ -636,10 +641,10 @@
   });
 
   const mealData = {
-    day1: { b: "-", l: "기내식", d: { name: "히게노우시 본점", place: "ジンギスカン ひげのうし 本店, Sapporo, Japan", desc: "구글평점 4.6 · 스스키노역 도보 4분 · 스스키노 양고기(징기스칸) 대표 맛집" } },
-    day2: { b: "호텔 조식", l: { name: "준페이", place: "준페이, Biei, Hokkaido, Japan" }, d: { name: "삿포로 가니혼케 에키마에 본점", place: "札幌かに本家 札幌駅前本店, Sapporo, Japan", desc: "구글평점 4.4 · 삿포로역 앞, 숙소에서 도보권 · 털게·타라바게 코스" } },
-    day3: { b: "호텔 조식", l: { name: "스프카레 Kufuu", place: "スープカリー Kufuu, Otaru, Japan", desc: "구글평점 4.5 · JR 호시미역 도보 3분 · 삿포로→오타루 이동 중 경유" }, d: "숙소 석식 (2식 플랜 포함)" },
-    day4: { b: "숙소 조식 (2식 플랜 포함)", l: { name: "스미레", place: "らーめん すみれ, Sapporo, Japan", desc: "삿포로 대표 미소라멘 맛집 · 오타루→공항 이동 중 삿포로 경유" }, d: "기내식" }
+    day1: { b: "-", l: "기내식", d: { name: "히게노우시 본점", place: "北海道札幌市中央区南三条西5丁目35-3", desc: "구글평점 4.6 · 스스키노역 도보 4분 · 스스키노 양고기(징기스칸) 대표 맛집" } },
+    day2: { b: "호텔 조식", l: { name: "준페이", place: "北海道上川郡美瑛町本町4丁目4-10", desc: "양식·카페 준페이 · 비에이 시내" }, d: { name: "삿포로 가니혼케 에키마에 본점", place: "北海道札幌市中央区北三条西2丁目1-18", desc: "구글평점 4.4 · 삿포로역 앞, 숙소에서 도보권 · 털게·타라바게 코스" } },
+    day3: { b: "호텔 조식", l: { name: "스프카레 Kufuu", place: "北海道小樽市星野町22-1", desc: "구글평점 4.5 · JR 호시미역 도보 3분 · 삿포로→오타루 이동 중 경유" }, d: "숙소 석식 (2식 플랜 포함)" },
+    day4: { b: "숙소 조식 (2식 플랜 포함)", l: { name: "스미레 스스키노점", place: "北海道札幌市中央区南3条西3-9-2", desc: "삿포로 대표 미소라멘 · 삿포로역에서 지하철 스스키노역 약 5분" }, d: "기내식" }
   };
 
   function mealPickHTML(item){
@@ -703,20 +708,50 @@
     const z = zoom ? ('&z=' + zoom) : '';
     return '<iframe class="drd-map" src="https://maps.google.com/maps?q=' + q + z + '&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
   }
+  // exact:true = 실제 지번주소로 링크 (구글맵이 검색 없이 바로 그 지점 핀에 도착)
+  // exact:false = 장소명으로 링크 (고유한 이름이라 대부분 바로 연결되지만, 엄밀히는 검색 결과 1건 매칭)
   const dayRouteData = [
-    { day:'Day 01', date:'12.5(토)', seg:'seg-sapporo', stops:['신치토세공항','삿포로역','Keikyu EX Hotel Sapporo'],
-      connectors:[{icon:'transit',text:'JR · 약 37분'},{icon:'transit',text:'도보'}],
+    { day:'Day 01', date:'12.5(토)', seg:'seg-sapporo', stops:[
+        {label:'신치토세공항', place:'New Chitose Airport, Japan', exact:false},
+        {label:'삿포로역', place:'Sapporo Station, Japan', exact:false},
+        {label:'Keikyu EX Hotel Sapporo', place:'Keikyu EX Hotel Sapporo, Japan', exact:false},
+        {label:'히게노우시 본점 (저녁, 스스키노)', place:'北海道札幌市中央区南三条西5丁目35-3', exact:true},
+        {label:'숙소 (복귀)', place:'Keikyu EX Hotel Sapporo, Japan', exact:false}
+      ],
+      connectors:[{icon:'transit',text:'JR · 약 37분'},{icon:'transit',text:'도보'},{icon:'transit',text:'지하철 스스키노行'},{icon:'transit',text:'지하철 복귀'}],
       map: mapFrame(['New Chitose Airport, Japan','Sapporo Station, Japan','Keikyu EX Hotel Sapporo, Japan']) },
-    { day:'Day 02', date:'12.6(일)', seg:'seg-sapporo', stops:['삿포로 숙소','비에이','삿포로 숙소 (복귀)'],
-      connectors:[{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'프리미어 투어 버스'}],
+    { day:'Day 02', date:'12.6(일)', seg:'seg-sapporo', stops:[
+        {label:'삿포로 숙소', place:'Keikyu EX Hotel Sapporo, Japan', exact:false},
+        {label:'준페이 (점심, 비에이)', place:'北海道上川郡美瑛町本町4丁目4-10', exact:true},
+        {label:'삿포로 숙소 (복귀)', place:'Keikyu EX Hotel Sapporo, Japan', exact:false},
+        {label:'가니혼케 에키마에 본점 (저녁)', place:'北海道札幌市中央区北三条西2丁目1-18', exact:true},
+        {label:'숙소 (최종 복귀)', place:'Keikyu EX Hotel Sapporo, Japan', exact:false}
+      ],
+      connectors:[{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'도보'},{icon:'transit',text:'도보'}],
       map: mapFrame(['Sapporo, Japan','Biei, Hokkaido, Japan']) },
-    { day:'Day 03', date:'12.7(월)', seg:'seg-otaru', stops:['삿포로맥주박물관','삿포로역','호시미역 (스프카레 Kufuu)','오타루역','Otaru Korakuen'],
+    { day:'Day 03', date:'12.7(월)', seg:'seg-otaru', stops:[
+        {label:'삿포로맥주박물관', place:'Sapporo Beer Museum, Japan', exact:false},
+        {label:'삿포로역', place:'Sapporo Station, Japan', exact:false},
+        {label:'스프카레 Kufuu (점심, 호시미역)', place:'北海道小樽市星野町22-1', exact:true},
+        {label:'오타루역', place:'Otaru Station, Japan', exact:false},
+        {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false}
+      ],
       connectors:[{icon:'transit',text:'도보/시내이동'},{icon:'transit',text:'JR · 약 24분'},{icon:'transit',text:'JR · 약 15~20분'},{icon:'transit',text:'송영버스'}],
       map: mapFrame(['Sapporo Beer Museum, Japan','Sapporo Station, Japan','Hoshimi Station, Japan','Otaru Station, Japan','Otaru Korakuen, Japan']) },
-    { day:'Day 04', date:'12.8(화)', seg:'seg-otaru', stops:['Otaru Korakuen','오타루역','삿포로역 (스미레)','신치토세공항'],
-      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'JR · 약 37분'}],
+    { day:'Day 04', date:'12.8(화)', seg:'seg-otaru', stops:[
+        {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false},
+        {label:'오타루역', place:'Otaru Station, Japan', exact:false},
+        {label:'삿포로역', place:'Sapporo Station, Japan', exact:false},
+        {label:'스미레 스스키노점 (점심)', place:'北海道札幌市中央区南3条西3-9-2', exact:true},
+        {label:'삿포로역 (복귀)', place:'Sapporo Station, Japan', exact:false},
+        {label:'신치토세공항', place:'New Chitose Airport, Japan', exact:false}
+      ],
+      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'지하철 스스키노行 · 약 5분'},{icon:'transit',text:'지하철 복귀 · 약 5분'},{icon:'transit',text:'JR · 약 37분'}],
       map: mapFrame(['Otaru Korakuen, Japan','Otaru Station, Japan','Sapporo Station, Japan','New Chitose Airport, Japan']) }
   ];
+  function mapsLink(place){
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(place);
+  }
   function renderDailyRoutes(){
     const segLabels = {'seg-sapporo':'삿포로 · 비에이','seg-otaru':'오타루'};
     const container = document.getElementById('dailyRouteList');
@@ -729,7 +764,7 @@
       }
       let drd = '<div class="drd">';
       d.stops.forEach((stop, i) => {
-        drd += `<div class="drd-stop"><span class="dot"></span><span class="label">${stop}</span></div>`;
+        drd += `<div class="drd-stop"><span class="dot"></span><a class="label" href="${mapsLink(stop.place)}" target="_blank" rel="noopener">${stop.label}</a></div>`;
         if (d.connectors[i]){
           drd += `<div class="drd-connector">${routeIcons[d.connectors[i].icon]}<span>${d.connectors[i].text}</span></div>`;
         }
