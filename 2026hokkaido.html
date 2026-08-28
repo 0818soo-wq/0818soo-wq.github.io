@@ -94,6 +94,12 @@
   .transport-badge svg{ width: 12px; height: 12px; }
   .day.seg-otaru .transport-badge{ background: var(--otaru-soft); color: var(--otaru); }
 
+  .weather{ display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--sapporo-soft); }
+  .day.seg-otaru .weather{ background: var(--otaru-soft); }
+  .weather .temp{ font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .weather .divider{ width: 1px; align-self: stretch; background: rgba(30,42,46,0.14); }
+  .weather .outfit{ color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
+
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
   .stay .stay-name{ color: var(--ink); font-weight: 700; }
@@ -258,13 +264,18 @@
               항공 7C1503
             </span>
           </div>
+          <div class="weather">
+            <span class="temp">2° / -4°</span>
+            <span class="divider"></span>
+            <span class="outfit">두꺼운 패딩 + 기모 이너, 장갑·목도리·방한모, 눈길 대비 미끄럼방지 신발</span>
+          </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
             <span class="stay-name">Keikyu EX Hotel Sapporo</span> 체크인 (시간 여유있음)
           </div>
           <ul class="schedule">
-            <li class="note">10:00까지 인천공항 도착</li>
-            <li class="flight">12:15 ICN 출발 <span class="tag">7C1503</span></li>
+            <li class="note">10:00까지 인천공항 T1 도착</li>
+            <li class="flight">12:15 ICN(T1) 출발 <span class="tag">7C1503</span></li>
             <li class="flight">15:00 CTS 도착 (2h45m)</li>
             <li class="transit">신치토세공항 → 삿포로역: [JR] 약 37분</li>
             <li>호텔 체크인 (급하지 않음, 짐만 풀고 저녁 이동)</li>
@@ -290,6 +301,11 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg>
               비에이 프리미어 투어
             </span>
+          </div>
+          <div class="weather">
+            <span class="temp">삿포로보다 더 추움</span>
+            <span class="divider"></span>
+            <span class="outfit">비에이는 내륙 분지라 삿포로보다 체감이 훨씬 낮아요 · 방한 부츠 필수, 핫팩 준비</span>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -326,6 +342,11 @@
               [JR] 삿포로 → 오타루
             </span>
           </div>
+          <div class="weather">
+            <span class="temp">2° / -4°</span>
+            <span class="divider"></span>
+            <span class="outfit">두꺼운 패딩 + 기모 이너, 오타루는 바닷바람으로 체감온도 더 낮음</span>
+          </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
             <span class="stay-name">Otaru Korakuen</span> 체크인 (16:00)
@@ -361,6 +382,11 @@
               항공 7C1504
             </span>
           </div>
+          <div class="weather">
+            <span class="temp">2° / -4°</span>
+            <span class="divider"></span>
+            <span class="outfit">두꺼운 패딩 + 기모 이너, 눈길 대비 미끄럼방지 신발</span>
+          </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
             <span class="stay-name">Otaru Korakuen</span> 체크아웃
@@ -375,7 +401,7 @@
             <li class="note">13:30까지 신치토세공항 도착</li>
             <li>공항에서: 스프카레 GARAKU 또는 라멘 一幻 えびそば (국내선청사 3층)</li>
             <li class="flight">16:00 CTS 출발 <span class="tag">7C1504</span></li>
-            <li class="flight">19:25 ICN 도착 (3h25m)</li>
+            <li class="flight">19:25 ICN(T1) 도착 (3h25m)</li>
           </ul>
           <button class="meal-btn" onclick="openMeal('day4','12.8 (화) · 오타루 → 귀국')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v6a2 2 0 0 0 4 0V3M9 9v12M17 3c-1.5 3-1.5 6 0 8v10"/></svg>
@@ -515,7 +541,7 @@
           <div class="booking-code">***F7M</div>
         </div>
         <div class="booking-rows">
-          <div class="booking-row"><span class="k">출발</span><span class="v">12.5(토) 12:15 · ICN</span></div>
+          <div class="booking-row"><span class="k">출발</span><span class="v">12.5(토) 12:15 · ICN T1</span></div>
           <div class="booking-row"><span class="k">도착</span><span class="v">12.5(토) 15:00 · CTS</span></div>
           <div class="booking-row"><span class="k">비행시간</span><span class="v">2시간 45분</span></div>
           <div class="booking-row"><span class="k">위탁수하물</span><span class="v">기본 15kg</span></div>
@@ -535,7 +561,7 @@
         </div>
         <div class="booking-rows">
           <div class="booking-row"><span class="k">출발</span><span class="v">12.8(화) 16:00 · CTS</span></div>
-          <div class="booking-row"><span class="k">도착</span><span class="v">12.8(화) 19:25 · ICN</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">12.8(화) 19:25 · ICN T1</span></div>
           <div class="booking-row"><span class="k">비행시간</span><span class="v">3시간 25분</span></div>
           <div class="booking-row"><span class="k">위탁수하물</span><span class="v">기본 15kg</span></div>
         </div>
@@ -624,7 +650,7 @@
 </div>
 
 <footer>
-  <p>이 페이지는 개인 여행 일정 정리용입니다. 세부 정보는 예약 확정 시 업데이트됩니다.</p>
+  <p>이 페이지는 개인 여행 일정 정리용입니다. 세부 정보는 예약 확정 시 업데이트됩니다.<br>날씨는 12월 평년 평균 기온 기준이며, 실제 당일 날씨와 다를 수 있습니다.</p>
 </footer>
 
 <script>
