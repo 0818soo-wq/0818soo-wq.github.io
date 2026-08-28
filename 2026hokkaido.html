@@ -333,7 +333,7 @@
           <ul class="schedule">
             <li>호텔 조식 후 삿포로맥주박물관 관람</li>
             <li class="transit">삿포로역 → 스스키노역: 지하철 약 5분</li>
-            <li>점심: 스미레 스스키노점</li>
+            <li>점심: 라멘 스미레 또는 수프카레 Suage+ (스스키노)</li>
             <li class="transit">스스키노역 → 삿포로역: 지하철 약 5분 (복귀)</li>
             <li class="transit">[JR] 삿포로 → 오타루 이동 (약 32분)</li>
             <li>오타루 도착 · 시내 잠시 구경</li>
@@ -373,7 +373,7 @@
             <li class="warn">늦어도 12:00까지는 오타루역 출발 (공항 도착 여유 확보)</li>
             <li class="transit">[JR] 오타루 → 신치토세공항 이동 (삿포로 경유, 약 70~80분)</li>
             <li class="note">13:30까지 신치토세공항 도착</li>
-            <li>공항에서: 스프카레 GARAKU 신치토세공항점 (국내선청사 3층)</li>
+            <li>공항에서: 스프카레 GARAKU 또는 라멘 一幻 えびそば (국내선청사 3층)</li>
             <li class="flight">16:00 CTS 출발 <span class="tag">7C1504</span></li>
             <li class="flight">19:25 ICN 도착 (3h25m)</li>
           </ul>
@@ -433,7 +433,7 @@
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
-        <div class="txt"><b>오타루 → 신치토세</b><span>숙소→오타루역 택시 · JR · 12.8(화) · 공항 도착 후 점심(GARAKU)</span></div>
+        <div class="txt"><b>오타루 → 신치토세</b><span>숙소→오타루역 택시 · JR · 12.8(화) · 공항 도착 후 점심(GARAKU/一幻)</span></div>
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg></div>
@@ -483,7 +483,7 @@
       <div class="budget-day-head"><span class="b-day">Day 03</span><span class="b-date">12.7(월) · 삿포로 → 오타루</span></div>
       <div class="cost-row"><div class="cost-label">호텔 조식</div><div class="cost-amount muted">-</div></div>
       <div class="cost-row"><div class="cost-label">지하철 · 삿포로↔스스키노 왕복</div><div class="cost-amount planned">₩5,000</div></div>
-      <div class="cost-row"><div class="cost-label">점심 · 스미레 스스키노점<small>삿포로역에서 지하철 왕복 약 10분</small></div><div class="cost-amount planned">₩30,000</div></div>
+      <div class="cost-row"><div class="cost-label">점심 · 스미레 또는 Suage+<small>스스키노, 삿포로역에서 지하철 왕복 약 10분</small></div><div class="cost-amount planned">₩30,000</div></div>
       <div class="cost-row"><div class="cost-label">[JR] 삿포로 → 오타루<small>¥1,600</small></div><div class="cost-amount paid">₩14,640</div></div>
       <div class="cost-row"><div class="cost-label">저녁 · 숙소 석식<small>2식 플랜 포함</small></div><div class="cost-amount muted">-</div></div>
       <div class="cost-row"><div class="cost-label">숙소 · Otaru Korakuen<small>[Official Web] 1박 · ¥110,240</small></div><div class="cost-amount paid">₩1,008,696</div></div>
@@ -494,7 +494,7 @@
       <div class="cost-row"><div class="cost-label">조식 · 숙소 조식<small>2식 플랜 포함</small></div><div class="cost-amount muted">-</div></div>
       <div class="cost-row"><div class="cost-label">코인락커<small>¥2,000</small></div><div class="cost-amount paid">₩18,300</div></div>
       <div class="cost-row"><div class="cost-label">[JR] 오타루 → 공항<small>삿포로 경유 · ¥4,080</small></div><div class="cost-amount paid">₩37,332</div></div>
-      <div class="cost-row"><div class="cost-label">점심 · 스프카레 GARAKU<small>신치토세공항점 · 국내선청사 3층</small></div><div class="cost-amount planned">₩50,000</div></div>
+      <div class="cost-row"><div class="cost-label">점심 · GARAKU 또는 一幻 라멘<small>신치토세공항 국내선청사 3층</small></div><div class="cost-amount planned">₩50,000</div></div>
       <div class="cost-row"><div class="cost-label">Jeju Air 7C1504<small>Day 01 항공권에 포함</small></div><div class="cost-amount muted">-</div></div>
     </div>
 
@@ -641,8 +641,14 @@
   const mealData = {
     day1: { b: "-", l: "기내식", d: { name: "히게노우시 본점", place: "北海道札幌市中央区南三条西5丁目35-3", desc: "구글평점 4.6 · 스스키노역 도보 4분 · 스스키노 양고기(징기스칸) 대표 맛집" } },
     day2: { b: "호텔 조식", l: { name: "준페이", place: "北海道上川郡美瑛町本町4丁目4-10", desc: "양식·카페 준페이 · 비에이 시내" }, d: { name: "삿포로 가니혼케 에키마에 본점", place: "北海道札幌市中央区北三条西2丁目1-18", desc: "구글평점 4.4 · 삿포로역 앞, 숙소에서 도보권 · 털게·타라바게 코스" } },
-    day3: { b: "호텔 조식", l: { name: "스미레 스스키노점", place: "北海道札幌市中央区南3条西3-9-2", desc: "삿포로 대표 미소라멘 · 삿포로역에서 지하철 스스키노역 약 5분" }, d: "숙소 석식 (2식 플랜 포함)" },
-    day4: { b: "숙소 조식 (2식 플랜 포함)", l: { name: "스프카레 GARAKU 신치토세공항점", place: "スープカレーGARAKU 新千歳空港店, New Chitose Airport, Japan", desc: "삿포로 인기 스프카레 GARAKU의 공항 지점 · 국내선청사 3층 (9:00~21:00)" }, d: "기내식" }
+    day3: { b: "호텔 조식", l: [
+      { name: "라멘 스미레 (스스키노점)", place: "北海道札幌市中央区南3条西3-9-2", desc: "삿포로 대표 미소라멘 · 스스키노역 도보권" },
+      { name: "수프카레 Suage+ (스아게, 스스키노점)", place: "北海道札幌市中央区南4条西5丁目 都志松ビル2F", desc: "삿포로 인기 수프카레 · 스스키노역 도보 약 3분" }
+    ], d: "숙소 석식 (2식 플랜 포함)" },
+    day4: { b: "숙소 조식 (2식 플랜 포함)", l: [
+      { name: "스프카레 GARAKU (신치토세공항점)", place: "スープカレーGARAKU 新千歳空港店, New Chitose Airport, Japan", desc: "삿포로 인기 수프카레 GARAKU 공항 지점 · 국내선청사 3층 (9:00~21:00)" },
+      { name: "라멘 一幻 えびそば (신치토세공항점)", place: "えびそば一幻 新千歳空港店, New Chitose Airport, Japan", desc: "새우육수 라멘 전문 · 국내선청사 3층 라멘도조 내" }
+    ], d: "기내식" }
   };
 
   function mealPickHTML(item){
@@ -730,7 +736,7 @@
     { day:'Day 03', date:'12.7(월)', seg:'seg-otaru', stops:[
         {label:'삿포로맥주박물관', place:'Sapporo Beer Museum, Japan', exact:false},
         {label:'삿포로역', place:'Sapporo Station, Japan', exact:false},
-        {label:'스미레 스스키노점 (점심)', place:'北海道札幌市中央区南3条西3-9-2', exact:true},
+        {label:'스스키노 (점심: 스미레/Suage+)', place:'Susukino Station, Sapporo, Japan', exact:false},
         {label:'삿포로역 (복귀)', place:'Sapporo Station, Japan', exact:false},
         {label:'오타루역', place:'Otaru Station, Japan', exact:false},
         {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false}
@@ -741,7 +747,7 @@
         {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false},
         {label:'오타루역', place:'Otaru Station, Japan', exact:false},
         {label:'신치토세공항', place:'New Chitose Airport, Japan', exact:false},
-        {label:'스프카레 GARAKU (공항점, 점심)', place:'スープカレーGARAKU 新千歳空港店, New Chitose Airport, Japan', exact:false}
+        {label:'국내선청사 3F (점심: GARAKU/一幻 라멘)', place:'New Chitose Airport Domestic Terminal, Japan', exact:false}
       ],
       connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'JR · 약 70~80분 (삿포로 경유)'},{icon:'transit',text:'국내선청사 3층'}],
       map: mapFrame(['Otaru Korakuen, Japan','Otaru Station, Japan','New Chitose Airport, Japan']) }
