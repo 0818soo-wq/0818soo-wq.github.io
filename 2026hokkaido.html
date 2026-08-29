@@ -102,7 +102,8 @@
 
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
-  .stay .stay-name{ color: var(--ink); font-weight: 700; }
+  .stay .stay-name{ color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  .stay .stay-name:active{ opacity: 0.6; }
 
   .schedule{ list-style: none; margin: 0; padding: 0; }
   .schedule li{ position: relative; padding: 6px 0 6px 16px; font-size: 13.5px; color: var(--ink); line-height: 1.45; }
@@ -264,14 +265,14 @@
               항공 7C1503
             </span>
           </div>
-          <div class="weather">
+          <div class="weather" data-lat="43.0618" data-lon="141.3545">
             <span class="temp">2° / -4°</span>
             <span class="divider"></span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 장갑·목도리·방한모, 눈길 대비 미끄럼방지 신발</span>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">Keikyu EX Hotel Sapporo</span> 체크인 (시간 여유있음)
+            <a class="stay-name" href="https://www.google.com/maps/search/?api=1&query=Keikyu%20EX%20Hotel%20Sapporo%2C%20Japan" target="_blank" rel="noopener">Keikyu EX Hotel Sapporo</a> 체크인 (시간 여유있음)
           </div>
           <ul class="schedule">
             <li class="note">10:00까지 인천공항 T1 도착</li>
@@ -302,14 +303,14 @@
               비에이 프리미어 투어
             </span>
           </div>
-          <div class="weather">
+          <div class="weather" data-lat="43.5811" data-lon="142.4614">
             <span class="temp">삿포로보다 더 추움</span>
             <span class="divider"></span>
             <span class="outfit">비에이는 내륙 분지라 삿포로보다 체감이 훨씬 낮아요 · 방한 부츠 필수, 핫팩 준비</span>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">Keikyu EX Hotel Sapporo</span>
+            <a class="stay-name" href="https://www.google.com/maps/search/?api=1&query=Keikyu%20EX%20Hotel%20Sapporo%2C%20Japan" target="_blank" rel="noopener">Keikyu EX Hotel Sapporo</a>
           </div>
           <ul class="schedule">
             <li>호텔 조식 후 비에이 프리미어 투어 참여 (픽업/샌딩 포함)</li>
@@ -342,14 +343,14 @@
               [JR] 삿포로 → 오타루
             </span>
           </div>
-          <div class="weather">
+          <div class="weather" data-lat="43.1907" data-lon="140.9947">
             <span class="temp">2° / -4°</span>
             <span class="divider"></span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 오타루는 바닷바람으로 체감온도 더 낮음</span>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">Otaru Korakuen</span> 체크인 (16:00)
+            <a class="stay-name" href="https://www.google.com/maps/search/?api=1&query=Otaru%20Korakuen%2C%20Japan" target="_blank" rel="noopener">Otaru Korakuen</a> 체크인 (16:00)
           </div>
           <ul class="schedule">
             <li>호텔 조식 후 삿포로맥주박물관 관람</li>
@@ -382,14 +383,14 @@
               항공 7C1504
             </span>
           </div>
-          <div class="weather">
+          <div class="weather" data-lat="43.1907" data-lon="140.9947">
             <span class="temp">2° / -4°</span>
             <span class="divider"></span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 눈길 대비 미끄럼방지 신발</span>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">Otaru Korakuen</span> 체크아웃
+            <a class="stay-name" href="https://www.google.com/maps/search/?api=1&query=Otaru%20Korakuen%2C%20Japan" target="_blank" rel="noopener">Otaru Korakuen</a> 체크아웃
           </div>
           <ul class="schedule">
             <li>조식: 숙소 조식 (2식 플랜 포함)</li>
@@ -727,7 +728,34 @@
     wrap.appendChild(match.cloneNode(true));
     document.getElementById('todayCard').appendChild(wrap);
   }
-  initTodayCard();
+
+  async function initLiveWeather(){
+    const todayLocal = new Date();
+    todayLocal.setHours(0,0,0,0);
+    const days = document.querySelectorAll('#tab-itinerary .day[data-date]');
+    const jobs = [];
+    days.forEach(day => {
+      const weatherEl = day.querySelector('.weather');
+      if (!weatherEl || !weatherEl.dataset.lat) return;
+      const dateStr = day.dataset.date;
+      const dayDate = new Date(dateStr + 'T00:00:00');
+      const diffDays = Math.round((dayDate - todayLocal) / 86400000);
+      if (diffDays < 0 || diffDays > 5) return;
+      const { lat, lon } = weatherEl.dataset;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=${dateStr}&end_date=${dateStr}`;
+      const job = fetch(url).then(r => r.json()).then(data => {
+        const max = data && data.daily && data.daily.temperature_2m_max && data.daily.temperature_2m_max[0];
+        const min = data && data.daily && data.daily.temperature_2m_min && data.daily.temperature_2m_min[0];
+        if (max === undefined || min === undefined || max === null || min === null) return;
+        const tempEl = weatherEl.querySelector('.temp');
+        if (tempEl) tempEl.textContent = `${Math.round(max)}° / ${Math.round(min)}° · 실시간`;
+        weatherEl.dataset.live = '1';
+      }).catch(() => {});
+      jobs.push(job);
+    });
+    await Promise.allSettled(jobs);
+  }
+  initLiveWeather().finally(initTodayCard);
 
   const routeIcons = {
     transit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg>',
