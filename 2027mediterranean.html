@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>2027 MEDITERRANEAN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F3EE;
+    --surface: #FFFFFF;
+    --ink: #22303A;
+    --ink-soft: #66727A;
+    --ink-faint: #9BA7AC;
+    --line: #E4E1D8;
+
+    --barcelona: #C1532E;
+    --barcelona-soft: #F6E4DA;
+    --cruise: #1F5C7A;
+    --cruise-soft: #DDEBF0;
+    --accent: #B3893F;
+    --accent-soft: #F1E6D2;
+    --warn: #AD4C3C;
+    --warn-soft: #F5E5E1;
+  }
+
+  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body{
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body{ padding-bottom: 64px; }
+
+  .hero{
+    position: relative; padding: 48px 24px 26px;
+    background: linear-gradient(180deg, #123246 0%, #1F5C7A 55%, #2B7291 100%);
+    color: #F3F5F6; overflow: hidden;
+  }
+  .hero::after{
+    content: ""; position: absolute; right: -60px; top: -60px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(179,137,63,0.35) 0%, rgba(179,137,63,0) 70%);
+  }
+  .hero-eyebrow{ font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #BFD3DE; margin: 0 0 14px; font-weight: 600; }
+  .hero-title{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 34px; line-height: 1.18; margin: 0 0 18px; letter-spacing: -0.01em; }
+  .hero-title em{ font-style: italic; font-weight: 400; color: #D7C79A; }
+  .hero-meta{ display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: 13px; color: #E6ECEE; }
+  .hero-meta span{ display: flex; align-items: center; gap: 6px; }
+  .hero-meta svg{ width: 14px; height: 14px; opacity: 0.85; }
+
+  .tabbar{ position: sticky; top: 0; z-index: 20; display: flex; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: 0 2px 6px rgba(34,48,58,0.05); }
+  .tab{ flex: 1; appearance: none; border: none; background: transparent; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 13.5px; color: var(--ink-faint); padding: 14px 4px 12px; position: relative; cursor: pointer; }
+  .tab.active{ color: var(--cruise); }
+  .tab.active::after{ content: ""; position: absolute; left: 18%; right: 18%; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--cruise); }
+
+  main{ max-width: 480px; margin: 0 auto; padding: 0 16px; }
+  .tab-panel{ display: none; }
+  .tab-panel.active{ display: block; animation: fadein .25s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(4px);} to{ opacity:1; transform: translateY(0);} }
+
+  .today-wrap{ margin: 6px 6px 8px; padding-bottom: 22px; border-bottom: 1px dashed var(--line); }
+  .today-label{ display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 16px; color: var(--warn); margin: 18px 0 14px; }
+  .today-label .dot-live{ width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+  .today-wrap .timeline{ display: none; }
+  .today-wrap .day{ padding-left: 0; margin-bottom: 0; }
+  .today-wrap .day-dot{ display: none; }
+  .today-wrap .card{ border: 2px solid var(--warn); box-shadow: 0 4px 14px rgba(173,76,60,0.14); }
+
+  .segment-label{ display: flex; align-items: center; gap: 10px; margin: 26px 6px 14px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .segment-label:first-child{ margin-top: 22px; }
+  .segment-label .dot{ width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .segment-label .rule{ flex: 1; height: 1px; background: var(--line); }
+  .seg-barcelona .dot{ background: var(--barcelona); }
+  .seg-cruise .dot{ background: var(--cruise); }
+
+  .timeline{ position: relative; }
+  .timeline::before{ content: ""; position: absolute; left: 21px; top: 6px; bottom: 6px; width: 2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
+  .day{ position: relative; padding-left: 46px; margin-bottom: 18px; }
+  .day-dot{ position: absolute; left: 14px; top: 22px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--barcelona); z-index: 2; }
+  .day.seg-cruise .day-dot{ border-color: var(--cruise); }
+
+  .card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; box-shadow: 0 1px 2px rgba(34,48,58,0.04); }
+  .card-head{ display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  .card-head-left{ display: flex; flex-direction: column; }
+  .day-num{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; color: var(--ink); }
+  .day-date{ font-size: 12.5px; color: var(--ink-soft); font-weight: 600; }
+
+  .transport-badge{ display: flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; background: var(--barcelona-soft); color: var(--barcelona); }
+  .transport-badge svg{ width: 12px; height: 12px; }
+  .day.seg-cruise .transport-badge{ background: var(--cruise-soft); color: var(--cruise); }
+
+  .weather{ display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--barcelona-soft); }
+  .day.seg-cruise .weather{ background: var(--cruise-soft); }
+  .weather .temp{ font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .weather .divider{ width: 1px; align-self: stretch; background: rgba(34,48,58,0.14); }
+  .weather .outfit{ color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
+
+  .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+  .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
+  .stay .stay-name{ color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  .stay .stay-name:active{ opacity: 0.6; }
+
+  .schedule{ list-style: none; margin: 0; padding: 0; }
+  .schedule li{ position: relative; padding: 6px 0 6px 16px; font-size: 13.5px; color: var(--ink); line-height: 1.45; }
+  .schedule li::before{ content: ""; position: absolute; left: 0; top: 14px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink-faint); }
+  .schedule li.flight{ font-weight: 700; }
+  .schedule li.flight::before{ background: var(--warn); }
+  .schedule li.transit::before{ background: var(--cruise); }
+  .schedule li.flight .tag{ display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; color: var(--warn); background: var(--warn-soft); padding: 1px 6px; border-radius: 5px; margin-left: 6px; vertical-align: middle; }
+  .schedule li.note{ color: var(--ink-soft); font-weight: 500; font-style: italic; }
+  .schedule li.warn{ color: var(--warn); font-weight: 700; font-style: normal; }
+  .schedule li.warn::before{ background: var(--warn); }
+
+  .map-card{ margin-top: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 12px 20px; overflow: hidden; }
+  .map-title{ font-family:'Fraunces', serif; font-weight: 600; font-size: 17px; margin: 4px 8px 14px; color: var(--ink); }
+  .map-legend{ display: flex; gap: 18px; margin: 14px 8px 0; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; flex-wrap: wrap; }
+  .map-legend span{ display:flex; align-items:center; gap:6px; }
+  .legend-line{ width: 18px; height: 0; border-top: 2px solid var(--ink-soft); }
+  .legend-line.dashed{ border-top-style: dashed; }
+
+  .route-list{ margin: 20px 4px 4px; }
+  .route-step{ display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+  .route-step:first-child{ border-top: none; }
+  .route-step .icon{ width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--cruise-soft); color: var(--cruise); }
+  .route-step .icon svg{ width: 15px; height: 15px; }
+  .route-step .txt{ font-size: 13px; color: var(--ink); line-height: 1.4; padding-top: 4px; }
+  .route-step .txt b{ font-weight: 700; }
+  .route-step .txt span{ display:block; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
+
+  .daily-route-card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px 14px; margin-top: 12px; }
+  .daily-route-head{ display:flex; align-items:baseline; gap:8px; margin-bottom: 12px; }
+  .daily-route-head .d-day{ font-family:'Fraunces', serif; font-weight:600; font-size:15.5px; color: var(--ink); }
+  .daily-route-head .d-date{ font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
+  .drd-map{ width:100%; height:220px; display:block; margin-bottom: 16px; border-radius: 12px; border: 0; background: var(--bg); }
+  .drd{ position: relative; padding-left: 22px; }
+  .drd::before{ content:""; position:absolute; left:5px; top:7px; bottom:7px; width:2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
+  .drd-stop{ position: relative; margin-bottom: 2px; }
+  .drd-stop .dot{ position:absolute; left:-22px; top:2px; width:11px; height:11px; border-radius:50%; background: var(--surface); border: 2.5px solid var(--cruise); z-index:1; }
+  .drd-stop .label{ font-size: 13px; font-weight: 700; color: var(--ink); padding-top: 0; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  .drd-stop .label::after{ content: ''; width: 11px; height: 11px; flex-shrink: 0; opacity: 0.45; background: currentColor; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>') no-repeat center / contain; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>') no-repeat center / contain; }
+  .drd-stop .label:active{ opacity: 0.6; }
+  .drd-connector{ position: relative; margin: 3px 0 14px; padding-left: 2px; display:flex; align-items:center; gap:6px; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
+  .drd-connector svg{ width: 12px; height: 12px; opacity: 0.75; flex-shrink:0; }
+
+  .budget-summary{ margin-top: 22px; background: var(--cruise); border-radius: 18px; padding: 20px 20px 18px; color: #F3F5F6; }
+  .budget-summary .total-label{ font-size: 12px; letter-spacing: 0.06em; color: #BFD3DE; font-weight: 700; text-transform: uppercase; }
+  .budget-summary .split{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .budget-summary .split div{ flex: 1; min-width: 130px; background: rgba(255,255,255,0.08); border-radius: 12px; padding: 10px 12px; }
+  .budget-summary .split .k{ font-size: 11px; color: #BFD3DE; font-weight: 700; margin-bottom: 3px; }
+  .budget-summary .split .v{ font-size: 16px; font-weight: 700; }
+  .budget-note{ font-size: 11px; color: var(--ink-faint); margin: 10px 4px 0; line-height: 1.5; }
+
+  .budget-day{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 14px; }
+  .budget-day-head{ display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+  .budget-day-head .b-day{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; color: var(--ink); }
+  .cost-row{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 13px; border-top: 1px dashed var(--line); }
+  .cost-row:first-of-type{ border-top: none; }
+  .cost-row .cost-label{ color: var(--ink-soft); font-weight: 600; }
+  .cost-row .cost-label small{ display:block; font-size: 10.5px; color: var(--ink-faint); font-weight: 500; margin-top: 1px; }
+  .cost-row .cost-amount{ font-weight: 800; white-space: nowrap; }
+  .cost-amount.planned{ color: #AD4C3C; }
+  .cost-amount.muted{ color: var(--ink-faint); font-weight: 600; }
+
+  .booking-group{ margin-top: 26px; }
+  .booking-group:first-child{ margin-top: 22px; }
+  .booking-card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 12px; }
+  .booking-card-head{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .booking-title{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 15.5px; color: var(--ink); line-height: 1.35; }
+  .booking-sub{ font-size: 12px; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
+  .booking-code{ flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; background: var(--accent-soft); color: var(--accent); padding: 4px 8px; border-radius: 7px; white-space: nowrap; text-align: right; }
+  .booking-rows{ margin-top: 10px; }
+  .booking-row{ display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; font-size: 12.5px; border-top: 1px dashed var(--line); }
+  .booking-row:first-child{ border-top: none; }
+  .booking-row .k{ color: var(--ink-soft); font-weight: 600; }
+  .booking-row .v{ color: var(--ink); font-weight: 700; text-align: right; }
+  .booking-note{ margin-top: 10px; font-size: 11.5px; color: var(--ink-soft); line-height: 1.6; }
+
+  footer{ max-width: 480px; margin: 40px auto 0; padding: 0 24px; text-align: center; }
+  footer p{ font-size: 11px; color: var(--ink-faint); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Trip · 2027.05.07 – 05.17</p>
+  <h1 class="hero-title">2027<br><em>MEDITERRANEAN</em></h1>
+  <div class="hero-meta">
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      스페인 · 프랑스 · 이탈리아
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3v4M7 3v4M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+      10박 11일
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+      Legend of the Seas · Royal Caribbean
+    </span>
+  </div>
+</div>
+
+<div class="tabbar">
+  <button class="tab active" data-tab="itinerary">일정</button>
+  <button class="tab" data-tab="route">동선</button>
+  <button class="tab" data-tab="budget">비용</button>
+  <button class="tab" data-tab="booking">예약사항</button>
+</div>
+
+<main>
+
+  <!-- ============ 일정 TAB ============ -->
+  <section class="tab-panel active" id="tab-itinerary">
+
+    <div id="todayCard"></div>
+
+    <div class="segment-label seg-barcelona"><span class="dot"></span>바르셀로나 · 승선<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-barcelona" data-date="2027-05-07">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 01</span>
+              <span class="day-date">5.7 (금)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
+              항공 SAS
+            </span>
+          </div>
+          <ul class="schedule">
+            <li class="note">인천공항 T1, 출발 2~3시간 전 도착 권장</li>
+            <li class="flight">23:35 인천(ICN) 출발 <span class="tag">경유 1회</span></li>
+            <li class="note">총 비행시간 25시간 35분 · 경유 대기시간이 긴 편, 편한 복장 준비</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-barcelona" data-date="2027-05-08">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 02</span>
+              <span class="day-date">5.8 (토)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
+              바르셀로나 도착
+            </span>
+          </div>
+          <div class="weather" data-lat="41.3851" data-lon="2.1734">
+            <span class="temp">낮 20° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">5월 평균, 저녁엔 선선함 · 가벼운 자켓, 편한 신발</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">바르셀로나 시내 호텔</span> 1박 (호텔 미확정)
+          </div>
+          <ul class="schedule">
+            <li class="flight">18:10 바르셀로나(BCN) 도착 (+1일)</li>
+            <li>저녁: 호텔 체크인</li>
+            <li>시내 가볍게 산책 (사그라다 파밀리아 야경)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-barcelona" data-date="2027-05-09">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 03</span>
+              <span class="day-date">5.9 (일)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              크루즈 승선
+            </span>
+          </div>
+          <div class="weather" data-lat="41.3851" data-lon="2.1734">
+            <span class="temp">낮 20° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">가벼운 옷차림 + 자외선 차단, 걷기 편한 신발</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">크루즈선 (Legend of the Seas)</span> 승선 · Day 1
+          </div>
+          <ul class="schedule">
+            <li>오전: 구엘공원 또는 람블라스 거리 자유 관광</li>
+            <li class="warn">승선 마감시간 사전확인 필수 (통상 출항 1~2시간 전)</li>
+            <li>17:00 크루즈 출항 (Legend of the Seas)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment-label seg-cruise"><span class="dot"></span>지중해 크루즈 기항지<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-cruise" data-date="2027-05-10">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 04</span>
+              <span class="day-date">5.10 (월)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              기항 08:00–16:00
+            </span>
+          </div>
+          <div class="weather" data-lat="39.5696" data-lon="2.6502">
+            <span class="temp">낮 21° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">해변 대비 수영복 · 편한 샌들, 모자·선크림</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">크루즈선</span> · 팔마 데 마요르카, 스페인
+          </div>
+          <ul class="schedule">
+            <li>구시가지 및 해변 반나절 투어</li>
+            <li class="note">크루즈 선사 자체 투어 예약 시 출항시간 놓칠 걱정 없음</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-cruise" data-date="2027-05-11">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 05</span>
+              <span class="day-date">5.11 (화)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              기항 09:00–18:00
+            </span>
+          </div>
+          <div class="weather" data-lat="43.2965" data-lon="5.3698">
+            <span class="temp">낮 19° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">가벼운 자켓 · 걷기 편한 신발</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">크루즈선</span> · 마르세유(프로방스), 프랑스
+          </div>
+          <ul class="schedule">
+            <li>마르세유 구항구(Vieux Port) 중심 관광</li>
+            <li class="note">아이 동반 시 엑상프로방스보다 무난한 코스</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-cruise" data-date="2027-05-12">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 06</span>
+              <span class="day-date">5.12 (수)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              기항 08:30–20:00
+            </span>
+          </div>
+          <div class="weather" data-lat="44.1024" data-lon="9.8241">
+            <span class="temp">낮 19° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">가벼운 자켓 · 걷기 편한 신발</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">크루즈선</span> · 라스페치아 (피렌체/피사), 이탈리아
+          </div>
+          <ul class="schedule">
+            <li class="warn">피렌체는 왕복 이동만 3~4시간, 6세 아이 동반 시 부담</li>
+            <li>피사 사탑 위주 일정 권장 (항구 근접)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-cruise" data-date="2027-05-13">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 07</span>
+              <span class="day-date">5.13 (목)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              기항 07:00–20:00
+            </span>
+          </div>
+          <div class="weather" data-lat="42.0942" data-lon="11.7981">
+            <span class="temp">낮 21° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">가벼운 옷차림 · 걷기 편한 신발, 자외선 차단</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">크루즈선</span> · 로마 (치비타베키아), 이탈리아
+          </div>
+          <ul class="schedule">
+            <li>콜로세움, 트레비 분수 등 로마 당일투어</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-cruise" data-date="2027-05-14">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 08</span>
+              <span class="day-date">5.14 (금)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              기항 07:00–19:00
+            </span>
+          </div>
+          <div class="weather" data-lat="40.8518" data-lon="14.2681">
+            <span class="temp">낮 21° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">수영복 챙기기 · 편한 샌들, 모자·선크림</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">크루즈선</span> · 나폴리/카프리, 이탈리아
+          </div>
+          <ul class="schedule">
+            <li>카프리 섬 당일투어 (블루그로토 등)</li>
+            <li class="warn">블루그로토는 작은 배로 진입 · 아이가 무서워할 수 있고 대기줄도 긴 편</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-cruise" data-date="2027-05-15">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 09</span>
+              <span class="day-date">5.15 (토)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              항해일 (Day at Sea)
+            </span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">크루즈선</span> · 선상, 하선 없음
+          </div>
+          <ul class="schedule">
+            <li>종일 하선 없음, 선내 키즈클럽·수영장·엔터테인먼트 이용</li>
+            <li class="note">아이 에너지 발산 + 부모 휴식 겸용으로 활용하기 좋은 날</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment-label seg-barcelona"><span class="dot"></span>바르셀로나 · 귀국<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-barcelona" data-date="2027-05-16">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 10</span>
+              <span class="day-date">5.16 (일)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
+              항공 SAS
+            </span>
+          </div>
+          <div class="weather" data-lat="41.3851" data-lon="2.1734">
+            <span class="temp">낮 20° 내외</span>
+            <span class="divider"></span>
+            <span class="outfit">가벼운 자켓 · 편한 신발</span>
+          </div>
+          <ul class="schedule">
+            <li>05:00 바르셀로나 항구 도착, 하선</li>
+            <li>짐 보관 후 시내 자유시간</li>
+            <li class="flight">19:00 바르셀로나(BCN) 출발 <span class="tag">경유 1회</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-barcelona" data-date="2027-05-17">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left">
+              <span class="day-num">Day 11</span>
+              <span class="day-date">5.17 (월)</span>
+            </div>
+            <span class="transport-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
+              귀국
+            </span>
+          </div>
+          <ul class="schedule">
+            <li class="flight">18:35 인천(ICN) 도착 (+1일)</li>
+            <li class="note">총 비행시간 16시간 35분</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============ 동선 TAB ============ -->
+  <section class="tab-panel" id="tab-route">
+    <div class="map-card">
+      <p class="map-title">크루즈 항해 경로</p>
+      <svg viewBox="0 0 380 220" width="100%" style="display:block; height:auto;">
+        <path d="M60 60 L190 40 L300 55 L330 120 L250 175 L140 165 L60 60" fill="none" stroke="#1F5C7A" stroke-width="2" stroke-dasharray="5,5"/>
+        <circle cx="60" cy="60" r="6" fill="#C1532E"/>
+        <circle cx="190" cy="40" r="6" fill="#1F5C7A"/>
+        <circle cx="300" cy="55" r="6" fill="#1F5C7A"/>
+        <circle cx="330" cy="120" r="6" fill="#1F5C7A"/>
+        <circle cx="250" cy="175" r="6" fill="#1F5C7A"/>
+        <circle cx="140" cy="165" r="6" fill="#1F5C7A"/>
+        <text x="14" y="52" font-family="Manrope" font-size="11" font-weight="700" fill="#22303A">바르셀로나</text>
+        <text x="170" y="30" font-family="Manrope" font-size="11" font-weight="700" fill="#22303A">팔마</text>
+        <text x="270" y="46" font-family="Manrope" font-size="11" font-weight="700" fill="#22303A">마르세유</text>
+        <text x="300" y="112" font-family="Manrope" font-size="11" font-weight="700" fill="#22303A">라스페치아</text>
+        <text x="188" y="196" font-family="Manrope" font-size="11" font-weight="700" fill="#22303A">치비타베키아</text>
+        <text x="60" y="188" font-family="Manrope" font-size="11" font-weight="700" fill="#22303A">나폴리</text>
+      </svg>
+      <div class="map-legend">
+        <span><span class="legend-line dashed" style="border-top-color:#1F5C7A;"></span> 크루즈 항로 (개략도, 축척 아님)</span>
+      </div>
+      <p style="margin:12px 8px 0; font-size:11.5px; color:var(--ink-soft); line-height:1.5;">Legend of the Seas · 7 Night Western Mediterranean Cruise · 바르셀로나 출항 → 5개 기항지 → 항해일 1일 → 바르셀로나 하선</p>
+    </div>
+
+    <div class="route-list">
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg></div>
+        <div class="txt"><b>인천 → 바르셀로나</b><span>SAS · 5.7(금) 23:35 → 5.8(토) 18:10 (+1일)</span></div>
+      </div>
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+        <div class="txt"><b>바르셀로나 → 팔마 데 마요르카</b><span>크루즈 · 5.9(일) 17:00 출항 → 5.10(월) 08:00 입항</span></div>
+      </div>
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+        <div class="txt"><b>팔마 → 마르세유</b><span>크루즈 · 5.10(월) 16:00 출항 → 5.11(화) 09:00 입항</span></div>
+      </div>
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+        <div class="txt"><b>마르세유 → 라스페치아</b><span>크루즈 · 5.11(화) 18:00 출항 → 5.12(수) 08:30 입항</span></div>
+      </div>
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+        <div class="txt"><b>라스페치아 → 치비타베키아</b><span>크루즈 · 5.12(수) 20:00 출항 → 5.13(목) 07:00 입항</span></div>
+      </div>
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+        <div class="txt"><b>치비타베키아 → 나폴리</b><span>크루즈 · 5.13(목) 20:00 출항 → 5.14(금) 07:00 입항</span></div>
+      </div>
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div>
+        <div class="txt"><b>나폴리 → 바르셀로나</b><span>크루즈 · 5.14(금) 19:00 출항 (항해일 1일 경유) → 5.16(일) 05:00 입항</span></div>
+      </div>
+      <div class="route-step">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg></div>
+        <div class="txt"><b>바르셀로나 → 인천</b><span>SAS · 5.16(일) 19:00 → 5.17(월) 18:35 (+1일)</span></div>
+      </div>
+    </div>
+
+    <p class="map-title" style="margin-top:36px;">기항지별 상세 동선</p>
+    <div id="dailyRouteList"></div>
+  </section>
+
+  <!-- ============ 비용 TAB ============ -->
+  <section class="tab-panel" id="tab-budget">
+
+    <div class="budget-summary">
+      <div class="total-label">예약 기준 예상 비용</div>
+      <div class="split">
+        <div><div class="k">항공 (성인 1인 기준)</div><div class="v">₩1,179,731</div></div>
+        <div><div class="k">크루즈 (3인, 세금·항구료 포함)</div><div class="v">US$4,937.76</div></div>
+        <div><div class="k">크루즈 잔금 (~2027.02.08)</div><div class="v">US$4,187.76</div></div>
+      </div>
+    </div>
+    <p class="budget-note">항공가는 Mytrip 기준 성인 1인 참고가로, 3인 가족 실제 총액은 인원·유아정책에 따라 예약 시 재확인이 필요합니다. 크루즈 금액은 royalcaribbean.com 기준 1 Room · 3 Guests 선비이며, 팁·기항지 투어·음료 패키지는 포함되어 있지 않습니다.</p>
+
+    <div class="budget-day">
+      <div class="budget-day-head"><span class="b-day">항공</span></div>
+      <div class="cost-row"><div class="cost-label">인천 ↔ 바르셀로나 (SAS)<small>성인 1인 참고가 · Mytrip</small></div><div class="cost-amount planned">₩1,179,731</div></div>
+    </div>
+
+    <div class="budget-day">
+      <div class="budget-day-head"><span class="b-day">크루즈</span></div>
+      <div class="cost-row"><div class="cost-label">Legend of the Seas 선비<small>1 Room, 3 Guests · 세금·항구료 포함</small></div><div class="cost-amount planned">US$4,937.76</div></div>
+      <div class="cost-row"><div class="cost-label">잔금<small>2027.02.08까지 납부</small></div><div class="cost-amount planned">US$4,187.76</div></div>
+    </div>
+
+    <div class="budget-day">
+      <div class="budget-day-head"><span class="b-day">별도 확인 필요</span></div>
+      <div class="cost-row"><div class="cost-label">바르셀로나 사전 호텔 1박<small>숙소 미확정</small></div><div class="cost-amount muted">-</div></div>
+      <div class="cost-row"><div class="cost-label">크루즈 팁 (자동 청구)</div><div class="cost-amount muted">-</div></div>
+      <div class="cost-row"><div class="cost-label">기항지 투어</div><div class="cost-amount muted">-</div></div>
+      <div class="cost-row"><div class="cost-label">음료 패키지</div><div class="cost-amount muted">-</div></div>
+      <div class="cost-row"><div class="cost-label">여행자 보험</div><div class="cost-amount muted">-</div></div>
+    </div>
+
+  </section>
+
+  <!-- ============ 예약사항 TAB ============ -->
+  <section class="tab-panel" id="tab-booking">
+
+    <div class="booking-group">
+      <div class="segment-label seg-barcelona" style="margin-top:0;"><span class="dot"></span>항공<span class="rule"></span></div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div>
+            <div class="booking-title">인천 → 바르셀로나</div>
+            <div class="booking-sub">스칸디나비아 항공 (SAS)</div>
+          </div>
+          <div class="booking-code">경유 1회</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">출발</span><span class="v">5.7(금) 23:35 · ICN</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">5.8(토) 18:10 · BCN (+1일)</span></div>
+          <div class="booking-row"><span class="k">비행시간</span><span class="v">25시간 35분</span></div>
+        </div>
+        <div class="booking-note">Mytrip 기준 성인 1인 참고가 ₩1,179,731 · 대기시간이 긴 편이라 예약 전 경유 스케줄 재확인 권장</div>
+      </div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div>
+            <div class="booking-title">바르셀로나 → 인천</div>
+            <div class="booking-sub">스칸디나비아 항공 (SAS)</div>
+          </div>
+          <div class="booking-code">경유 1회</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">출발</span><span class="v">5.16(일) 19:00 · BCN</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">5.17(월) 18:35 · ICN (+1일)</span></div>
+          <div class="booking-row"><span class="k">비행시간</span><span class="v">16시간 35분</span></div>
+        </div>
+        <div class="booking-note">3인 가족 총액은 인원/유아정책에 따라 달라질 수 있어 예약 시 재확인 필요</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-cruise"><span class="dot"></span>크루즈<span class="rule"></span></div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div>
+            <div class="booking-title">Legend of the Seas</div>
+            <div class="booking-sub">Royal Caribbean · 7 Night Western Mediterranean Cruise</div>
+          </div>
+          <div class="booking-code">1 Room · 3 Guests</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">승선</span><span class="v">5.9(일) · 바르셀로나</span></div>
+          <div class="booking-row"><span class="k">하선</span><span class="v">5.16(일) · 바르셀로나</span></div>
+          <div class="booking-row"><span class="k">세금·항구료 포함 총액</span><span class="v">US$4,937.76</span></div>
+          <div class="booking-row"><span class="k">잔금</span><span class="v">US$4,187.76 (~2027.02.08)</span></div>
+        </div>
+        <div class="booking-note">royalcaribbean.com 기준 3인 가족 전체 선비이며, 팁·기항지 투어·음료 패키지는 별도입니다.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-barcelona"><span class="dot"></span>숙소<span class="rule"></span></div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div>
+            <div class="booking-title">바르셀로나 시내 호텔</div>
+            <div class="booking-sub">1박 · 크루즈 승선 전 사전 체류</div>
+          </div>
+          <div class="booking-code">미확정</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">체크인</span><span class="v">5.8(토)</span></div>
+          <div class="booking-row"><span class="k">체크아웃</span><span class="v">5.9(일)</span></div>
+          <div class="booking-row"><span class="k">인원</span><span class="v">성인 2 · 어린이 1 (6세)</span></div>
+        </div>
+        <div class="booking-note">숙소 예약이 아직 확정되지 않았습니다. 사그라다 파밀리아 도보권 등 접근성 좋은 위치로 조기 예약 권장.</div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>이 페이지는 개인 여행 일정 정리용입니다. 세부 정보는 예약 확정 시 업데이트됩니다.<br>날씨는 5월 지중해 평년 평균 기온 기준이며, 실제 당일 날씨와 다를 수 있습니다.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'instant'});
+    });
+  });
+
+  function initTodayCard(){
+    const now = new Date();
+    const todayStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+    const days = document.querySelectorAll('#tab-itinerary .day[data-date]');
+    let match = null;
+    days.forEach(day => { if (day.dataset.date === todayStr) match = day; });
+    if (!match) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'today-wrap';
+    const label = document.createElement('div');
+    label.className = 'today-label';
+    label.innerHTML = '<span class="dot-live"></span>오늘의 일정';
+    wrap.appendChild(label);
+    wrap.appendChild(match.cloneNode(true));
+    document.getElementById('todayCard').appendChild(wrap);
+  }
+
+  async function initLiveWeather(){
+    const todayLocal = new Date();
+    todayLocal.setHours(0,0,0,0);
+    const days = document.querySelectorAll('#tab-itinerary .day[data-date]');
+    const jobs = [];
+    days.forEach(day => {
+      const weatherEl = day.querySelector('.weather');
+      if (!weatherEl || !weatherEl.dataset.lat) return;
+      const dateStr = day.dataset.date;
+      const dayDate = new Date(dateStr + 'T00:00:00');
+      const diffDays = Math.round((dayDate - todayLocal) / 86400000);
+      if (diffDays < 0 || diffDays > 5) return;
+      const { lat, lon } = weatherEl.dataset;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FMadrid&start_date=${dateStr}&end_date=${dateStr}`;
+      const job = fetch(url).then(r => r.json()).then(data => {
+        const max = data && data.daily && data.daily.temperature_2m_max && data.daily.temperature_2m_max[0];
+        const min = data && data.daily && data.daily.temperature_2m_min && data.daily.temperature_2m_min[0];
+        if (max === undefined || min === undefined || max === null || min === null) return;
+        const tempEl = weatherEl.querySelector('.temp');
+        if (tempEl) tempEl.textContent = `${Math.round(max)}° / ${Math.round(min)}° · 실시간`;
+        weatherEl.dataset.live = '1';
+      }).catch(() => {});
+      jobs.push(job);
+    });
+    await Promise.allSettled(jobs);
+  }
+  initLiveWeather().finally(initTodayCard);
+
+  const routeIcons = {
+    transit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>'
+  };
+  function mapFrame(locs, zoom){
+    const q = locs.map(encodeURIComponent).join('%7C');
+    const z = zoom ? ('&z=' + zoom) : '';
+    return '<iframe class="drd-map" src="https://maps.google.com/maps?q=' + q + z + '&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
+  }
+  const dayRouteData = [
+    { day:'Day 04', date:'5.10(월)', stops:[
+        {label:'팔마 데 마요르카 크루즈 항구', place:'Palma de Mallorca Cruise Port, Spain'},
+        {label:'팔마 대성당 · 구시가지', place:'Catedral de Mallorca, Palma, Spain'}
+      ],
+      connectors:[{icon:'transit',text:'도보/셔틀'}],
+      map: mapFrame(['Palma de Mallorca Cruise Port, Spain','Catedral de Mallorca, Palma, Spain']) },
+    { day:'Day 05', date:'5.11(화)', stops:[
+        {label:'마르세유 크루즈터미널', place:'Marseille Cruise Terminal, France'},
+        {label:'구항구 (Vieux Port)', place:'Vieux Port, Marseille, France'}
+      ],
+      connectors:[{icon:'transit',text:'도보/셔틀 약 15분'}],
+      map: mapFrame(['Marseille Cruise Terminal, France','Vieux Port, Marseille, France']) },
+    { day:'Day 06', date:'5.12(수)', stops:[
+        {label:'라스페치아 크루즈 항구', place:'La Spezia Cruise Terminal, Italy'},
+        {label:'피사의 사탑', place:'Leaning Tower of Pisa, Italy'}
+      ],
+      connectors:[{icon:'transit',text:'투어버스/기차 약 1시간'}],
+      map: mapFrame(['La Spezia Cruise Terminal, Italy','Leaning Tower of Pisa, Italy']) },
+    { day:'Day 07', date:'5.13(목)', stops:[
+        {label:'치비타베키아 크루즈 항구', place:'Civitavecchia Cruise Terminal, Italy'},
+        {label:'콜로세움', place:'Colosseum, Rome, Italy'},
+        {label:'트레비 분수', place:'Trevi Fountain, Rome, Italy'}
+      ],
+      connectors:[{icon:'transit',text:'투어버스/기차 약 1시간'},{icon:'transit',text:'도보'}],
+      map: mapFrame(['Civitavecchia Cruise Terminal, Italy','Colosseum, Rome, Italy','Trevi Fountain, Rome, Italy']) },
+    { day:'Day 08', date:'5.14(금)', stops:[
+        {label:'나폴리 크루즈 항구', place:'Naples Cruise Terminal, Italy'},
+        {label:'카프리 섬 (블루그로토)', place:'Blue Grotto, Capri, Italy'}
+      ],
+      connectors:[{icon:'transit',text:'페리 약 50분'}],
+      map: mapFrame(['Naples Cruise Terminal, Italy','Blue Grotto, Capri, Italy']) }
+  ];
+  function mapsLink(place){
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(place);
+  }
+  function renderDailyRoutes(){
+    const container = document.getElementById('dailyRouteList');
+    let html = '';
+    dayRouteData.forEach(d => {
+      let drd = '<div class="drd">';
+      d.stops.forEach((stop, i) => {
+        drd += `<div class="drd-stop"><span class="dot"></span><a class="label" href="${mapsLink(stop.place)}" target="_blank" rel="noopener">${stop.label}</a></div>`;
+        if (d.connectors[i]){
+          drd += `<div class="drd-connector">${routeIcons[d.connectors[i].icon]}<span>${d.connectors[i].text}</span></div>`;
+        }
+      });
+      drd += '</div>';
+      html += `<div class="daily-route-card"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div>${d.map}${drd}</div>`;
+    });
+    container.innerHTML = html;
+  }
+  renderDailyRoutes();
+</script>
+
+</body>
+</html>
