@@ -328,6 +328,7 @@
             <span class="stay-name">크루즈선</span> · 팔마 데 마요르카, 스페인
           </div>
           <ul class="schedule">
+            <li class="transit">항구 → 구시가지: 도보 약 15~20분 (가까운 편)</li>
             <li>구시가지 및 해변 반나절 투어</li>
           </ul>
         </div>
@@ -356,6 +357,7 @@
             <span class="stay-name">크루즈선</span> · 마르세유(프로방스), 프랑스
           </div>
           <ul class="schedule">
+            <li class="transit">항구 → 구항구(Vieux Port): 셔틀/택시 약 20~30분</li>
             <li>마르세유 구항구(Vieux Port) 중심 관광</li>
           </ul>
         </div>
@@ -384,7 +386,8 @@
             <span class="stay-name">크루즈선</span> · 라스페치아 (피렌체/피사), 이탈리아
           </div>
           <ul class="schedule">
-            <li>피사 사탑 위주 일정 권장 (항구 근접)</li>
+            <li class="transit">라스페치아 항구 → 피사: 기차/투어버스 편도 약 1시간~1시간 30분 (먼 편)</li>
+            <li>피사 사탑 위주 일정 권장</li>
           </ul>
         </div>
       </div>
@@ -412,6 +415,7 @@
             <span class="stay-name">크루즈선</span> · 로마 (치비타베키아), 이탈리아
           </div>
           <ul class="schedule">
+            <li class="transit">치비타베키아 항구 → 로마 시내: 기차/투어버스 편도 약 1시간~1시간 30분 (먼 편)</li>
             <li>콜로세움, 트레비 분수 등 로마 당일투어</li>
           </ul>
         </div>
@@ -440,6 +444,7 @@
             <span class="stay-name">크루즈선</span> · 나폴리/카프리, 이탈리아
           </div>
           <ul class="schedule">
+            <li class="transit">나폴리 항구 → 카프리: 페리 편도 약 50분 (먼 편)</li>
             <li>카프리 섬 당일투어 (블루그로토 등)</li>
           </ul>
         </div>
@@ -783,32 +788,32 @@
         {label:'팔마 데 마요르카 크루즈 항구', place:'Palma de Mallorca Cruise Port, Spain'},
         {label:'팔마 대성당 · 구시가지', place:'Catedral de Mallorca, Palma, Spain'}
       ],
-      connectors:[{icon:'transit',text:'도보/셔틀'}],
+      connectors:[{icon:'transit',text:'도보 약 15~20분 (가까운 편)'}],
       map: mapFrame(['Palma de Mallorca Cruise Port, Spain','Catedral de Mallorca, Palma, Spain']) },
     { day:'Day 05', date:'5.11(화)', stops:[
         {label:'마르세유 크루즈터미널', place:'Marseille Cruise Terminal, France'},
         {label:'구항구 (Vieux Port)', place:'Vieux Port, Marseille, France'}
       ],
-      connectors:[{icon:'transit',text:'도보/셔틀 약 15분'}],
+      connectors:[{icon:'transit',text:'셔틀/택시 약 20~30분'}],
       map: mapFrame(['Marseille Cruise Terminal, France','Vieux Port, Marseille, France']) },
     { day:'Day 06', date:'5.12(수)', stops:[
         {label:'라스페치아 크루즈 항구', place:'La Spezia Cruise Terminal, Italy'},
         {label:'피사의 사탑', place:'Leaning Tower of Pisa, Italy'}
       ],
-      connectors:[{icon:'transit',text:'투어버스/기차 약 1시간'}],
+      connectors:[{icon:'transit',text:'기차/투어버스 편도 약 1시간~1시간 30분 (먼 편)'}],
       map: mapFrame(['La Spezia Cruise Terminal, Italy','Leaning Tower of Pisa, Italy']) },
     { day:'Day 07', date:'5.13(목)', stops:[
         {label:'치비타베키아 크루즈 항구', place:'Civitavecchia Cruise Terminal, Italy'},
         {label:'콜로세움', place:'Colosseum, Rome, Italy'},
         {label:'트레비 분수', place:'Trevi Fountain, Rome, Italy'}
       ],
-      connectors:[{icon:'transit',text:'투어버스/기차 약 1시간'},{icon:'transit',text:'도보'}],
+      connectors:[{icon:'transit',text:'기차/투어버스 편도 약 1시간~1시간 30분 (먼 편)'},{icon:'transit',text:'도보'}],
       map: mapFrame(['Civitavecchia Cruise Terminal, Italy','Colosseum, Rome, Italy','Trevi Fountain, Rome, Italy']) },
     { day:'Day 08', date:'5.14(금)', stops:[
         {label:'나폴리 크루즈 항구', place:'Naples Cruise Terminal, Italy'},
         {label:'카프리 섬 (블루그로토)', place:'Blue Grotto, Capri, Italy'}
       ],
-      connectors:[{icon:'transit',text:'페리 약 50분'}],
+      connectors:[{icon:'transit',text:'페리 편도 약 50분 (먼 편)'}],
       map: mapFrame(['Naples Cruise Terminal, Italy','Blue Grotto, Capri, Italy']) }
   ];
   function mapsLink(place){
