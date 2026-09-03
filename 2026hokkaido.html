@@ -319,6 +319,8 @@
             <li>점심: 준페이</li>
             <li>저녁: 삿포로 가니혼케 에키마에 본점 · 털게</li>
             <li>투어 종료 후 삿포로 숙소 복귀</li>
+            <li class="transit">숙소 → 스스키노: 도보/지하철</li>
+            <li>야식: 이자카야 一番星 きむら (스스키노)</li>
           </ul>
           <button class="meal-btn" onclick="openMeal('day2','12.6 (일) · 비에이 → 삿포로')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v6a2 2 0 0 0 4 0V3M9 9v12M17 3c-1.5 3-1.5 6 0 8v10"/></svg>
@@ -356,9 +358,9 @@
           </div>
           <ul class="schedule">
             <li>호텔 조식 후 삿포로맥주박물관 관람</li>
-            <li class="transit">삿포로역 → 스스키노역: 지하철 약 5분</li>
-            <li>점심: 라멘 스미레 또는 수프카레 Suage+ (스스키노)</li>
-            <li class="transit">스스키노역 → 삿포로역: 지하철 약 5분 (복귀)</li>
+            <li class="transit">삿포로역 → 오도리: 도보/지하철 약 5분</li>
+            <li>점심: 수프카레 트레져 (오도리)</li>
+            <li class="transit">오도리 → 삿포로역: 도보/지하철 (복귀)</li>
             <li class="transit">[JR] 삿포로 → 오타루 이동 (약 32분)</li>
             <li>오타루 도착 · 시내 잠시 구경</li>
             <li class="transit">오타루역 → 숙소: 송영버스</li>
@@ -458,7 +460,7 @@
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
-        <div class="txt"><b>삿포로 → 오타루</b><span>JR · 12.7(월) · 스스키노 경유(점심) · 오타루역→숙소 송영버스</span></div>
+        <div class="txt"><b>삿포로 → 오타루</b><span>JR · 12.7(월) · 오도리 경유(점심) · 오타루역→숙소 송영버스</span></div>
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
@@ -479,10 +481,10 @@
 
     <div class="budget-summary">
       <div class="total-label">Total Budget</div>
-      <div class="total-amount">₩ 3,878,803</div>
+      <div class="total-amount">₩ 3,913,803</div>
       <div class="split">
         <div><div class="k">지출완료</div><div class="v paid">₩ 2,997,723</div></div>
-        <div><div class="k">지출예정</div><div class="v planned">₩ 881,080</div></div>
+        <div><div class="k">지출예정</div><div class="v planned">₩ 916,080</div></div>
       </div>
     </div>
     <p class="budget-note">파란색 = 이미 지출한 항목 · 빨간색 = 지출 예정(예산) 항목입니다.</p>
@@ -506,13 +508,13 @@
       <div class="cost-row"><div class="cost-label">비에이 프리미어 투어</div><div class="cost-amount paid">₩264,000</div></div>
       <div class="cost-row"><div class="cost-label">점심 · 준페이</div><div class="cost-amount planned">₩50,000</div></div>
       <div class="cost-row"><div class="cost-label">저녁 · 삿포로 가니혼케 에키마에 본점<small>털게, 호텔 도보권</small></div><div class="cost-amount planned">₩250,000</div></div>
+      <div class="cost-row"><div class="cost-label">야식 · 一番星 きむら<small>이자카야, 스스키노, 구글평점 4.5</small></div><div class="cost-amount planned">₩40,000</div></div>
     </div>
 
     <div class="budget-day">
       <div class="budget-day-head"><span class="b-day">Day 03</span><span class="b-date">12.7(월) · 삿포로 → 오타루</span></div>
       <div class="cost-row"><div class="cost-label">호텔 조식</div><div class="cost-amount muted">-</div></div>
-      <div class="cost-row"><div class="cost-label">지하철 · 삿포로↔스스키노 왕복</div><div class="cost-amount planned">₩5,000</div></div>
-      <div class="cost-row"><div class="cost-label">점심 · 스미레 또는 Suage+<small>스스키노, 삿포로역에서 지하철 왕복 약 10분</small></div><div class="cost-amount planned">₩30,000</div></div>
+      <div class="cost-row"><div class="cost-label">점심 · 수프카레 트레져<small>오도리, 구글평점 4.4</small></div><div class="cost-amount planned">₩30,000</div></div>
       <div class="cost-row"><div class="cost-label">[JR] 삿포로 → 오타루<small>¥1,600</small></div><div class="cost-amount paid">₩14,640</div></div>
       <div class="cost-row"><div class="cost-label">저녁 · 숙소 석식<small>2식 플랜 포함</small></div><div class="cost-amount muted">-</div></div>
       <div class="cost-row"><div class="cost-label">숙소 · Otaru Korakuen<small>[Official Web] 1박 · ¥110,240</small></div><div class="cost-amount paid">₩1,008,696</div></div>
@@ -649,6 +651,13 @@
       </div>
       <p class="meal-empty" id="mealDinner">맛집 리스트 준비 중이에요.</p>
     </div>
+    <div class="meal-slot" id="mealSupperSlot" hidden>
+      <div class="meal-slot-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        야식
+      </div>
+      <p class="meal-empty" id="mealSupper">맛집 리스트 준비 중이에요.</p>
+    </div>
   </div>
 </div>
 
@@ -669,11 +678,8 @@
 
   const mealData = {
     day1: { b: "-", l: "기내식", d: { name: "마사진 스스키노 본점 はなれ", place: "北海道札幌市中央区南4条西5丁目7-1", desc: "구글평점 4.9 · 스스키노 양고기(징기스칸) 전문점" } },
-    day2: { b: "호텔 조식", l: { name: "준페이", place: "北海道上川郡美瑛町本町4丁目4-10", desc: "양식·카페 준페이 · 비에이 시내" }, d: { name: "삿포로 가니혼케 에키마에 본점", place: "北海道札幌市中央区北三条西2丁目1-18", desc: "구글평점 4.4 · 삿포로역 앞, 숙소에서 도보권 · 털게·타라바게 코스" } },
-    day3: { b: "호텔 조식", l: [
-      { name: "라멘 스미레 (스스키노점)", place: "北海道札幌市中央区南3条西3-9-2", desc: "삿포로 대표 미소라멘 · 스스키노역 도보권" },
-      { name: "수프카레 Suage+ (스아게, 스스키노점)", place: "北海道札幌市中央区南4条西5丁目 都志松ビル2F", desc: "삿포로 인기 수프카레 · 스스키노역 도보 약 3분" }
-    ], d: "숙소 석식 (2식 플랜 포함)" },
+    day2: { b: "호텔 조식", l: { name: "준페이", place: "北海道上川郡美瑛町本町4丁目4-10", desc: "양식·카페 준페이 · 비에이 시내" }, d: { name: "삿포로 가니혼케 에키마에 본점", place: "北海道札幌市中央区北三条西2丁目1-18", desc: "구글평점 4.4 · 삿포로역 앞, 숙소에서 도보권 · 털게·타라바게 코스" }, s: { name: "이자카야 一番星 きむら", place: "北海道札幌市中央区南6条西3 ススキノ中央ビル9階", desc: "구글평점 4.5 · 스스키노 · 평일 18:00~익일 03:00" } },
+    day3: { b: "호텔 조식", l: { name: "수프카레 트레져 (SOUP CURRY TREASURE)", place: "北海道札幌市中央区南2条西1丁目8番地2 アスカビル1F", desc: "구글평점 4.4 · 지하철 오도리역 36번 출구 도보 2분" }, d: "숙소 석식 (2식 플랜 포함)" },
     day4: { b: "숙소 조식 (2식 플랜 포함)", l: [
       { name: "스프카레 GARAKU (신치토세공항점)", place: "スープカレーGARAKU 新千歳空港店, New Chitose Airport, Japan", desc: "삿포로 인기 수프카레 GARAKU 공항 지점 · 국내선청사 3층 (9:00~21:00)" },
       { name: "라멘 一幻 えびそば (신치토세공항점)", place: "えびそば一幻 新千歳空港店, New Chitose Airport, Japan", desc: "새우육수 라멘 전문 · 국내선청사 3층 라멘도조 내" }
@@ -706,6 +712,13 @@
     renderMealSlot(document.getElementById('mealBreakfast'), m && m.b);
     renderMealSlot(document.getElementById('mealLunch'), m && m.l);
     renderMealSlot(document.getElementById('mealDinner'), m && m.d);
+    const supperSlot = document.getElementById('mealSupperSlot');
+    if (m && m.s){
+      supperSlot.hidden = false;
+      renderMealSlot(document.getElementById('mealSupper'), m.s);
+    } else {
+      supperSlot.hidden = true;
+    }
     document.getElementById('mealPage').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -785,19 +798,19 @@
         {label:'준페이 (점심, 비에이)', place:'北海道上川郡美瑛町本町4丁目4-10', exact:true},
         {label:'삿포로 숙소 (복귀)', place:'Keikyu EX Hotel Sapporo, Japan', exact:false},
         {label:'가니혼케 에키마에 본점 (저녁)', place:'北海道札幌市中央区北三条西2丁目1-18', exact:true},
+        {label:'一番星 きむら (야식, 스스키노)', place:'北海道札幌市中央区南6条西3 ススキノ中央ビル9階', exact:true},
         {label:'숙소 (최종 복귀)', place:'Keikyu EX Hotel Sapporo, Japan', exact:false}
       ],
-      connectors:[{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'도보'},{icon:'transit',text:'도보'}],
+      connectors:[{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'프리미어 투어 버스'},{icon:'transit',text:'도보'},{icon:'transit',text:'지하철 스스키노行'},{icon:'transit',text:'지하철 복귀'}],
       map: mapFrame(['Sapporo, Japan','Biei, Hokkaido, Japan']) },
     { day:'Day 03', date:'12.7(월)', seg:'seg-otaru', stops:[
         {label:'삿포로맥주박물관', place:'Sapporo Beer Museum, Japan', exact:false},
-        {label:'삿포로역', place:'Sapporo Station, Japan', exact:false},
-        {label:'스스키노 (점심: 스미레/Suage+)', place:'Susukino Station, Sapporo, Japan', exact:false},
+        {label:'수프카레 트레져 (점심, 오도리)', place:'北海道札幌市中央区南2条西1丁目8番地2 アスカビル1F', exact:true},
         {label:'삿포로역 (복귀)', place:'Sapporo Station, Japan', exact:false},
         {label:'오타루역', place:'Otaru Station, Japan', exact:false},
         {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false}
       ],
-      connectors:[{icon:'transit',text:'도보/시내이동'},{icon:'transit',text:'지하철 스스키노行 · 약 5분'},{icon:'transit',text:'지하철 복귀 · 약 5분'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'송영버스'}],
+      connectors:[{icon:'transit',text:'도보/지하철 오도리行'},{icon:'transit',text:'도보/지하철 복귀'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'송영버스'}],
       map: mapFrame(['Sapporo Beer Museum, Japan','Sapporo Station, Japan','Otaru Station, Japan','Otaru Korakuen, Japan']) },
     { day:'Day 04', date:'12.8(화)', seg:'seg-otaru', stops:[
         {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false},
