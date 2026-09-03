@@ -362,8 +362,9 @@
             <li>점심: 수프카레 트레져 (오도리)</li>
             <li class="transit">오도리 → 삿포로역: 도보/지하철 (복귀)</li>
             <li class="transit">[JR] 삿포로 → 오타루 이동 (약 32분)</li>
-            <li>오타루 도착 · 시내 잠시 구경</li>
-            <li class="transit">오타루역 → 숙소: 송영버스</li>
+            <li>오타루 도착, 역 코인락커에 짐 보관</li>
+            <li>오타루 시내 관광 (오타루 운하 · 사카이마치 거리 등)</li>
+            <li class="transit">오타루역 → 숙소: 송영버스 (16:00 전 탑승)</li>
             <li>16:00 숙소 체크인</li>
             <li>저녁: 숙소 석식 (2식 플랜 포함)</li>
           </ul>
@@ -398,13 +399,11 @@
           </div>
           <ul class="schedule">
             <li>조식: 숙소 조식 (2식 플랜 포함)</li>
-            <li class="note">11:00 체크아웃</li>
+            <li class="note">11:00 체크아웃, 여유있게 출발</li>
             <li class="transit">숙소 → 오타루역: 택시</li>
-            <li>오타루역 코인락커 이용, 오타루 시내 짧게 구경</li>
-            <li class="warn">늦어도 11:30까지는 오타루역 출발 (삿포로 점심 시간 확보)</li>
             <li class="transit">[JR] 오타루 → 삿포로 이동 (약 32분)</li>
             <li class="transit">삿포로역 → 스스키노역: 지하철 약 5분</li>
-            <li>점심: 라멘 스미레 (스스키노점)</li>
+            <li>점심: 라멘 스미레 (스스키노점), 여유있게 식사</li>
             <li class="transit">스스키노역 → 삿포로역: 지하철 약 5분 (복귀)</li>
             <li class="transit">[JR] 삿포로 → 신치토세공항 이동 (약 37분)</li>
             <li class="note">14:00까지 신치토세공항 도착</li>
@@ -463,7 +462,7 @@
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
-        <div class="txt"><b>삿포로 → 오타루</b><span>JR · 12.7(월) · 오도리 경유(점심) · 오타루역→숙소 송영버스</span></div>
+        <div class="txt"><b>삿포로 → 오타루</b><span>JR · 12.7(월) · 오도리 경유(점심) · 오후 오타루 시내 관광 · 숙소 송영버스</span></div>
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
@@ -808,10 +807,11 @@
         {label:'삿포로맥주박물관', place:'Sapporo Beer Museum, Japan', exact:false},
         {label:'수프카레 트레져 (점심, 오도리)', place:'北海道札幌市中央区南2条西1丁目8番地2 アスカビル1F', exact:true},
         {label:'삿포로역 (복귀)', place:'Sapporo Station, Japan', exact:false},
-        {label:'오타루역', place:'Otaru Station, Japan', exact:false},
+        {label:'오타루역 (코인락커)', place:'Otaru Station, Japan', exact:false},
+        {label:'오타루 운하 (시내 관광)', place:'Otaru Canal, Japan', exact:false},
         {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false}
       ],
-      connectors:[{icon:'transit',text:'도보/지하철 오도리行'},{icon:'transit',text:'도보/지하철 복귀'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'송영버스'}],
+      connectors:[{icon:'transit',text:'도보/지하철 오도리行'},{icon:'transit',text:'도보/지하철 복귀'},{icon:'transit',text:'JR · 약 32분'},{icon:'transit',text:'도보'},{icon:'transit',text:'송영버스'}],
       map: mapFrame(['Sapporo Beer Museum, Japan','Sapporo Station, Japan','Otaru Station, Japan','Otaru Korakuen, Japan']) },
     { day:'Day 04', date:'12.8(화)', seg:'seg-otaru', stops:[
         {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false},
