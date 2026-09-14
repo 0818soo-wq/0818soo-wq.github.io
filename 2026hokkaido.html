@@ -149,6 +149,21 @@
   .meal-link:active{ opacity: 0.6; }
   .meal-picks{ display: flex; flex-direction: column; gap: 12px; }
   .meal-pick .meal-desc{ display: block; font-size: 11.5px; color: var(--ink-soft); margin-top: 3px; line-height: 1.5; }
+  .meal-pick .meal-plain{ font-size: 13px; font-weight: 700; color: var(--ink); }
+
+  /* ---------- 식사 TAB ---------- */
+  .mealday{ background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-top: 14px; }
+  .mealday:first-child{ margin-top: 22px; }
+  .mealday-head{ display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .mealday-head .d{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .mealday-head .t{ font-size: 11.5px; font-weight: 700; color: var(--ink-faint); }
+  .mealday.seg-sapporo .mealday-head .d{ color: var(--sapporo); }
+  .mealday.seg-otaru .mealday-head .d{ color: var(--otaru); }
+  .mealday-row{ display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+  .mealday-row:first-of-type{ border-top: none; }
+  .mealday-row .k{ flex: 0 0 32px; font-size: 11px; font-weight: 800; color: var(--ink-faint); padding-top: 3px; }
+  .mealday-row .v{ flex: 1; min-width: 0; font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+  .mealday-row .v .meal-picks{ gap: 10px; }
 
   .map-card{ margin-top: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 12px 20px; overflow: hidden; }
   .map-title{ font-family:'Fraunces', serif; font-weight: 600; font-size: 17px; margin: 4px 8px 14px; color: var(--ink); }
@@ -308,6 +323,7 @@
 <div class="tabbar">
   <button class="tab active" data-tab="itinerary">일정</button>
   <button class="tab" data-tab="route">동선</button>
+  <button class="tab" data-tab="meals">식사</button>
   <button class="tab" data-tab="budget">비용</button>
   <button class="tab" data-tab="booking">예약사항</button>
 </div>
@@ -531,6 +547,11 @@
 
     <p class="map-title" style="margin-top:36px;">일자별 상세 동선</p>
     <div id="dailyRouteList"></div>
+  </section>
+
+  <!-- ============ 식사 TAB ============ -->
+  <section class="tab-panel" id="tab-meals">
+    <div id="mealsAll"></div>
   </section>
 
   <!-- ============ 비용 TAB ============ -->
@@ -757,22 +778,44 @@
   };
 
   function mealPickHTML(item){
-    const q = encodeURIComponent(item.place);
     const desc = item.desc ? `<span class="meal-desc">${item.desc}</span>` : '';
+    if (!item.place) return `<div class="meal-pick"><span class="meal-plain">✈ ${item.name}</span>${desc}</div>`;
+    const q = encodeURIComponent(item.place);
     return `<div class="meal-pick"><a class="meal-link" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
         ${item.name}
       </a>${desc}</div>`;
   }
-  function renderMealSlot(el, entry){
-    if (Array.isArray(entry)){
-      el.innerHTML = `<div class="meal-picks">${entry.map(mealPickHTML).join('')}</div>`;
-    } else if (entry && typeof entry === 'object' && entry.place){
-      el.innerHTML = mealPickHTML(entry);
-    } else {
-      el.textContent = entry || '맛집 리스트 준비 중이에요.';
-    }
+  function mealSlotHTML(entry, empty){
+    if (Array.isArray(entry)) return `<div class="meal-picks">${entry.map(mealPickHTML).join('')}</div>`;
+    if (entry && typeof entry === 'object' && entry.name) return mealPickHTML(entry);
+    return `<span class="meal-empty">${entry || empty}</span>`;
   }
+  function renderMealSlot(el, entry){
+    el.innerHTML = mealSlotHTML(entry, '맛집 리스트 준비 중이에요.');
+  }
+
+  // 식사 탭 — 전체 일자
+  const MEAL_DAYS = [
+    { k:'day1', n:'Day 01', t:'12.5 (토) · 삿포로', seg:'seg-sapporo' },
+    { k:'day2', n:'Day 02', t:'12.6 (일) · 비에이 → 삿포로', seg:'seg-sapporo' },
+    { k:'day3', n:'Day 03', t:'12.7 (월) · 삿포로 → 오타루', seg:'seg-otaru' },
+    { k:'day4', n:'Day 04', t:'12.8 (화) · 오타루 → 귀국', seg:'seg-otaru' }
+  ];
+  function renderMealsTab(){
+    const host = document.getElementById('mealsAll');
+    if (!host) return;
+    host.innerHTML = MEAL_DAYS.map(d => {
+      const m = mealData[d.k] || {};
+      const row = (label, entry) => `<div class="mealday-row"><span class="k">${label}</span><div class="v">${mealSlotHTML(entry, '미정')}</div></div>`;
+      const supperRow = m.s ? row('야식', m.s) : '';
+      return `<div class="mealday ${d.seg}">` +
+             `<div class="mealday-head"><span class="d">${d.n}</span><span class="t">${d.t}</span></div>` +
+             row('아침', m.b) + row('점심', m.l) + row('저녁', m.d) + supperRow +
+             `</div>`;
+    }).join('');
+  }
+  renderMealsTab();
 
   function openMeal(dayKey, date){
     const labelMap = {day1:'Day 01',day2:'Day 02',day3:'Day 03',day4:'Day 04'};
