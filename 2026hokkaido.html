@@ -94,10 +94,9 @@
   .transport-badge svg{ width: 12px; height: 12px; }
   .day.seg-otaru .transport-badge{ background: var(--otaru-soft); color: var(--otaru); }
 
-  .weather{ display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--sapporo-soft); }
+  .weather{ display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--sapporo-soft); }
   .day.seg-otaru .weather{ background: var(--otaru-soft); }
-  .weather .temp{ font-weight: 800; color: var(--ink); white-space: nowrap; }
-  .weather .divider{ width: 1px; align-self: stretch; background: rgba(30,42,46,0.14); }
+  .weather .temp{ font-weight: 800; color: var(--ink); font-size: 14px; }
   .weather .outfit{ color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
 
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
@@ -273,7 +272,6 @@
           </div>
           <div class="weather" data-lat="43.0618" data-lon="141.3545">
             <span class="temp">2° / -4°</span>
-            <span class="divider"></span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 장갑·목도리·방한모, 눈길 대비 미끄럼방지 신발</span>
           </div>
           <div class="stay">
@@ -310,7 +308,6 @@
           </div>
           <div class="weather" data-lat="43.5811" data-lon="142.4614">
             <span class="temp">-3° / -9°</span>
-            <span class="divider"></span>
             <span class="outfit">삿포로보다 5~6도 낮은 내륙 분지 · 방한 부츠·핫팩 필수</span>
           </div>
           <div class="stay">
@@ -351,7 +348,6 @@
           </div>
           <div class="weather" data-lat="43.1907" data-lon="140.9947">
             <span class="temp">2° / -4°</span>
-            <span class="divider"></span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 오타루는 바닷바람으로 체감온도 더 낮음</span>
           </div>
           <div class="stay">
@@ -388,7 +384,6 @@
           </div>
           <div class="weather" data-lat="43.1907" data-lon="140.9947">
             <span class="temp">2° / -4°</span>
-            <span class="divider"></span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 눈길 대비 미끄럼방지 신발</span>
           </div>
           <div class="stay">
