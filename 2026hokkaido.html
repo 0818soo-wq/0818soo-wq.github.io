@@ -94,10 +94,23 @@
   .transport-badge svg{ width: 12px; height: 12px; }
   .day.seg-otaru .transport-badge{ background: var(--otaru-soft); color: var(--otaru); }
 
-  .weather{ display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--sapporo-soft); }
+  .weather{
+    display: flex; flex-wrap: wrap; align-items: center; cursor: pointer;
+    column-gap: 8px; row-gap: 0;
+    padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px;
+    background: var(--sapporo-soft);
+  }
   .day.seg-otaru .weather{ background: var(--otaru-soft); }
-  .weather .temp{ font-weight: 800; color: var(--ink); font-size: 14px; }
-  .weather .outfit{ color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
+  .weather .weather-icon{ order: 1; font-size: 18px; line-height: 1; flex-shrink: 0; }
+  .weather .temp{ order: 2; font-weight: 800; color: var(--ink); font-size: 14px; white-space: nowrap; }
+  .weather[data-weather] .temp::after{ content: "(예상)"; font-size: 9.5px; font-weight: 600; color: var(--ink-faint); margin-left: 4px; }
+  .weather .more{ order: 3; margin-left: auto; font-size: 10.5px; font-weight: 700; color: var(--ink-faint); white-space: nowrap; }
+  .weather .outfit{
+    order: 4; flex: 0 0 100%; width: 100%;
+    margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid rgba(30,42,46,0.12);
+    color: var(--ink-soft); font-weight: 500; line-height: 1.5;
+  }
 
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
@@ -217,6 +230,58 @@
 
   footer{ max-width: 480px; margin: 40px auto 0; padding: 0 24px; text-align: center; }
   footer p{ font-size: 11px; color: var(--ink-faint); line-height: 1.6; }
+
+  /* ---------- WEATHER DETAIL MODAL ---------- */
+  .tip-modal{
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(30,42,46,0.55);
+    display: none; align-items: flex-end; justify-content: center;
+  }
+  .tip-modal.open{ display: flex; }
+  .tip-sheet{
+    background: var(--surface);
+    width: 100%; max-width: 480px; max-height: 88vh;
+    border-radius: 18px 18px 0 0;
+    display: flex; flex-direction: column;
+    animation: sheetup .25s ease;
+  }
+  @keyframes sheetup{ from{ transform: translateY(28px); opacity: .5; } to{ transform: translateY(0); opacity: 1; } }
+  .tip-head{
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 18px 18px 13px; border-bottom: 1px solid var(--line); flex-shrink: 0;
+  }
+  .tip-head h3{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; margin: 0; color: var(--ink); }
+  .tip-close{
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid var(--line); background: var(--surface);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .tip-close svg{ width: 15px; height: 15px; color: var(--ink-soft); }
+  .tip-body{ overflow-y: auto; padding: 16px 18px 10px; -webkit-overflow-scrolling: touch; }
+  .tip-foot{ padding: 12px 18px 20px; flex-shrink: 0; border-top: 1px solid var(--line); }
+  .tip-foot button{
+    width: 100%; padding: 13px; border-radius: 10px; border: none;
+    background: var(--sapporo); color: #F3F5F6;
+    font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 13.5px; cursor: pointer;
+  }
+  .tip-foot button:active{ opacity: 0.8; }
+  .wx-sum{ display: flex; gap: 8px; margin-bottom: 16px; }
+  .wx-sum > div{ flex: 1; background: var(--bg); border-radius: 10px; padding: 10px 12px; }
+  .wx-sum .k{ font-size: 10px; font-weight: 800; color: var(--ink-faint); letter-spacing: .04em; }
+  .wx-sum .v{ font-size: 15.5px; font-weight: 800; color: var(--ink); margin-top: 3px; }
+  .wx-outfit{ background: var(--sapporo-soft); border-radius: 10px; padding: 11px 13px; font-size: 12.5px; color: var(--ink); line-height: 1.5; margin-bottom: 16px; }
+  .wx-row{ display: flex; align-items: center; gap: 9px; padding: 8px 0; border-top: 1px solid var(--line); }
+  .wx-row:first-of-type{ border-top: none; }
+  .wx-row .t{ width: 42px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+  .wx-row .ic{ width: 20px; text-align: center; font-size: 15px; }
+  .wx-row .tp{ width: 38px; font-size: 13px; font-weight: 800; color: var(--ink); }
+  .wx-row .ppbar{ flex: 1; height: 5px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .wx-row .ppbar i{ display: block; height: 100%; background: var(--sapporo); }
+  .wx-row .ppv{ width: 36px; text-align: right; font-size: 11.5px; font-weight: 700; color: var(--sapporo); }
+  .wx-row.rain .ppv{ color: var(--warn); }
+  .wx-row.rain .ppbar i{ background: var(--warn); }
+  .wx-msg{ text-align: center; padding: 36px 10px; color: var(--ink-faint); font-size: 13px; line-height: 1.6; }
+  .wx-src{ font-size: 10.5px; color: var(--ink-faint); text-align: center; margin: 14px 0 2px; }
 </style>
 </head>
 <body>
@@ -267,11 +332,11 @@
             </div>
             <span class="transport-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
-              항공 7C1503
+              항공 7C1501
             </span>
           </div>
-          <div class="weather" data-lat="43.0618" data-lon="141.3545">
-            <span class="temp">2° / -4°</span>
+          <div class="weather" data-lat="43.0618" data-lon="141.3545" data-weather="snow">
+            <span class="weather-icon">❄️</span><span class="temp">2° / -4°</span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 장갑·목도리·방한모, 눈길 대비 미끄럼방지 신발</span>
           </div>
           <div class="stay">
@@ -279,9 +344,9 @@
             <a class="stay-name" href="https://www.google.com/maps/search/?api=1&query=Keikyu%20EX%20Hotel%20Sapporo%2C%20Japan" target="_blank" rel="noopener">Keikyu EX Hotel Sapporo</a> 체크인 (시간 여유있음)
           </div>
           <ul class="schedule">
-            <li class="note">10:00까지 인천공항 T1 도착</li>
-            <li class="flight">12:15 ICN(T1) 출발 <span class="tag">7C1503</span></li>
-            <li class="flight">15:00 CTS 도착 (2h45m)</li>
+            <li class="note">05:15까지 인천공항 T1 도착</li>
+            <li class="flight">07:15 ICN(T1) 출발 <span class="tag">7C1501</span></li>
+            <li class="flight">10:00 CTS(T1) 도착 (2h45m)</li>
             <li class="transit">신치토세공항 → 삿포로역: [JR] 약 37분</li>
             <li>호텔 체크인 (여유있음), 짐 정리 후 저녁 이동</li>
             <li>저녁: 마사진 스스키노 본점 はなれ · 스스키노 양고기 (지하철 왕복)</li>
@@ -306,8 +371,8 @@
               비에이 프리미어 투어
             </span>
           </div>
-          <div class="weather" data-lat="43.5811" data-lon="142.4614">
-            <span class="temp">-3° / -9°</span>
+          <div class="weather" data-lat="43.5811" data-lon="142.4614" data-weather="snow">
+            <span class="weather-icon">❄️</span><span class="temp">-3° / -9°</span>
             <span class="outfit">삿포로보다 5~6도 낮은 내륙 분지 · 방한 부츠·핫팩 필수</span>
           </div>
           <div class="stay">
@@ -346,8 +411,8 @@
               [JR] 삿포로 → 오타루
             </span>
           </div>
-          <div class="weather" data-lat="43.1907" data-lon="140.9947">
-            <span class="temp">2° / -4°</span>
+          <div class="weather" data-lat="43.1907" data-lon="140.9947" data-weather="snow">
+            <span class="weather-icon">❄️</span><span class="temp">2° / -4°</span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 오타루는 바닷바람으로 체감온도 더 낮음</span>
           </div>
           <div class="stay">
@@ -382,8 +447,8 @@
               항공 7C1504
             </span>
           </div>
-          <div class="weather" data-lat="43.1907" data-lon="140.9947">
-            <span class="temp">2° / -4°</span>
+          <div class="weather" data-lat="43.1907" data-lon="140.9947" data-weather="snow">
+            <span class="weather-icon">❄️</span><span class="temp">2° / -4°</span>
             <span class="outfit">두꺼운 패딩 + 기모 이너, 눈길 대비 미끄럼방지 신발</span>
           </div>
           <div class="stay">
@@ -440,7 +505,7 @@
     <div class="route-list">
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg></div>
-        <div class="txt"><b>인천 → 신치토세</b><span>7C1503 · 12.5(토) 12:15 → 15:00</span></div>
+        <div class="txt"><b>인천 → 신치토세</b><span>7C1501 · 12.5(토) 07:15 → 10:00</span></div>
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
@@ -487,7 +552,7 @@
 
     <div class="budget-day">
       <div class="budget-day-head"><span class="b-day">Day 01</span><span class="b-date">12.5(토) · 인천 → 삿포로</span></div>
-      <div class="cost-row"><div class="cost-label">NOL(항공)<small>7C1503 왕복 항공권</small></div><div class="cost-amount paid">₩1,624,560</div></div>
+      <div class="cost-row"><div class="cost-label">NOL(항공)<small>7C1501/7C1504 왕복 항공권</small></div><div class="cost-amount paid">₩1,624,560</div></div>
       <div class="cost-row"><div class="cost-label">[JR] 공항 → 삿포로역<small>¥2,300</small></div><div class="cost-amount paid">₩21,045</div></div>
       <div class="cost-row"><div class="cost-label">공항에서 (식사)</div><div class="cost-amount planned">₩30,000</div></div>
       <div class="cost-row"><div class="cost-label">저녁 · 마사진 (はなれ)<small>스스키노 양고기, 구글평점 4.9</small></div><div class="cost-amount planned">₩100,000</div></div>
@@ -535,13 +600,13 @@
         <div class="booking-card-head">
           <div>
             <div class="booking-title">인천 → 신치토세</div>
-            <div class="booking-sub">Jeju Air 7C1503</div>
+            <div class="booking-sub">Jeju Air 7C1501</div>
           </div>
           <div class="booking-code">***F7M</div>
         </div>
         <div class="booking-rows">
-          <div class="booking-row"><span class="k">출발</span><span class="v">12.5(토) 12:15 · ICN T1</span></div>
-          <div class="booking-row"><span class="k">도착</span><span class="v">12.5(토) 15:00 · CTS</span></div>
+          <div class="booking-row"><span class="k">출발</span><span class="v">12.5(토) 07:15 · ICN T1</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">12.5(토) 10:00 · CTS T1</span></div>
           <div class="booking-row"><span class="k">비행시간</span><span class="v">2시간 45분</span></div>
           <div class="booking-row"><span class="k">위탁수하물</span><span class="v">기본 15kg</span></div>
         </div>
@@ -611,6 +676,20 @@
   </section>
 
 </main>
+
+<!-- ============ WEATHER DETAIL MODAL ============ -->
+<div class="tip-modal" id="wxModal" onclick="if(event.target===this) closeWx()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3 id="wxTitle">날씨</h3>
+      <div class="tip-close" onclick="closeWx()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
+    </div>
+    <div class="tip-body" id="wxBody"></div>
+    <div class="tip-foot"><button onclick="closeWx()">닫기</button></div>
+  </div>
+</div>
 
 <!-- ============ MEAL SLIDE-OVER PAGE ============ -->
 <div class="meal-page" id="mealPage">
@@ -735,6 +814,20 @@
     document.getElementById('todayCard').appendChild(wrap);
   }
 
+  function weatherEmoji(code){
+    if (code === 0) return '☀️';
+    if (code === 1) return '🌤️';
+    if (code === 2) return '⛅';
+    if (code === 3) return '☁️';
+    if ([45,48].includes(code)) return '🌫️';
+    if ([51,53,55,56,57,80,81,82].includes(code)) return '🌦️';
+    if ([61,63,65,66,67].includes(code)) return '🌧️';
+    if ([71,73,75,77,85,86].includes(code)) return '❄️';
+    if ([95,96,99].includes(code)) return '⛈️';
+    return '⛅';
+  }
+
+  // 실시간 날씨: 여행일 기준 5일 이내로 다가오면 Open-Meteo(무료·API키 불필요)로 실제 예보 표시
   async function initLiveWeather(){
     const todayLocal = new Date();
     todayLocal.setHours(0,0,0,0);
@@ -748,19 +841,97 @@
       const diffDays = Math.round((dayDate - todayLocal) / 86400000);
       if (diffDays < 0 || diffDays > 5) return;
       const { lat, lon } = weatherEl.dataset;
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=${dateStr}&end_date=${dateStr}`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&start_date=${dateStr}&end_date=${dateStr}`;
       const job = fetch(url).then(r => r.json()).then(data => {
-        const max = data && data.daily && data.daily.temperature_2m_max && data.daily.temperature_2m_max[0];
-        const min = data && data.daily && data.daily.temperature_2m_min && data.daily.temperature_2m_min[0];
+        const d = data && data.daily;
+        const max = d && d.temperature_2m_max && d.temperature_2m_max[0];
+        const min = d && d.temperature_2m_min && d.temperature_2m_min[0];
         if (max === undefined || min === undefined || max === null || min === null) return;
+        weatherEl.removeAttribute('data-weather');
+        const iconEl = weatherEl.querySelector('.weather-icon');
+        if (iconEl && d.weathercode) iconEl.textContent = weatherEmoji(d.weathercode[0]);
         const tempEl = weatherEl.querySelector('.temp');
-        if (tempEl) tempEl.textContent = `${Math.round(max)}° / ${Math.round(min)}° · 실시간`;
-        weatherEl.dataset.live = '1';
+        if (tempEl) tempEl.innerHTML = `${Math.round(max)}° / ${Math.round(min)}° <span style="font-size:9.5px;font-weight:600;color:var(--sapporo);">(실시간)</span>`;
+        const pop = d.precipitation_probability_max ? d.precipitation_probability_max[0] : 0;
+        const outfitEl = weatherEl.querySelector('.outfit');
+        if (pop >= 50 && outfitEl && !outfitEl.querySelector('.snow-note')){
+          const note = document.createElement('b');
+          note.className = 'snow-note';
+          note.style.cssText = 'display:block;color:var(--warn);margin-top:3px;font-weight:800;';
+          note.textContent = `❄️ 강수확률 ${pop}% — 방수 아우터 챙기기`;
+          outfitEl.appendChild(note);
+        }
       }).catch(() => {});
       jobs.push(job);
     });
     await Promise.allSettled(jobs);
   }
+
+  // 날씨 상세: 날씨 칸을 누르면 시간별 기온·강수확률
+  function closeWx(){
+    document.getElementById('wxModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  async function openWx(day){
+    const weatherEl = day.querySelector('.weather');
+    if (!weatherEl || !weatherEl.dataset.lat) return;
+    const dateStr = day.dataset.date;
+    const dnum = day.querySelector('.day-num'), ddate = day.querySelector('.day-date');
+    document.getElementById('wxTitle').textContent = (dnum ? dnum.textContent + ' · ' : '') + (ddate ? ddate.textContent : dateStr);
+    const body = document.getElementById('wxBody');
+    body.innerHTML = '<div class="wx-msg">불러오는 중…</div>';
+    document.getElementById('wxModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const { lat, lon } = weatherEl.dataset;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,precipitation,weathercode&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=${dateStr}&end_date=${dateStr}`;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw 0;
+      const j = await res.json();
+      if (!j.hourly || !j.hourly.time || !j.hourly.time.length) throw 0;
+      const outfitEl = weatherEl.querySelector('.outfit');
+      const tmax = Math.round(j.daily.temperature_2m_max[0]);
+      const tmin = Math.round(j.daily.temperature_2m_min[0]);
+      let maxPop = 0, sumMm = 0;
+      j.hourly.precipitation_probability.forEach(v => { if (v > maxPop) maxPop = v; });
+      j.hourly.precipitation.forEach(v => { sumMm += (v || 0); });
+      let html = '<div class="wx-sum">' +
+        '<div><div class="k">최고 / 최저</div><div class="v">' + tmax + '° / ' + tmin + '°</div></div>' +
+        '<div><div class="k">강수확률 최대</div><div class="v">' + maxPop + '%</div></div>' +
+        '<div><div class="k">예상 강수량</div><div class="v">' + (Math.round(sumMm * 10) / 10) + 'mm</div></div>' +
+        '</div>';
+      if (outfitEl) html += '<div class="wx-outfit">👕 ' + outfitEl.textContent + '</div>';
+      for (let i = 0; i < j.hourly.time.length; i++){
+        const hh = parseInt(j.hourly.time[i].slice(11, 13), 10);
+        if (hh < 6 || hh > 21) continue;
+        const pop = j.hourly.precipitation_probability[i] || 0;
+        html += '<div class="wx-row' + (pop >= 50 ? ' rain' : '') + '">' +
+          '<span class="t">' + String(hh).padStart(2, '0') + ':00</span>' +
+          '<span class="ic">' + weatherEmoji(j.hourly.weathercode[i]) + '</span>' +
+          '<span class="tp">' + Math.round(j.hourly.temperature_2m[i]) + '°</span>' +
+          '<span class="ppbar"><i style="width:' + pop + '%"></i></span>' +
+          '<span class="ppv">' + pop + '%</span></div>';
+      }
+      html += '<div class="wx-src">06~21시 · 출처 Open-Meteo</div>';
+      body.innerHTML = html;
+    } catch (e) {
+      body.innerHTML = '<div class="wx-msg">아직 예보가 나오지 않았습니다.<br>보통 방문일 2주 전부터 조회됩니다.</div>';
+    }
+  }
+  document.addEventListener('click', function(e){
+    const w = e.target.closest('.weather');
+    if (!w || !w.dataset.lat) return;
+    const day = w.closest('.day[data-date]');
+    if (day) openWx(day);
+  });
+  document.querySelectorAll('#tab-itinerary .day[data-date] .weather').forEach(w => {
+    if (!w.dataset.lat) return;
+    const hint = document.createElement('span');
+    hint.className = 'more';
+    hint.textContent = '시간별 ›';
+    w.appendChild(hint);
+  });
+
   initLiveWeather().finally(initTodayCard);
 
   const routeIcons = {
