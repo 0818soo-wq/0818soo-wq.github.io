@@ -186,6 +186,7 @@
   .pack-item input{ width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--sapporo); flex-shrink: 0; }
   .pack-item span{ font-size: 13px; line-height: 1.5; color: var(--ink); }
   .pack-item.done span{ color: var(--ink-faint); text-decoration: line-through; }
+  .pack-item .jp{ display: block; margin-top: 2px; font-size: 10.5px; font-weight: 600; color: var(--accent); }
   .pack-sec.sub h4{ font-size: 11.5px; color: var(--ink-faint); font-weight: 800; }
   .pack-ref{ font-size: 11.5px; color: var(--ink-soft); line-height: 1.55; padding: 6px 0; border-top: 1px solid var(--line); }
   .pack-sec.sub .pack-ref:first-of-type{ border-top: none; }
@@ -1431,61 +1432,71 @@
     ]}
   ];
   const shopData = [
-    { h:'👜 삿포로 시내 — 잡화·패션 (Day 01 스스키노·오도리)', items:[
-      '<b>스탠다드 프로덕트</b> 가방 — 모유쿠 삿포로점 2F (南2条西3丁目)',
-      '<b>스탠다드 프로덕트</b> 수세미',
-      '<b>러쉬(LUSH)</b> 팩 — 모유쿠 삿포로점 1F (北日本 최대 매장)',
-      '<b>오니츠카타이거</b> 신발 — 삿포로 파르코 1F (南1条西3丁目)',
-      '<b>몽벨(mont-bell)</b> 몬타베어(モンタベア) 가방 — 아카렌가테라스점 (北2条西4丁目, 치카호 직결)'
+    { h:'👜 모유쿠 삿포로 (南2条西3丁目)', note:'스탠다드 프로덕트 2F · 러쉬 1F', items:[
+      '<b>스탠다드 프로덕트</b> 가방<span class="jp">スタンダードプロダクツ バッグ</span>',
+      '<b>스탠다드 프로덕트</b> 수세미<span class="jp">スタンダードプロダクツ スポンジ</span>',
+      '<b>러쉬(LUSH)</b> 팩 (北日本 최대 매장)<span class="jp">ラッシュ フェイスマスク</span>'
     ]},
-    { h:'🧴 드럭스토어 — 스킨케어·뷰티', items:[
-      '<b>毛穴撫子 케아나 나데시코</b> 모공 숨바꼭질 프라이머',
-      '<b>カラミ 카라미</b> 메이크업 킵 스퀘어 에어팩 (칼라민 파우더 시트팩)',
-      '<b>ビオレu 비오레 유</b> 더바디 바디로션 금목서(킨모쿠세이)향',
-      '<b>ANESSA 아네사</b> 퍼펙트 UV 브러쉬온 파우더 N',
-      '<b>NIVEA 니베아</b> 선 프로텍트 워터젤 SPF50+',
-      '<b>元気ですか 원정요</b> 모이스트업 레디 스킨팩',
-      '<b>Bifesta 비페스타</b> 폼클렌징 (딥클리어 · 브라이트업 등)',
-      '<b>ももぷり 모모프리</b> 프레시 필오프팩',
-      '<b>ビオレ 비오레</b> 클렌징오일',
-      '<b>Gyutto 규토</b> 코르셋 헤어마스크 (손상모 케어)',
-      '<b>suisai 수이사이</b> 비유티클리어 파우더워시 (효소 클렌징폼)'
+    { h:'👟 삿포로 파르코 (南1条西3丁目)', items:[
+      '<b>오니츠카타이거</b> 신발<span class="jp">オニツカタイガー シューズ</span>'
     ]},
-    { h:'💊 드럭스토어 — 상비약·생활용품', items:[
-      '<b>eve クイック 이브 퀵</b> 두통약',
-      '<b>大正クイックケア 다이쇼 퀵케어</b> 구내염패치',
-      '<b>ソフィ 소피</b> 금목서향 생리대 (기간한정)',
-      '<b>ロリエ 로리에</b> 키레이스타일 팬티라이너',
-      '<b>ソフィ 소피</b> 키요라 팬티라이너',
-      '<b>小林製薬 고바야시</b> 1滴消臭元 (변기향수, 1방울 소취원)',
-      '<b>小林製薬 고바야시</b> 命の母A 이노치노하하A (여성 갱년기·생리 불편 완화)',
-      '<b>コッコアポ 코코아포</b> 또는 <b>ナイシトール 나이시토르</b> 방풍통성산 (변비·붓기·복부지방)',
-      '<b>アタックZERO 아타크 제로</b> 세탁세제',
-      '<b>ルック 룩</b> 오후로노 방카비쿤엔자이 (욕실 곰팡이 훈연제)',
-      '<b>ウタマロ石鹸 우타마로 비누</b>',
-      '<b>ウタマロクリーナー 우타마로 클리너</b>',
-      '<b>小林製薬 고바야시</b> ブレスケア 브레스케어 (입냄새 캡슐)'
+    { h:'🏔 몽벨 아카렌가테라스점 (北2条西4丁目, 치카호 직결)', items:[
+      '<b>몽벨(mont-bell)</b> 몬타베어 가방<span class="jp">モンベル モンタベア バッグ</span>'
     ]},
-    { h:'🍳 주방·조미료', items:[
-      '<b>Cucute 큐큐토</b> 또는 <b>Joy 조이</b> 주방세제',
-      '<b>GABAN 가반</b> 후추'
+    { h:'☕ 칼디커피팜 (삿포로역 아피아 B1F)', items:[
+      '캡슐커피<span class="jp">カルディコーヒーファーム カプセルコーヒー</span>',
+      '트러플소금<span class="jp">トリュフソルト</span>',
+      '홋카이도 발효버터<span class="jp">北海道 発酵バター</span>'
     ]},
-    { h:'🧹 청소용품', items:[
-      '<b>Quickle 퀵클</b> 洗面ボウルクリーナー (세면대 클리너)',
-      '<b>LEC 激落ちくん 게키오치쿤</b> トレループ 핸디 먼지떨이 (반복사용)',
-      '<b>超電水 Clean Shu!Shu! 초덴스이 클린슈슈</b> 전해알칼리세정수 리필 1000ml',
-      '<b>Kao 카오</b> 매직클린 오후로니 피타츠 (욕실용 곰팡이·핑크물때 방지)'
+    { h:'🏪 돈키호테·쓰루하드럭 — 스킨케어·뷰티', items:[
+      '<b>毛穴撫子 케아나 나데시코</b> 모공 숨바꼭질 프라이머<span class="jp">毛穴撫子 毛穴かくれんぼプライマー</span>',
+      '<b>カラミ 카라미</b> 메이크업 킵 스퀘어 에어팩<span class="jp">カラミ メイクキープ スクエアエアパック</span>',
+      '<b>ビオレu 비오레 유</b> 더바디 바디로션 금목서향<span class="jp">ビオレu ザボディ 金木犀の香り</span>',
+      '<b>ANESSA 아네사</b> 퍼펙트 UV 브러쉬온 파우더 N<span class="jp">アネッサ パーフェクトUV ブラッシュオンパウダーN</span>',
+      '<b>NIVEA 니베아</b> 선 프로텍트 워터젤 SPF50+<span class="jp">ニベア サンプロテクトウォータージェル</span>',
+      '<b>元気ですか 원정요</b> 모이스트업 레디 스킨팩<span class="jp">元気ですか モイストアップレディパック</span>',
+      '<b>Bifesta 비페스타</b> 폼클렌징<span class="jp">ビフェスタ 泡洗顔</span>',
+      '<b>ももぷり 모모프리</b> 프레시 필오프팩<span class="jp">ももぷり フレッシュピールオフパック</span>',
+      '<b>ビオレ 비오레</b> 클렌징오일<span class="jp">ビオレ クレンジングオイル</span>',
+      '<b>Gyutto 규토</b> 코르셋 헤어마스크<span class="jp">ギュット コルセットヘアマスク</span>',
+      '<b>suisai 수이사이</b> 비유티클리어 파우더워시<span class="jp">suisai ビューティクリア パウダーウォッシュ</span>'
     ]},
-    { h:'🍶 술 — 사케·위스키', items:[
-      '홋카이도 사케',
-      '위스키'
+    { h:'🏪 돈키호테·쓰루하드럭 — 상비약·여성용품', items:[
+      '<b>eve クイック 이브 퀵</b> 두통약<span class="jp">eve クイック</span>',
+      '<b>大正クイックケア 다이쇼 퀵케어</b> 구내염패치<span class="jp">口内炎パッチ 大正クイックケア</span>',
+      '<b>ソフィ 소피</b> 금목서향 생리대<span class="jp">ソフィ 金木犀の香り</span>',
+      '<b>ロリエ 로리에</b> 키레이스타일 팬티라이너<span class="jp">ロリエ きれいスタイル</span>',
+      '<b>ソフィ 소피</b> 키요라 팬티라이너<span class="jp">ソフィ Kiyora</span>',
+      '<b>小林製薬 고바야시</b> 1방울 소취원 (변기향수)<span class="jp">小林製薬 1滴消臭元</span>',
+      '<b>小林製薬 고바야시</b> 이노치노하하A<span class="jp">小林製薬 命の母A</span>',
+      '방풍통성산 (코코아포 또는 나이시토르)<span class="jp">コッコアポ / ナイシトール（防風通聖散）</span>',
+      '<b>小林製薬 고바야시</b> 브레스케어<span class="jp">小林製薬 ブレスケア</span>'
     ]},
-    { h:'☕ 식품', items:[
-      '칼디 캡슐커피',
-      '트러플소금',
-      '홋카이도 발효버터',
-      '세븐일레븐 고구마맛탕(大学いも)',
-      '돈키호테 김'
+    { h:'🏪 돈키호테·쓰루하드럭 — 생활·세탁', items:[
+      '<b>アタックZERO 아타크 제로</b> 세탁세제<span class="jp">アタックZERO</span>',
+      '<b>ルック 룩</b> 오후로노 방카비쿤엔자이<span class="jp">ルック おふろの防カビくん煙剤</span>',
+      '<b>ウタマロ石鹸 우타마로 비누</b><span class="jp">ウタマロ石鹸</span>',
+      '<b>ウタマロクリーナー 우타마로 클리너</b><span class="jp">ウタマロクリーナー</span>'
+    ]},
+    { h:'🏪 돈키호테·쓰루하드럭 — 주방·조미료', items:[
+      '<b>Cucute 큐큐토</b> 또는 <b>Joy 조이</b> 주방세제<span class="jp">キュキュット / Joy</span>',
+      '<b>GABAN 가반</b> 후추<span class="jp">GABAN こしょう</span>'
+    ]},
+    { h:'🏪 돈키호테·쓰루하드럭 — 청소용품', items:[
+      '<b>Quickle 퀵클</b> 세면대 클리너<span class="jp">Quickle 洗面ボウルクリーナー</span>',
+      '<b>LEC 激落ちくん 게키오치쿤</b> 트레루프 핸디 먼지떨이<span class="jp">激落ちくん トレループ ハンディ</span>',
+      '<b>超電水 Clean Shu!Shu! 초덴스이 클린슈슈</b> 전해알칼리세정수 리필 1000ml<span class="jp">超電水クリーンシュシュ</span>',
+      '<b>Kao 카오</b> 매직클린 오후로니 피타츠<span class="jp">マジックリン お風呂にピタッ</span>'
+    ]},
+    { h:'🏪 돈키호테·쓰루하드럭 — 식품', items:[
+      '김<span class="jp">味付け海苔</span>'
+    ]},
+    { h:'🍶 빅카메라 삿포로역점 또는 리카마운틴 스스키노5조도리점', items:[
+      '홋카이도 사케<span class="jp">北海道 日本酒</span>',
+      '위스키<span class="jp">ウイスキー</span>'
+    ]},
+    { h:'🏪 세븐일레븐 (아무 지점)', items:[
+      '고구마맛탕<span class="jp">大学いも</span>'
     ]}
   ];
   const PACK_KEY = 'pack2026hk';
