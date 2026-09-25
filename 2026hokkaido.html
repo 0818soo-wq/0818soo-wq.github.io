@@ -151,6 +151,52 @@
   .meal-pick .meal-desc{ display: block; font-size: 11.5px; color: var(--ink-soft); margin-top: 3px; line-height: 1.5; }
   .meal-pick .meal-plain{ font-size: 13px; font-weight: 700; color: var(--ink); }
 
+  /* ---------- OFFLINE BAR ---------- */
+  #offlineBar{
+    display: none;
+    position: sticky; top: 0; z-index: 30;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 11.5px; font-weight: 800; text-align: center;
+    padding: 8px 12px; line-height: 1.45;
+  }
+  body.is-offline #offlineBar{ display: block; }
+
+  /* ---------- PACKING CHECKLIST ---------- */
+  .pack-btn{
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    width: calc(100% - 12px); margin: 20px 6px 4px; padding: 13px;
+    border-radius: 12px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--sapporo);
+    font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer;
+  }
+  .pack-btn svg{ width: 15px; height: 15px; }
+  .pack-btn:active{ background: var(--sapporo-soft); }
+  .pack-btn + .pack-btn{ margin-top: 8px; }
+  .pack-bar i.shop{ background: var(--accent); }
+  .pack-item input.shop{ accent-color: var(--accent); }
+  .pack-progress{ padding: 13px 18px 2px; flex-shrink: 0; }
+  .pack-progress span{ font-size: 11.5px; font-weight: 800; color: var(--ink-soft); }
+  .pack-bar{ height: 5px; border-radius: 3px; background: var(--line); margin-top: 6px; overflow: hidden; }
+  .pack-bar i{ display: block; height: 100%; width: 0; background: var(--sapporo); transition: width .2s ease; }
+  .pack-sec{ margin-bottom: 20px; }
+  .pack-sec h4{ font-size: 12.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px; }
+  .pack-note{ font-size: 11.5px; color: var(--accent); line-height: 1.55; margin: 4px 0 8px; font-weight: 600; }
+  .pack-item{ display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--line); cursor: pointer; }
+  .pack-sec .pack-item:first-of-type{ border-top: none; }
+  .pack-item input{ width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--sapporo); flex-shrink: 0; }
+  .pack-item span{ font-size: 13px; line-height: 1.5; color: var(--ink); }
+  .pack-item.done span{ color: var(--ink-faint); text-decoration: line-through; }
+  .pack-item .jp{ display: block; margin-top: 2px; font-size: 10.5px; font-weight: 600; color: var(--accent); }
+  .shop-store{ margin-bottom: 26px; }
+  .shop-store-h{ font-family: 'Fraunces', serif; font-weight: 700; font-size: 15px; color: var(--ink); margin: 0 0 6px; padding-bottom: 8px; border-bottom: 2px solid var(--sapporo-soft); }
+  .shop-cat{ margin: 14px 0 0; }
+  .shop-cat-h{ display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 800; color: var(--sapporo); margin: 0 0 2px; }
+  .shop-cat-h::before{ content: '－'; color: var(--ink-faint); font-weight: 600; }
+  .pack-sec.sub h4{ font-size: 11.5px; color: var(--ink-faint); font-weight: 800; }
+  .pack-ref{ font-size: 11.5px; color: var(--ink-soft); line-height: 1.55; padding: 6px 0; border-top: 1px solid var(--line); }
+  .pack-sec.sub .pack-ref:first-of-type{ border-top: none; }
+  .pack-ref b{ color: var(--ink); font-weight: 700; }
+
   /* ---------- 식사 TAB ---------- */
   .mealday{ background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-top: 14px; }
   .mealday:first-child{ margin-top: 22px; }
@@ -185,7 +231,67 @@
   .daily-route-head{ display:flex; align-items:baseline; gap:8px; margin-bottom: 12px; }
   .daily-route-head .d-day{ font-family:'Fraunces', serif; font-weight:600; font-size:15.5px; color: var(--ink); }
   .daily-route-head .d-date{ font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
-  .drd-map{ width:100%; height:220px; display:block; margin-bottom: 16px; border-radius: 12px; border: 0; background: var(--bg); }
+  .drd-map{
+    width:100%; height:220px; display:block; margin-bottom: 16px;
+    border-radius: 12px; border: 1px solid var(--line); background: var(--bg);
+    position: relative; z-index: 0; overflow: hidden; cursor: zoom-in;
+  }
+  .drd-tiles{ position:absolute; inset:0; }
+  .drd-tiles img{ position:absolute; width:256px; height:256px; border:0; }
+  .drd-ov{ position:absolute; inset:0; width:100%; height:100%; }
+  .drd-attr{
+    position:absolute; right:0; bottom:0; z-index:2;
+    font-size: 9px; line-height:1.4; padding: 1px 5px;
+    background: rgba(255,255,255,.8); color: var(--ink-soft);
+    border-top-left-radius: 6px;
+  }
+  .drd-attr a{ color: inherit; }
+  .drd-zoom{
+    position:absolute; right:8px; top:8px; z-index:3;
+    display:flex; align-items:center; gap:4px;
+    padding: 5px 9px; border-radius: 999px;
+    background: rgba(255,255,255,.92); border: 1px solid var(--line);
+    font-size: 11px; font-weight: 800; color: var(--sapporo);
+  }
+  .drd-zoom svg{ width: 12px; height: 12px; }
+  .drd-map-ph{ display:flex; align-items:center; justify-content:center;
+    font-size: 12px; color: var(--ink-faint); font-weight: 600; }
+  .drd-dir{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    margin-bottom: 16px; padding: 9px 12px;
+    border: 1px solid var(--line); border-radius: 10px;
+    font-size: 12.5px; font-weight: 700; color: var(--sapporo);
+    text-decoration: none; background: var(--bg);
+  }
+  .drd-dir svg{ width: 14px; height: 14px; flex-shrink:0; }
+
+  /* 전체화면 지도 */
+  .mapfull{
+    position: fixed; inset: 0; z-index: 90; display: none;
+    background: var(--bg); flex-direction: column;
+  }
+  .mapfull.on{ display: flex; }
+  .mapfull-bar{
+    display:flex; align-items:center; gap:10px;
+    padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--surface);
+  }
+  .mapfull-bar .t{ font-size: 14px; font-weight: 800; color: var(--ink); flex:1; }
+  .mapfull-bar button{
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink:0;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+    font-size: 17px; font-weight: 800; line-height: 1; cursor: pointer;
+  }
+  .mapfull-bar button:focus-visible{ outline: 2px solid var(--sapporo); outline-offset: 2px; }
+  .mapfull-cv{
+    flex: 1; position: relative; overflow: hidden;
+    touch-action: none; background: var(--bg); cursor: grab;
+  }
+  .mapfull-cv:active{ cursor: grabbing; }
+  .mapfull-hint{
+    padding: 9px 14px; font-size: 11.5px; color: var(--ink-soft);
+    font-weight: 600; text-align:center; border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
   .drd{ position: relative; padding-left: 22px; }
   .drd::before{ content:""; position:absolute; left:5px; top:7px; bottom:7px; width:2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
   .drd-stop{ position: relative; margin-bottom: 2px; }
@@ -301,6 +407,8 @@
 </head>
 <body>
 
+<div id="offlineBar">📴 오프라인 — 일정·예약·비용은 그대로 보입니다. 지도와 실시간 날씨만 표시되지 않아요.</div>
+
 <div class="hero">
   <p class="hero-eyebrow">Trip · 2026.12.05 – 12.08</p>
   <h1 class="hero-title">2026<br><em>HOKKAIDO</em></h1>
@@ -335,6 +443,16 @@
 
     <div id="todayCard"></div>
 
+    <button class="pack-btn" onclick="openPack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 6h16v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/></svg>
+      짐 체크리스트
+    </button>
+
+    <button class="pack-btn" onclick="openShop()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      쇼핑리스트
+    </button>
+
     <div class="segment-label seg-sapporo"><span class="dot"></span>삿포로 · 비에이<span class="rule"></span></div>
     <div class="timeline">
 
@@ -365,7 +483,13 @@
             <li class="flight">10:00 CTS(T1) 도착 (2h45m)</li>
             <li class="transit">신치토세공항 → 삿포로역: [JR] 약 37분</li>
             <li>숙소 도착 (약 11:30), 체크인 전 짐 보관</li>
-            <li>스스키노·오도리 이동: 점심 수프카레 트레져, 니조시장·시내 구경, 쇼핑</li>
+            <li>삿포로역 아피아(Apia) B1F 칼디커피팜 — 캡슐커피·발효버터</li>
+            <li>로손(Lawson) 편의점 — 멘야사이미 감수 냉장 미소라멘</li>
+            <li>치카호 지하보도로 오도리 이동: 몽벨 아카렌가테라스점 (삿포로 최대 매장) — 몬타베어 가방</li>
+            <li>스스키노·오도리 이동: 점심 수프카레 트레져, 니조시장·시내 구경</li>
+            <li>쇼핑: 스탠다드 프로덕트(모유쿠 삿포로 2F) 가방·수세미, 러쉬(모유쿠 삿포로 1F) 팩, 오니츠카타이거(삿포로 파르코 1F) 신발, 휴먼메이드(더 낫 삿포로 호텔 1F) 모자</li>
+            <li>돈키호테·쓰루하드럭 등 드럭스토어 — 스킨케어·상비약·생활세탁·청소용품 일괄 구매</li>
+            <li>빅카메라 삿포로역점(5,000엔↑ 면세) 또는 리카마운틴 스스키노5조도리점 — 홋카이도 사케·위스키 구매</li>
             <li>오후: 삿포로맥주박물관 관람</li>
             <li>숙소 체크인</li>
             <li>저녁: 마사진 스스키노 본점 はなれ · 스스키노 양고기, 여유있게</li>
@@ -481,7 +605,7 @@
             <li class="note">11:00 체크아웃, 여유있게 출발</li>
             <li class="transit">택시로 오타루역 이동 → [JR] 신치토세공항行 직행 (약 70~80분)</li>
             <li class="note">13:30~14:00까지 신치토세공항 도착 (16:00 항공편까지 여유 확보)</li>
-            <li>점심: 공항에서 (GARAKU 또는 一幻 라멘, 국내선청사 3층)</li>
+            <li>점심: 공항에서 (부타동 메이진 또는 五十七番寿し 다치구이스시)</li>
             <li class="flight">16:00 CTS 출발 <span class="tag">7C1504</span></li>
             <li class="flight">19:25 ICN(T1) 도착 (3h25m)</li>
             <li class="note">기내식 없음 (제주항공), 간식 미리 챙기기</li>
@@ -542,7 +666,7 @@
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg></div>
-        <div class="txt"><b>오타루 → 신치토세</b><span>숙소→오타루역 택시 · JR 직행 · 12.8(화) · 공항에서 점심(GARAKU/一幻)</span></div>
+        <div class="txt"><b>오타루 → 신치토세</b><span>숙소→오타루역 택시 · JR 직행 · 12.8(화) · 공항에서 점심(부타동 메이진/五十七番寿し)</span></div>
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg></div>
@@ -611,7 +735,7 @@
       <div class="budget-day-head"><span class="b-day">Day 04</span><span class="b-date">12.8(화) · 오타루 → 귀국</span></div>
       <div class="cost-row"><div class="cost-label">조식 · 숙소 조식<small>2식 플랜 포함</small></div><div class="cost-amount muted">-</div></div>
       <div class="cost-row"><div class="cost-label">[JR] 오타루 → 신치토세공항 직행<small>¥4,080, 삿포로 경유(환승만)</small></div><div class="cost-amount paid">₩37,332</div></div>
-      <div class="cost-row"><div class="cost-label">점심 · GARAKU 또는 一幻 라멘<small>신치토세공항 국내선청사 3층</small></div><div class="cost-amount planned">₩50,000</div></div>
+      <div class="cost-row"><div class="cost-label">점심 · 부타동 메이진 또는 五十七番寿し<small>신치토세공항 국내선청사</small></div><div class="cost-amount planned">₩50,000</div></div>
       <div class="cost-row"><div class="cost-label">Jeju Air 7C1504<small>Day 01 항공권에 포함</small></div><div class="cost-amount muted">-</div></div>
     </div>
 
@@ -718,6 +842,41 @@
   </div>
 </div>
 
+<!-- ============ PACK / SHOP CHECKLIST MODALS ============ -->
+<div class="tip-modal" id="packModal" onclick="if(event.target===this) closePack()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3>짐 체크리스트</h3>
+      <div class="tip-close" onclick="closePack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
+    </div>
+    <div class="pack-progress">
+      <span id="packCount">0 / 0</span>
+      <div class="pack-bar"><i id="packBar"></i></div>
+    </div>
+    <div class="tip-body" id="packBody"></div>
+    <div class="tip-foot"><button onclick="closePack()">닫기</button></div>
+  </div>
+</div>
+
+<div class="tip-modal" id="shopModal" onclick="if(event.target===this) closeShop()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3>쇼핑리스트</h3>
+      <div class="tip-close" onclick="closeShop()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
+    </div>
+    <div class="pack-progress">
+      <span id="shopCount">0 / 0</span>
+      <div class="pack-bar"><i class="shop" id="shopBar"></i></div>
+    </div>
+    <div class="tip-body" id="shopBody"></div>
+    <div class="tip-foot"><button onclick="closeShop()">닫기</button></div>
+  </div>
+</div>
+
 <!-- ============ MEAL SLIDE-OVER PAGE ============ -->
 <div class="meal-page" id="mealPage">
   <div class="meal-page-head">
@@ -781,8 +940,8 @@
     day2: { b: "호텔 조식", l: { name: "준페이", place: "北海道上川郡美瑛町本町4丁目4-10", desc: "양식·카페 준페이 · 비에이 시내" }, d: { name: "삿포로 가니혼케 에키마에 본점", place: "北海道札幌市中央区北三条西2丁目1-18", desc: "구글평점 4.4 · 삿포로역 앞, 숙소에서 도보권 · 털게·타라바게 코스" }, s: { name: "이자카야 一番星 きむら", place: "北海道札幌市中央区南6条西3 ススキノ中央ビル9階", desc: "구글평점 4.5 · 스스키노 · 평일 18:00~익일 03:00" } },
     day3: { b: "호텔 조식", l: { name: "라멘 스미레 (스스키노점)", place: "北海道札幌市中央区南3条西3-9-2", desc: "삿포로 대표 미소라멘 · 오픈런 추천" }, d: "숙소 석식 (2식 플랜 포함)" },
     day4: { b: "숙소 조식 (2식 플랜 포함)", l: [
-      { name: "스프카레 GARAKU (신치토세공항점)", place: "スープカレーGARAKU 新千歳空港店, New Chitose Airport, Japan", desc: "삿포로 인기 수프카레 GARAKU 공항 지점 · 국내선청사 3층 (9:00~21:00)" },
-      { name: "라멘 一幻 えびそば (신치토세공항점)", place: "えびそば一幻 新千歳空港店, New Chitose Airport, Japan", desc: "새우육수 라멘 전문 · 국내선청사 3층 라멘도조 내" }
+      { name: "부타동 메이진 (신치토세공항점)", place: "豚丼名人 新千歳空港店, New Chitose Airport, Japan", desc: "40년 전통 부타동 전문점 · 국내선청사 3층 그루메월드" },
+      { name: "五十七番寿し (다치구이스시)", place: "札幌魚河岸 五十七番寿し, New Chitose Airport, Japan", desc: "서서 먹는 스시 · 국내선청사 2층 도산 직판시장 내" }
     ], d: "기내식 없음 (제주항공 무료 기내식 미제공) · 간식 미리 챙기기" }
   };
 
@@ -990,10 +1149,178 @@
     transit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg>',
     plane: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>'
   };
-  function mapFrame(locs, zoom){
-    const q = locs.map(encodeURIComponent).join('%7C');
-    const z = zoom ? ('&z=' + zoom) : '';
-    return '<iframe class="drd-map" src="https://maps.google.com/maps?q=' + q + z + '&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
+  // 일자별 미니지도 경유지 좌표 (OpenStreetMap 기준)
+  const GEO = {
+    'New Chitose Airport, Japan'      : [42.7753, 141.6925],
+    'Sapporo Station, Japan'          : [43.0686, 141.3507],
+    'Sapporo Beer Museum, Japan'      : [43.0717, 141.3689],
+    'Keikyu EX Hotel Sapporo, Japan'  : [43.0687, 141.3488],
+    'Sapporo, Japan'                  : [43.0618, 141.3545],
+    'Biei, Hokkaido, Japan'           : [43.5811, 142.4614],
+    'Otaru Station, Japan'            : [43.1920, 140.9897],
+    'Otaru Korakuen, Japan'           : [43.1630, 141.0750]
+  };
+  // 짧은 표시용 이름
+  function shortName(n){ return n.replace(/, Japan$/, '').replace(/^\d+ /, '').replace(/,.*$/, ''); }
+  function mapFrame(locs, opts){
+    opts = opts || {};
+    const pts = locs.filter(function(l){ return GEO[l]; });
+    let html = '<div class="drd-map drd-map-ph" data-title="' + (opts.title || '동선') + '" data-pts="'
+             + encodeURIComponent(JSON.stringify(pts)) + '">지도 불러오는 중…</div>';
+    const dl = opts.dir === null ? [] : (opts.dir || locs);
+    if (dl.length >= 2){
+      const o = encodeURIComponent(dl[0]);
+      const d = encodeURIComponent(dl[dl.length - 1]);
+      const w = dl.slice(1, -1).map(encodeURIComponent).join('%7C');
+      html += '<a class="drd-dir" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1'
+            + '&origin=' + o + '&destination=' + d + (w ? '&waypoints=' + w : '')
+            + '&travelmode=' + (opts.mode || 'transit') + '">'
+            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>'
+            + '구글 지도로 길찾기</a>';
+    }
+    return html;
+  }
+  // ── OpenStreetMap 타일을 직접 그린다 (외부 라이브러리·API 키 없음) ──
+  const TS = 256;
+  function lon2px(lon, z){ return (lon + 180) / 360 * Math.pow(2, z) * TS; }
+  function lat2px(lat, z){
+    const r = lat * Math.PI / 180;
+    return (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * Math.pow(2, z) * TS;
+  }
+  // 경유지가 모두 들어가는 줌과 중심(월드 픽셀)을 구한다
+  function fitMap(pts, W, H, pad){
+    pad = pad || 34;
+    let z = 16;
+    for (; z > 1; z--){
+      const xs = pts.map(function(p){ return lon2px(p[1], z); });
+      const ys = pts.map(function(p){ return lat2px(p[0], z); });
+      if (Math.max.apply(null, xs) - Math.min.apply(null, xs) <= W - pad * 2 &&
+          Math.max.apply(null, ys) - Math.min.apply(null, ys) <= H - pad * 2) break;
+    }
+    if (pts.length === 1) z = Math.min(z, 13);
+    const xs = pts.map(function(p){ return lon2px(p[1], z); });
+    const ys = pts.map(function(p){ return lat2px(p[0], z); });
+    return { z: z,
+      cx: (Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2,
+      cy: (Math.min.apply(null, ys) + Math.max.apply(null, ys)) / 2 };
+  }
+  // 주어진 상태로 타일과 경로를 그린다
+  function paintMap(el, pts, st, W, H){
+    const ox = st.cx - W / 2, oy = st.cy - H / 2, n = Math.pow(2, st.z);
+    let tiles = '';
+    for (let ty = Math.floor(oy / TS); ty <= Math.floor((oy + H) / TS); ty++){
+      if (ty < 0 || ty >= n) continue;
+      for (let tx = Math.floor(ox / TS); tx <= Math.floor((ox + W) / TS); tx++){
+        const wx = ((tx % n) + n) % n;
+        tiles += '<img alt="" src="https://tile.openstreetmap.org/' + st.z + '/' + wx + '/' + ty + '.png"'
+               + ' style="left:' + (tx * TS - ox) + 'px;top:' + (ty * TS - oy) + 'px">';
+      }
+    }
+    const sx = pts.map(function(p){ return (lon2px(p[1], st.z) - ox).toFixed(1); });
+    const sy = pts.map(function(p){ return (lat2px(p[0], st.z) - oy).toFixed(1); });
+    let ov = '<svg class="drd-ov" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">';
+    if (pts.length > 1){
+      const d = sx.map(function(v, i){ return (i ? 'L' : 'M') + v + ' ' + sy[i]; }).join(' ');
+      ov += '<path d="' + d + '" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>'
+          + '<path d="' + d + '" fill="none" stroke="#3E6C8C" stroke-width="2.6" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round"/>';
+    }
+    sx.forEach(function(v, i){
+      const fill = i === 0 ? '#2F6F4E' : (i === sx.length - 1 ? '#B4553F' : '#3E6C8C');
+      ov += '<circle cx="' + v + '" cy="' + sy[i] + '" r="11" fill="' + fill + '" stroke="#fff" stroke-width="2.5"/>'
+          + '<text x="' + v + '" y="' + (parseFloat(sy[i]) + 4) + '" text-anchor="middle"'
+          + ' font-size="12" font-weight="800" fill="#fff" font-family="Manrope,sans-serif">' + (i + 1) + '</text>';
+    });
+    ov += '</svg>';
+    el.innerHTML = '<div class="drd-tiles">' + tiles + '</div>' + ov
+      + '<div class="drd-attr">&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></div>';
+  }
+  function buildRouteMap(el){
+    let names;
+    try { names = JSON.parse(decodeURIComponent(el.dataset.pts)); } catch(e){ return; }
+    const pts = names.map(function(n){ return GEO[n]; }).filter(Boolean);
+    if (!pts.length) return;
+    el.removeAttribute('data-pts');
+    const W = el.clientWidth || 340, H = el.clientHeight || 220;
+    el.classList.remove('drd-map-ph');
+    paintMap(el, pts, fitMap(pts, W, H), W, H);
+    el.insertAdjacentHTML('beforeend',
+      '<span class="drd-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>크게 보기</span>');
+    el.addEventListener('click', function(){ openMapFull(pts, el.dataset.title || '동선'); });
+  }
+  // ── 전체화면 지도: 드래그 이동 · 버튼/핀치 확대 ──
+  let MF = null;
+  function openMapFull(pts, title){
+    if (!MF){
+      MF = document.createElement('div');
+      MF.className = 'mapfull';
+      MF.innerHTML = '<div class="mapfull-bar"><span class="t"></span>'
+        + '<button type="button" data-a="out" aria-label="축소">−</button>'
+        + '<button type="button" data-a="in" aria-label="확대">+</button>'
+        + '<button type="button" data-a="fit" aria-label="전체 보기">⤢</button>'
+        + '<button type="button" data-a="close" aria-label="닫기">×</button></div>'
+        + '<div class="mapfull-cv"></div>'
+        + '<div class="mapfull-hint">손가락으로 끌어 이동 · 두 손가락으로 확대</div>';
+      document.body.appendChild(MF);
+    }
+    const bar = MF.querySelector('.mapfull-bar'), cv = MF.querySelector('.mapfull-cv');
+    MF.querySelector('.t').textContent = title;
+    MF.classList.add('on');
+    document.body.style.overflow = 'hidden';
+
+    const W = () => cv.clientWidth, H = () => cv.clientHeight;
+    let st = fitMap(pts, W(), H(), 48);
+    const draw = () => paintMap(cv, pts, st, W(), H());
+    draw();
+
+    const zoom = (d) => {
+      const nz = Math.max(2, Math.min(17, st.z + d));
+      if (nz === st.z) return;
+      const f = Math.pow(2, nz - st.z);
+      st = { z: nz, cx: st.cx * f, cy: st.cy * f };
+      draw();
+    };
+    bar.onclick = (e) => {
+      const a = e.target.closest('button') && e.target.closest('button').dataset.a;
+      if (a === 'in') zoom(1);
+      else if (a === 'out') zoom(-1);
+      else if (a === 'fit'){ st = fitMap(pts, W(), H(), 48); draw(); }
+      else if (a === 'close'){ MF.classList.remove('on'); document.body.style.overflow = ''; }
+    };
+
+    const ptr = new Map();
+    let base = 0;
+    cv.onpointerdown = (e) => { cv.setPointerCapture(e.pointerId); ptr.set(e.pointerId, e); base = 0; };
+    cv.onpointermove = (e) => {
+      if (!ptr.has(e.pointerId)) return;
+      const prev = ptr.get(e.pointerId);
+      ptr.set(e.pointerId, e);
+      if (ptr.size === 1){
+        st.cx -= e.clientX - prev.clientX;
+        st.cy -= e.clientY - prev.clientY;
+        draw();
+      } else if (ptr.size === 2){
+        const [a, b] = [...ptr.values()];
+        const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+        if (!base) { base = d; return; }
+        if (d / base > 1.55){ zoom(1); base = d; }
+        else if (d / base < 0.65){ zoom(-1); base = d; }
+      }
+    };
+    const end = (e) => { ptr.delete(e.pointerId); base = 0; };
+    cv.onpointerup = end; cv.onpointercancel = end;
+  }
+  function initRouteMaps(){
+    const nodes = document.querySelectorAll('.drd-map[data-pts]');
+    if (!nodes.length) return;
+    if (!('IntersectionObserver' in window)){ nodes.forEach(buildRouteMap); return; }
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        buildRouteMap(e.target);
+      });
+    }, { rootMargin: '250px' });
+    nodes.forEach(function(n){ io.observe(n); });
   }
   // exact:true = 실제 지번주소로 링크 (구글맵이 검색 없이 바로 그 지점 핀에 도착)
   // exact:false = 장소명으로 링크 (고유한 이름이라 대부분 바로 연결되지만, 엄밀히는 검색 결과 1건 매칭)
@@ -1035,7 +1362,7 @@
     { day:'Day 04', date:'12.8(화)', seg:'seg-otaru', stops:[
         {label:'Otaru Korakuen', place:'Otaru Korakuen, Japan', exact:false},
         {label:'오타루역', place:'Otaru Station, Japan', exact:false},
-        {label:'신치토세공항 (점심: GARAKU·一幻)', place:'New Chitose Airport, Japan', exact:false}
+        {label:'신치토세공항 (점심: 부타동메이진·五十七番寿し)', place:'New Chitose Airport, Japan', exact:false}
       ],
       connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'JR 직행 · 약 70~80분'}],
       map: mapFrame(['Otaru Korakuen, Japan','Otaru Station, Japan','New Chitose Airport, Japan']) }
@@ -1061,11 +1388,247 @@
         }
       });
       drd += '</div>';
-      html += `<div class="daily-route-card ${d.seg}"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div>${d.map}${drd}</div>`;
+      html += `<div class="daily-route-card ${d.seg}"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div>${d.map.replace('data-title="동선"', `data-title="${d.day} · ${d.date}"`)}${drd}</div>`;
     });
     container.innerHTML = html;
+    initRouteMaps();
   }
   renderDailyRoutes();
+
+  // 짐 체크리스트 (체크 상태는 이 기기에 저장됩니다)
+  const packData = [
+    { h:'🔴 없으면 여행이 안 되는 것', items:[
+      '여권 3명 (조수연 · 홍정표 · 홍지우)',
+      '항공권 e티켓 · 숙소 예약 확인서 오프라인 저장',
+      '<b>실물</b> 신용카드 — 조수연 · 홍정표 각자 본인 명의',
+      '여행자보험 서류'
+    ]},
+    { h:'👕 방한 옷 — 12월 삿포로 평균 -3~1도', note:'빙판길이 많아 발밑 보온·미끄럼 방지가 특히 중요해요.', items:[
+      '<b>롱패딩 · 두꺼운 방한 코트</b>',
+      '히트텍 등 발열내의 2~3벌',
+      '기모 후드 · 니트',
+      '<b>방한 장갑</b> · 목도리 · 비니 · 귀마개',
+      '두꺼운 양말 여러 켤레',
+      '<b>방수 · 미끄럼방지 스노우부츠</b> (빙판길 필수)',
+      '잠옷',
+      '속옷 4일치'
+    ]},
+    { h:'🔌 전자기기', items:[
+      '카메라 + 여분 배터리 (추우면 훨씬 빨리 닳음)',
+      '보조배터리 — <b>기내 반입만</b>, 위탁 금지',
+      '충전기 · 케이블 (일본은 한국과 같은 콘센트라 어댑터 불필요, 전압만 100V)',
+      '삼각대 + 휴대폰 거치 어댑터'
+    ]},
+    { h:'👶 지우 (어린이)', items:[
+      '어린이용 방한부츠 · 장갑',
+      '기내용 태블릿 · 장난감',
+      '저온화상 주의 어린이용 핫팩',
+      '여벌 옷 (기내용 1벌 따로)',
+      '간식 · 물티슈',
+      '상비약 · 처방약'
+    ]},
+    { h:'🧴 기타', items:[
+      '<b>핫팩</b> 넉넉히 (야외 관광·오픈런 대기용)',
+      '<b>립밤 · 핸드크림</b> — 건조하고 추운 날씨',
+      '성인 상비약 (감기약 포함)',
+      '실내용 슬리퍼 (료칸 · 숙소용)',
+      '세면도구 · 화장품 세트',
+      '목베개 · 안대 (기내용)',
+      '지퍼백 · 에코백'
+    ]}
+  ];
+  const shopData = [
+    { store:'👜 모유쿠 삿포로 (南2条西3丁目)', groups:[
+      { cat:'스탠다드 프로덕트 (2F)', items:[
+        '<b>스탠다드 프로덕트</b> 가방<span class="jp">スタンダードプロダクツ バッグ · ¥1,100</span>',
+        '<b>스탠다드 프로덕트</b> 수세미<span class="jp">スタンダードプロダクツ スポンジ · ¥330</span>',
+        '<b>스탠다드 프로덕트</b> 키친 시저스 (병따개·조개까기 겸용, 티타늄코팅)<span class="jp">スタンダードプロダクツ キッチンシザーズ · ¥550</span>',
+        '<b>스탠다드 프로덕트</b> 키친나이프 (세키산 스테인리스)<span class="jp">スタンダードプロダクツ キッチンナイフ（関製） · ¥1,100</span>',
+        '<b>스탠다드 프로덕트</b> 캐리온 러기지 스트랩<span class="jp">スタンダードプロダクツ キャリーケース荷物固定ベルト · ¥330</span>'
+      ]},
+      { cat:'러쉬 (1F)', items:[
+        '<b>러쉬(LUSH)</b> 팩 — 한국보다 30~40% 저렴<span class="jp">ラッシュ フェイスマスク · ¥1,390</span>'
+      ]}
+    ]},
+    { store:'👟 삿포로 파르코 (南1条西3丁目)', groups:[
+      { cat:'오니츠카타이거', items:[
+        '신발<span class="jp">オニツカタイガー シューズ · ¥8,000~15,000</span>'
+      ]}
+    ]},
+    { store:'🧢 휴먼메이드 삿포로 (더 낫 삿포로 호텔 1F, 南3条西3丁目)', groups:[
+      { cat:'휴먼메이드(HUMAN MADE)', items:[
+        '모자<span class="jp">ヒューマンメイド キャップ · ¥6,000~9,000</span>'
+      ]}
+    ]},
+    { store:'🏔 몽벨 아카렌가테라스점 (北2条西4丁目, 치카호 직결)', groups:[
+      { cat:'몽벨(mont-bell)', items:[
+        '몬타베어 가방<span class="jp">モンベル モンタベア バッグ · ¥3,300</span>'
+      ]}
+    ]},
+    { store:'☕ 칼디커피팜 (삿포로역 아피아 B1F)', groups:[
+      { cat:'식품', items:[
+        '캡슐커피<span class="jp">カルディコーヒーファーム カプセルコーヒー · ¥700</span>',
+        '홋카이도 발효버터<span class="jp">北海道 発酵バター · ¥800</span>'
+      ]}
+    ]},
+    { store:'🏪 로손(Lawson) 편의점 (호텔 1F에도 있음)', groups:[
+      { cat:'즉석식품', items:[
+        '멘야사이미 감수 냉장 미소라멘 (삿포로 인기 미소라멘 맛집)<span class="jp">麺屋彩未監修 札幌味噌らーめん · ¥650</span>'
+      ]}
+    ]},
+    { store:'🏪 돈키호테·쓰루하드럭', groups:[
+      { cat:'스킨케어·뷰티', items:[
+        '<b>毛穴撫子 케아나 나데시코</b> 모공 숨바꼭질 프라이머<span class="jp">毛穴撫子 毛穴かくれんぼプライマー · ¥1,200</span>',
+        '<b>カラミ 카라미</b> 메이크업 킵 스퀘어 에어팩 (칼라민 파우더 시트팩)<span class="jp">カラミ メイクキープ スクエアエアパック · ¥600</span>',
+        '<b>ビオレu 비오레 유</b> 더바디 바디로션 금목서향<span class="jp">ビオレu ザボディ 金木犀の香り · ¥700</span>',
+        '<b>ANESSA 아네사</b> 퍼펙트 UV 브러쉬온 파우더 N<span class="jp">アネッサ パーフェクトUV ブラッシュオンパウダーN · ¥3,300</span>',
+        '<b>NIVEA 니베아</b> 선 프로텍트 워터젤 SPF50+<span class="jp">ニベア サンプロテクトウォータージェル · ¥900</span>',
+        '<b>ビオレ 비오레</b> 클렌징오일<span class="jp">ビオレ クレンジングオイル · ¥900</span>',
+        '<b>メンソレータム 멘소래담</b> 립퐁듀<span class="jp">メンソレータム リップフォンデュ · ¥700</span>',
+        '<b>Biore 비오레</b> 딥클레이 세안 (모공 각질 전용)<span class="jp">ビオレ ディープクレイ洗顔 · ¥600</span>'
+      ]},
+      { cat:'상비약·여성용품', items:[
+        '<b>大正クイックケア 다이쇼 퀵케어</b> 구내염패치<span class="jp">口内炎パッチ 大正クイックケア · ¥700</span>',
+        '<b>ソフィ 소피</b> 금목서향 생리대<span class="jp">ソフィ 金木犀の香り · ¥400</span>',
+        '<b>ロリエ 로리에</b> 키레이스타일 팬티라이너<span class="jp">ロリエ きれいスタイル · ¥350</span>',
+        '<b>ソフィ 소피</b> 키요라 팬티라이너<span class="jp">ソフィ Kiyora · ¥400</span>',
+        '<b>小林製薬 고바야시</b> 1방울 소취원 (변기향수)<span class="jp">小林製薬 1滴消臭元 · ¥500</span>',
+        '방풍통성산 — 변비·붓기 체질에만 효과, 다이어트약 아님 (코코아포 또는 나이시토르)<span class="jp">コッコアポ / ナイシトール（防風通聖散） · ¥2,000</span>',
+        '<b>小林製薬 고바야시</b> 브레스케어<span class="jp">小林製薬 ブレスケア · ¥380</span>',
+        '<b>小林製薬 고바야시</b> 씹어먹는 브레스케어 (레몬민트, 마늘요리 후 추천)<span class="jp">噛むブレスケア レモンミント · ¥385</span>'
+      ]},
+      { cat:'생활·세탁', items:[
+        '<b>アタックZERO 아타크 제로</b> 퍼펙트스틱 부야오시 (탄산파우더, 실내건조용)<span class="jp">アタックZERO パーフェクトスティック 部屋干し · ¥400</span>',
+        '<b>ウタマロ石鹸 우타마로 비누</b><span class="jp">¥150</span>'
+      ]},
+      { cat:'청소용품', items:[
+        '<b>Quickle 퀵클</b> 세면대 클리너<span class="jp">Quickle 洗面ボウルクリーナー · ¥500</span>',
+        '<b>LEC 激落ちくん 게키오치쿤</b> 트레루프 핸디 먼지떨이<span class="jp">激落ちくん トレループ ハンディ · ¥800</span>',
+        '<b>超電水 Clean Shu!Shu! 초덴스이 클린슈슈</b> 전해알칼리세정수 리필 1000ml<span class="jp">超電水クリーンシュシュ · ¥600</span>',
+        '<b>Kao 카오</b> 매직클린 오후로니 피타츠 (곰팡이방지)<span class="jp">マジックリン お風呂にピタッ · ¥500</span>',
+        '<b>ルックプラス 룩플러스</b> 오후로노 방카비쿤엔자이 (곰팡이훈연제)<span class="jp">ルックプラス おふろの防カビくん煙剤 · ¥450</span>'
+      ]}
+    ]},
+    { store:'🍶 빅카메라 삿포로역점 또는 리카마운틴 스스키노5조도리점', groups:[
+      { cat:'주류', items:[
+        '홋카이도 사케<span class="jp">北海道 日本酒 · ¥1,500~3,000</span>',
+        '위스키<span class="jp">ウイスキー · ¥3,000~</span>'
+      ]}
+    ]},
+    { store:'🏪 세븐일레븐 (아무 지점)', groups:[
+      { cat:'간식', items:[
+        '고구마맛탕<span class="jp">大学いも · ¥300</span>'
+      ]}
+    ]}
+  ];
+  const PACK_KEY = 'pack2026hk';
+  const SHOP_KEY = 'shop2026hk';
+  function packStrip(t){ return t.replace(/<[^>]+>/g, '').trim(); }
+  function packLoad(){ try{ return JSON.parse(localStorage.getItem(PACK_KEY) || '[]'); }catch(e){ return []; } }
+  function packSave(a){ try{ localStorage.setItem(PACK_KEY, JSON.stringify(a)); }catch(e){} }
+  function packCount(){
+    const boxes = document.querySelectorAll('#packBody input[type=checkbox]');
+    const done = document.querySelectorAll('#packBody input[type=checkbox]:checked').length;
+    document.getElementById('packCount').textContent = done + ' / ' + boxes.length;
+    document.getElementById('packBar').style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
+  }
+  function packRender(){
+    const done = packLoad();
+    let html = '';
+    packData.forEach(sec => {
+      html += '<div class="pack-sec"><h4>' + sec.h + '</h4>';
+      if (sec.note) html += '<p class="pack-note">' + sec.note + '</p>';
+      sec.items.forEach(it => {
+        const k = packStrip(it);
+        const on = done.indexOf(k) !== -1;
+        html += '<label class="pack-item' + (on ? ' done' : '') + '">' +
+                '<input type="checkbox" data-k="' + k.replace(/"/g, '&quot;') + '"' + (on ? ' checked' : '') + '>' +
+                '<span>' + it + '</span></label>';
+      });
+      html += '</div>';
+    });
+    const body = document.getElementById('packBody');
+    body.innerHTML = html;
+    packCount();
+  }
+  document.addEventListener('change', function(e){
+    if (!e.target.matches('#packBody input[type=checkbox]')) return;
+    const k = e.target.dataset.k;
+    let done = packLoad();
+    if (e.target.checked){ if (done.indexOf(k) === -1) done.push(k); }
+    else { done = done.filter(function(x){ return x !== k; }); }
+    packSave(done);
+    e.target.closest('.pack-item').classList.toggle('done', e.target.checked);
+    packCount();
+  });
+  function shopLoad(){ try{ return JSON.parse(localStorage.getItem(SHOP_KEY) || '[]'); }catch(e){ return []; } }
+  function shopSave(a){ try{ localStorage.setItem(SHOP_KEY, JSON.stringify(a)); }catch(e){} }
+  function shopCount(){
+    const boxes = document.querySelectorAll('#shopBody input[type=checkbox]');
+    const done = document.querySelectorAll('#shopBody input[type=checkbox]:checked').length;
+    document.getElementById('shopCount').textContent = done + ' / ' + boxes.length;
+    document.getElementById('shopBar').style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
+  }
+  function shopRender(){
+    const done = shopLoad();
+    let html = '';
+    shopData.forEach(store => {
+      html += '<div class="shop-store"><h3 class="shop-store-h">' + store.store + '</h3>';
+      store.groups.forEach(g => {
+        html += '<div class="shop-cat"><h4 class="shop-cat-h">' + g.cat + '</h4>';
+        g.items.forEach(it => {
+          const k = packStrip(it);
+          const on = done.indexOf(k) !== -1;
+          html += '<label class="pack-item' + (on ? ' done' : '') + '">' +
+                  '<input type="checkbox" class="shop" data-k="' + k.replace(/"/g, '&quot;') + '"' + (on ? ' checked' : '') + '>' +
+                  '<span>' + it + '</span></label>';
+        });
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    document.getElementById('shopBody').innerHTML = html;
+    shopCount();
+  }
+  document.addEventListener('change', function(e){
+    if (!e.target.matches('#shopBody input[type=checkbox]')) return;
+    const k = e.target.dataset.k;
+    let done = shopLoad();
+    if (e.target.checked){ if (done.indexOf(k) === -1) done.push(k); }
+    else { done = done.filter(function(x){ return x !== k; }); }
+    shopSave(done);
+    e.target.closest('.pack-item').classList.toggle('done', e.target.checked);
+    shopCount();
+  });
+  function openShop(){
+    shopRender();
+    document.getElementById('shopModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeShop(){
+    document.getElementById('shopModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function openPack(){
+    packRender();
+    document.getElementById('packModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePack(){
+    document.getElementById('packModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // 오프라인 대비: 한 번이라도 온라인으로 열어두면 통신이 끊겨도 일정이 열립니다
+  if ('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw-hokkaido.js').catch(function(){});
+    });
+  }
+  function syncOnlineState(){ document.body.classList.toggle('is-offline', !navigator.onLine); }
+  window.addEventListener('online', syncOnlineState);
+  window.addEventListener('offline', syncOnlineState);
+  syncOnlineState();
 </script>
 
 </body>
