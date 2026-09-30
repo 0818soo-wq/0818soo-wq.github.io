@@ -135,6 +135,8 @@
   .booking-row .v{ color: var(--ink); font-weight: 700; text-align: right; }
   .booking-note{ margin-top: 10px; font-size: 11.5px; color: var(--ink-soft); line-height: 1.6; }
   .booking-note a{ color: var(--sanur); font-weight: 700; text-decoration: none; }
+  .opt-table a, .booking-title a{ color: var(--sanur); font-weight: 700; text-decoration: none; }
+  .opt-table a::after, .booking-title a::after{ content: " ↗"; font-size: 10px; opacity: .7; }
   .booking-note.warn{ color: var(--warn); font-weight: 600; }
 
   /* ---------- CHECKLIST ---------- */
@@ -217,12 +219,12 @@
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">공항 근처 호텔</span> 1박 (짐바란 또는 꾸따) <span class="pill tbd">미정</span>
+            <span class="stay-name">공항 근처 호텔</span> 1박 (<a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bali+hotels" target="_blank" rel="noopener">짐바란</a> 또는 <a href="https://www.google.com/maps/search/?api=1&query=Kuta+Bali+hotels" target="_blank" rel="noopener">꾸따</a>) <span class="pill tbd">미정</span>
           </div>
           <ul class="schedule">
-            <li>인천공항 출발 2~3시간 전 도착 (대한항공)</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Incheon+International+Airport+Terminal+2" target="_blank" rel="noopener">인천공항 T2</a> 출발 2~3시간 전 도착 (대한항공)</li>
             <li class="flight">16:20 인천(ICN) 출발 <span class="tag">KE431</span></li>
-            <li class="flight">22:25 발리(DPS) 도착 <span class="tag">약 7시간</span></li>
+            <li class="flight">22:25 <a href="https://www.google.com/maps/search/?api=1&query=Ngurah+Rai+International+Airport+Bali" target="_blank" rel="noopener">발리(DPS)</a> 도착 <span class="tag">약 7시간</span></li>
             <li class="transit">입국심사·짐 찾기 후 예약해 둔 차량으로 호텔 (10~20분)</li>
           </ul>
           <div class="tipline"><b>미리 준비</b> 도착비자·관광세, 온라인 세관신고는 출발 전에 끝내두세요. 밤 도착이라 픽업 차량(카시트)을 꼭 예약하세요.</div>
@@ -246,7 +248,7 @@
             <a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali (안다즈 발리)</a> 1박째 <span class="pill tbd">미예약</span>
           </div>
           <ul class="schedule">
-            <li>늦은 조식 → 체크아웃 → 사누르로 이동 (공항 근처에서 약 30분)</li>
+            <li>늦은 조식 → 체크아웃 → <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Bali" target="_blank" rel="noopener">사누르</a>로 이동 (공항 근처에서 약 30분)</li>
             <li>얼리 체크인 요청, 오후는 수영장·해변 산책로</li>
             <li>키즈클럽 이용 (투숙객 하루 2시간 무료 · 후기 기준)</li>
             <li>저녁: 사누르 해변 식당, 일찍 쉬기</li>
@@ -263,13 +265,13 @@
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">Andaz Bali</span> 2박째
+            <a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali</a> 2박째
           </div>
           <ul class="schedule">
             <li>오전: 키즈클럽 · 수영 · 조식</li>
-            <li>오후: 사누르 해변 자전거·산책 (선택)</li>
+            <li>오후: <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Bali" target="_blank" rel="noopener">사누르 해변</a> 자전거·산책 (선택)</li>
             <li class="opt">길리로 가져갈 짐만 챙기기 — 큰 캐리어는 안다즈에 맡길 수 있는지 문의</li>
-            <li>저녁: 사누르 석양 · 내일 아침 보트 준비</li>
+            <li>저녁: 사누르 석양 · 내일 아침 보트 준비 (<a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르 항구</a> 위치 확인)</li>
           </ul>
           <div class="tipline"><b>팁</b> 10/7 길리에서 돌아오는 보트가 사누르 항구 도착이면 캐리어를 안다즈에서 받아 우붓으로 갈 수 있어요. 도착 항구는 보트 예약 시 확인하세요.</div>
         </div>
@@ -289,14 +291,15 @@
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">길리 에어 (추천) 또는 길리 트라왕안</span> 1박째 <span class="pill tbd">미정</span>
+            <span class="stay-name"><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">길리 에어</a> (추천) 또는 <a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">길리 트라왕안</a></span> 1박째 <span class="pill tbd">미정</span>
           </div>
           <ul class="schedule">
-            <li class="transit">오전 사누르 항구 출발, 패스트보트 약 2시간 (아이 구명조끼 · 멀미약)</li>
+            <li class="transit">오전 <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르 항구</a> 출발, 패스트보트 약 2시간 (아이 구명조끼 · 멀미약)</li>
             <li>길리 도착 → 숙소 체크인, 점심</li>
             <li>오후: 해변 · 수영장 (아이 수영장 있는 곳)</li>
             <li>저녁: 해변 식당에서 석양</li>
           </ul>
+          <div class="tipline"><b>숙소 후보 (미정)</b><br>· 에어: <a href="https://www.google.com/maps/search/?api=1&query=Dolcemare+Resort+Gili+Air" target="_blank" rel="noopener">Dolcemare Resort</a> · <a href="https://www.google.com/maps/search/?api=1&query=Gili+Air+Bungalows" target="_blank" rel="noopener">Gili Air Bungalows</a> · <a href="https://www.google.com/maps/search/?api=1&query=Chill+Out+Bungalows+Gili+Air" target="_blank" rel="noopener">Chill Out Bungalows</a><br>· 트라왕안: <a href="https://www.google.com/maps/search/?api=1&query=Aston+Sunset+Beach+Resort+Gili+Trawangan" target="_blank" rel="noopener">Aston Sunset Beach Resort</a> · <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Ombak+Sunset+Gili+Trawangan" target="_blank" rel="noopener">Hotel Ombak Sunset</a></div>
           <div class="tipline"><b>이동</b> 길리는 자동차가 없어요. 숙소까지는 마차(치도모)나 도보로 이동합니다. 보트는 사전 예약 필수, 파도가 높으면 결항될 수 있어요.</div>
         </div>
       </div>
@@ -310,7 +313,7 @@
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">길리 숙소</span> 2박째
+            <span class="stay-name">길리 숙소</span> 2박째 (Day 04 후보 참고)
           </div>
           <ul class="schedule">
             <li>오전: 프라이빗 보트 스노클링 (거북이 포인트, 반나절)</li>
@@ -336,10 +339,10 @@
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <a href="https://www.google.com/maps/search/?api=1&query=Bambu+Indah+Ubud" target="_blank" rel="noopener">Bambu Indah</a> 또는 <a href="https://hideoutbali.com/" target="_blank" rel="noopener">Hideout Bali</a> (트리하우스) <span class="pill tbd">미정</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=Bambu+Indah+Ubud" target="_blank" rel="noopener">Bambu Indah</a> 또는 <a href="https://www.google.com/maps/search/?api=1&query=Hideout+Eco+Bamboo+House+Bali+Selat" target="_blank" rel="noopener">Hideout Bali</a> (트리하우스) <span class="pill tbd">미정</span>
           </div>
           <ul class="schedule">
-            <li class="transit">오전 보트로 사누르(또는 빠당바이) 도착 → 차량으로 우붓 (약 1시간 30분~2시간)</li>
+            <li class="transit">오전 보트로 <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a>(또는 <a href="https://www.google.com/maps/search/?api=1&query=Padang+Bai+Harbour+Bali" target="_blank" rel="noopener">빠당바이</a>) 도착 → 차량으로 우붓 (약 1시간 30분~2시간)</li>
             <li>숙소 체크인 · 점심</li>
             <li>늦은 오후: <a href="https://www.google.com/maps/search/?api=1&query=Ubud+Monkey+Forest" target="_blank" rel="noopener">몽키포레스트</a> · 우붓 시내 (선택)</li>
             <li>저녁: 우붓 식당</li>
@@ -365,7 +368,7 @@
             <a href="https://www.google.com/maps/search/?api=1&query=lodgeinthewoods+Kaba-Kaba+Tabanan" target="_blank" rel="noopener">lodgeinthewoods</a> (Kaba-Kaba, 따바난) 1박 <span class="pill tbd">미예약</span>
           </div>
           <ul class="schedule">
-            <li>오전: 우붓에서 조식 · 쿠킹클래스 또는 계단식 논 (선택)</li>
+            <li>오전: 우붓에서 조식 · 쿠킹클래스 또는 <a href="https://www.google.com/maps/search/?api=1&query=Tegallalang+Rice+Terrace+Ubud" target="_blank" rel="noopener">뜨갈랄랑 계단식 논</a> (선택)</li>
             <li class="transit">점심 후 lodgeinthewoods로 이동 (우붓에서 약 1시간~1시간 15분)</li>
             <li>오후~저녁: 숲속 숙소에서 휴식, 저녁은 숙소 식사</li>
           </ul>
@@ -387,17 +390,17 @@
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-            <span class="stay-name">스미냑·꾸따 데이유즈 호텔</span> (숙박 없음) <span class="pill tbd">미정</span>
+            <span class="stay-name"><a href="https://www.google.com/maps/search/?api=1&query=Seminyak+Bali" target="_blank" rel="noopener">스미냑</a>·<a href="https://www.google.com/maps/search/?api=1&query=Kuta+Bali" target="_blank" rel="noopener">꾸따</a> 데이유즈 호텔</span> (숙박 없음) <span class="pill tbd">미정</span>
           </div>
           <ul class="schedule">
             <li class="transit">오전 lodgeinthewoods 체크아웃 → 스미냑 (약 1시간)</li>
             <li>12:00쯤 데이유즈 체크인 · 수영 · 샤워 · 낮잠</li>
-            <li>오후: 스미냑 시내 · 마사지 · 마지막 쇼핑</li>
+            <li>오후: <a href="https://www.google.com/maps/search/?api=1&query=Seminyak+Village+Bali" target="_blank" rel="noopener">스미냑 시내</a> · 마사지 · 마지막 쇼핑</li>
             <li>저녁 식사 → 호텔에서 샤워 · 잠옷 갈아입기</li>
             <li class="transit">21:30쯤 공항으로 출발 (스미냑에서 약 30~40분)</li>
             <li class="flight">22:30~23:00 발리 공항 도착 · 체크인 <span class="tag">새벽 01:20 출발</span></li>
           </ul>
-          <div class="tipline"><b>후보</b> Peppers Seminyak(데이패스·레이트 체크아웃, 6~12세 50% 할인) · Hotel Nikko Bali Benoa Beach(키즈클럽 포함, 12세 미만 무료 · 공항 가까움). 방이 있는 <b>정식 데이유즈</b>인지 확인하세요.</div>
+          <div class="tipline"><b>후보</b> <a href="https://www.google.com/maps/search/?api=1&query=Peppers+Seminyak" target="_blank" rel="noopener">Peppers Seminyak</a>(데이패스·레이트 체크아웃, 6~12세 50% 할인) · <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Nikko+Bali+Benoa+Beach" target="_blank" rel="noopener">Hotel Nikko Bali Benoa Beach</a>(키즈클럽 포함, 12세 미만 무료 · 공항 가까움). 방이 있는 <b>정식 데이유즈</b>인지 확인하세요.</div>
         </div>
       </div>
 
@@ -427,12 +430,12 @@
       <div class="booking-card">
         <table class="opt-table">
           <tr><th>날짜</th><th>지역</th><th>숙소</th><th>상태</th></tr>
-          <tr><td>10/2</td><td>공항 근처</td><td>짐바란·꾸따 호텔</td><td>미정</td></tr>
-          <tr><td>10/3~4</td><td>사누르</td><td>Andaz Bali (2박)</td><td>미예약</td></tr>
-          <tr><td>10/5~6</td><td>길리</td><td>에어(추천) · 트라왕안</td><td>미정</td></tr>
-          <tr><td>10/7</td><td>우붓</td><td>Bambu Indah / Hideout</td><td>미정</td></tr>
-          <tr><td>10/8</td><td>따바난</td><td>lodgeinthewoods</td><td>미예약</td></tr>
-          <tr><td>10/9</td><td>스미냑·꾸따</td><td>데이유즈 (숙박 없음)</td><td>미정</td></tr>
+          <tr><td>10/2</td><td>공항 근처</td><td><a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bali+hotels" target="_blank" rel="noopener">짐바란</a>·<a href="https://www.google.com/maps/search/?api=1&query=Kuta+Bali+hotels" target="_blank" rel="noopener">꾸따</a> 호텔</td><td>미정</td></tr>
+          <tr><td>10/3~4</td><td>사누르</td><td><a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali</a> (2박)</td><td>미예약</td></tr>
+          <tr><td>10/5~6</td><td>길리</td><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a>(추천) · <a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">트라왕안</a></td><td>미정</td></tr>
+          <tr><td>10/7</td><td>우붓</td><td><a href="https://www.google.com/maps/search/?api=1&query=Bambu+Indah+Ubud" target="_blank" rel="noopener">Bambu Indah</a> / <a href="https://www.google.com/maps/search/?api=1&query=Hideout+Eco+Bamboo+House+Bali+Selat" target="_blank" rel="noopener">Hideout</a></td><td>미정</td></tr>
+          <tr><td>10/8</td><td>따바난</td><td><a href="https://www.google.com/maps/search/?api=1&query=lodgeinthewoods+Kaba-Kaba+Tabanan" target="_blank" rel="noopener">lodgeinthewoods</a></td><td>미예약</td></tr>
+          <tr><td>10/9</td><td>스미냑·꾸따</td><td><a href="https://www.google.com/maps/search/?api=1&query=Peppers+Seminyak" target="_blank" rel="noopener">데이유즈</a> 등 (숙박 없음)</td><td>미정</td></tr>
         </table>
       </div>
     </div>
@@ -441,7 +444,7 @@
       <div class="segment-label seg-sanur"><span class="dot"></span>사누르<span class="rule"></span></div>
       <div class="booking-card">
         <div class="booking-card-head">
-          <div><div class="booking-title">Andaz Bali</div><div class="booking-sub">사누르 · 2박 (10/3~10/5)</div></div>
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali</a></div><div class="booking-sub">사누르 · 2박 (10/3~10/5)</div></div>
           <div class="booking-code no">미예약</div>
         </div>
         <div class="booking-rows">
@@ -462,11 +465,11 @@
         </div>
         <table class="opt-table">
           <tr><th>섬</th><th>숙소</th><th>특징</th></tr>
-          <tr><td>에어</td><td>Dolcemare Resort</td><td>27m 수영장 · 별도 아이 수영장 · 폭포 · 큰 정원</td></tr>
-          <tr><td>에어</td><td>Gili Air Bungalows</td><td>평점 9.6 · 아이 수영장 · 유아 침대 무료</td></tr>
-          <tr><td>에어</td><td>Chill Out Bungalows</td><td>평점 10.0 · 아이용 수영장</td></tr>
-          <tr><td>트라왕안</td><td>Aston Sunset Beach Resort</td><td>평점 10.0 · 놀이터 · 아이 수영장 · 아이용 조식</td></tr>
-          <tr><td>트라왕안</td><td>Hotel Ombak Sunset</td><td>평점 9.6 · 아이 수영장 · 베이비시터</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Dolcemare+Resort+Gili+Air" target="_blank" rel="noopener">Dolcemare Resort</a></td><td>27m 수영장 · 별도 아이 수영장 · 폭포 · 큰 정원</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air+Bungalows" target="_blank" rel="noopener">Gili Air Bungalows</a></td><td>평점 9.6 · 아이 수영장 · 유아 침대 무료</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Chill+Out+Bungalows+Gili+Air" target="_blank" rel="noopener">Chill Out Bungalows</a></td><td>평점 10.0 · 아이용 수영장</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">트라왕안</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Aston+Sunset+Beach+Resort+Gili+Trawangan" target="_blank" rel="noopener">Aston Sunset Beach Resort</a></td><td>평점 10.0 · 놀이터 · 아이 수영장 · 아이용 조식</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">트라왕안</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+Ombak+Sunset+Gili+Trawangan" target="_blank" rel="noopener">Hotel Ombak Sunset</a></td><td>평점 9.6 · 아이 수영장 · 베이비시터</td></tr>
         </table>
         <div class="booking-note">조용하게 쉬려면 <b>길리 에어</b>, 식당·놀이터가 더 필요하면 <b>트라왕안</b>. 평점·요금은 예약 시점에 바뀌니 다시 확인하세요.</div>
       </div>
@@ -480,7 +483,7 @@
           <div class="booking-code">결정 필요</div>
         </div>
         <table class="opt-table">
-          <tr><th></th><th>Bambu Indah</th><th>Hideout Bali</th></tr>
+          <tr><th></th><th><a href="https://www.google.com/maps/search/?api=1&query=Bambu+Indah+Ubud" target="_blank" rel="noopener">Bambu Indah</a></th><th><a href="https://www.google.com/maps/search/?api=1&query=Hideout+Eco+Bamboo+House+Bali+Selat" target="_blank" rel="noopener">Hideout Bali</a></th></tr>
           <tr><td>위치</td><td>우붓 외곽 (시내 가까움)</td><td>동부 발리 (한적, 우붓에서 멂)</td></tr>
           <tr><td>건물</td><td>앤티크 티크 목조 하우스</td><td>대나무집 14채 (강가 트리하우스~가족용 집)</td></tr>
           <tr><td>수영장</td><td>샘물 수영장</td><td>객실 전용 풀</td></tr>
@@ -495,7 +498,7 @@
       <div class="segment-label seg-tab"><span class="dot"></span>따바난 (1박)<span class="rule"></span></div>
       <div class="booking-card">
         <div class="booking-card-head">
-          <div><div class="booking-title">lodgeinthewoods</div><div class="booking-sub">Kaba-Kaba, 따바난 · 10/8 1박</div></div>
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=lodgeinthewoods+Kaba-Kaba+Tabanan" target="_blank" rel="noopener">lodgeinthewoods</a></div><div class="booking-sub">Kaba-Kaba, 따바난 · 10/8 1박</div></div>
           <div class="booking-code no">미예약</div>
         </div>
         <div class="booking-rows">
@@ -507,7 +510,7 @@
       </div>
       <div class="booking-card">
         <div class="booking-card-head">
-          <div><div class="booking-title">Ulaman Eco Luxury Resort</div><div class="booking-sub">같은 Kaba-Kaba 마을</div></div>
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=Ulaman+Eco+Luxury+Resort+Bali" target="_blank" rel="noopener">Ulaman Eco Luxury Resort</a></div><div class="booking-sub">같은 Kaba-Kaba 마을</div></div>
           <div class="booking-code no">제외</div>
         </div>
         <div class="booking-note warn">검색 결과 기준 만 12세 이하는 투숙 불가라고 안내돼 이번 일정에서 제외했어요. 공식 사이트는 직접 확인하지 못했으니 궁금하면 문의해 보세요.</div>
@@ -523,9 +526,9 @@
         </div>
         <table class="opt-table">
           <tr><th>호텔</th><th>내용</th></tr>
-          <tr><td>Peppers Seminyak</td><td>데이패스(웰컴드링크·수영장·샤워·수건), 6~12세 50% 할인, 레이트 체크아웃 약 $25</td></tr>
-          <tr><td>Hotel Nikko Bali Benoa Beach</td><td>키즈클럽 포함 데이패스, 성인 약 250,000 IDR · 12세 미만 무료 (공항 가까움)</td></tr>
-          <tr><td>Breezes Seminyak</td><td>투숙객 가족·지인 1인 약 100,000 IDR (객실 여유 있을 때)</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Peppers+Seminyak" target="_blank" rel="noopener">Peppers Seminyak</a></td><td>데이패스(웰컴드링크·수영장·샤워·수건), 6~12세 50% 할인, 레이트 체크아웃 약 $25</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+Nikko+Bali+Benoa+Beach" target="_blank" rel="noopener">Hotel Nikko Bali Benoa Beach</a></td><td>키즈클럽 포함 데이패스, 성인 약 250,000 IDR · 12세 미만 무료 (공항 가까움)</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Breezes+Seminyak" target="_blank" rel="noopener">Breezes Seminyak</a></td><td>투숙객 가족·지인 1인 약 100,000 IDR (객실 여유 있을 때)</td></tr>
         </table>
         <div class="booking-note">데이패스는 수영장만 되는 경우가 있어요. 낮잠·샤워를 위한 <b>객실 시간제(데이유즈 룸)</b>인지 확인하세요. 요금은 예약 시 다시 확인하세요.</div>
       </div>
@@ -571,12 +574,12 @@
 
       <div class="booking-card">
         <div class="booking-card-head">
-          <div><div class="booking-title">사누르 ↔ 길리 패스트보트</div><div class="booking-sub">왕복 · 성인 2 + 아이 1</div></div>
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a> ↔ <a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">길리</a> 패스트보트</div><div class="booking-sub">왕복 · 성인 2 + 아이 1</div></div>
           <div class="booking-code no">미예약</div>
         </div>
         <div class="booking-rows">
-          <div class="booking-row"><span class="k">가는 편</span><span class="v">10.5(화) 오전 사누르 → 길리</span></div>
-          <div class="booking-row"><span class="k">오는 편</span><span class="v">10.7(목) 오전 길리 → 사누르(또는 빠당바이)</span></div>
+          <div class="booking-row"><span class="k">가는 편</span><span class="v">10.5(화) 오전 <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a> → 길리</span></div>
+          <div class="booking-row"><span class="k">오는 편</span><span class="v">10.7(목) 오전 길리 → <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a>(또는 <a href="https://www.google.com/maps/search/?api=1&query=Padang+Bai+Harbour+Bali" target="_blank" rel="noopener">빠당바이</a>)</span></div>
           <div class="booking-row"><span class="k">소요</span><span class="v">약 2시간</span></div>
         </div>
         <div class="booking-note">운항사·시간표는 예약 시 확인하세요. 아이 구명조끼와 멀미약을 챙기고, 오는 편 도착 항구를 확인해 우붓 이동 차량과 맞추세요.</div>
