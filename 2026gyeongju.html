@@ -711,6 +711,12 @@
 </footer>
 
 <script>
+  // 가게별 네이버 지도 공유 링크 (있으면 검색 대신 가게 페이지로 바로 연결)
+  const DIRECT = [
+    ['이사부피자','https://naver.me/xiLuBpcB'],
+    ['라라랜드','https://naver.me/FFqMLJjY']
+  ];
+  function directFor(t){ for (let i = 0; i < DIRECT.length; i++){ if (t.indexOf(DIRECT[i][0]) !== -1) return DIRECT[i][1]; } return null; }
   // 탭 전환
   document.querySelectorAll('.tab').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -776,7 +782,7 @@
     const desc = item.desc ? `<span class="meal-desc">${item.desc}</span>` : '';
     if (!item.place) return `<div class="meal-pick"><span class="meal-plain">${item.name}</span>${desc}</div>`;
     const q = encodeURIComponent(item.place);
-    return `<div class="meal-pick"><a class="meal-link" href="https://map.naver.com/p/search/${q}" target="_blank" rel="noopener">
+    return `<div class="meal-pick"><a class="meal-link" href="${directFor(item.name) || ('https://map.naver.com/p/search/' + q)}" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
         ${item.name}
       </a><a class="meal-g" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">구글지도</a>${desc}</div>`;
@@ -1296,7 +1302,7 @@
         if (!frag) frag = document.createDocumentFragment();
         frag.appendChild(document.createTextNode(txt.slice(last, m.index)));
         const a = document.createElement('a');
-        a.href = 'https://map.naver.com/p/search/' + encodeURIComponent(key);
+        a.href = directFor(m[0]) || ('https://map.naver.com/p/search/' + encodeURIComponent(key));
         a.target = '_blank'; a.rel = 'noopener'; a.textContent = m[0];
         frag.appendChild(a); last = m.index + m[0].length;
       }
