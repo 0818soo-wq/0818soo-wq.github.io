@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>2026 GYEONGJU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F3EE;
+    --surface: #FFFFFF;
+    --ink: #22303A;
+    --ink-soft: #66727A;
+    --ink-faint: #9BA7AC;
+    --line: #E4E1D8;
+
+    --clay: #C1532E;
+    --clay-soft: #F6E4DA;
+    --teal: #2E6B5A;
+    --teal-soft: #DCEBE4;
+    --accent: #B3893F;
+    --accent-soft: #F1E6D2;
+    --warn: #AD4C3C;
+    --warn-soft: #F5E5E1;
+  }
+
+  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body{ margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  body{ padding-bottom: 64px; }
+
+  /* ---------- HERO ---------- */
+  .hero{ position: relative; padding: 48px 24px 26px; background: linear-gradient(180deg, #14332B 0%, #2E6B5A 55%, #3F8470 100%); color: #F3F5F6; overflow: hidden; }
+  .hero::after{ content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(179,137,63,0.35) 0%, rgba(179,137,63,0) 70%); }
+  .hero-eyebrow{ font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #C9DED5; margin: 0 0 14px; font-weight: 600; }
+  .hero-title{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 34px; line-height: 1.18; margin: 0 0 18px; letter-spacing: -0.01em; }
+  .hero-title em{ font-style: italic; font-weight: 400; color: #D7C79A; }
+  .hero-meta{ display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: 13px; color: #E8F0EC; }
+  .hero-meta span{ display: flex; align-items: center; gap: 6px; }
+  .hero-meta svg{ width: 14px; height: 14px; opacity: 0.85; }
+
+  /* ---------- TABS ---------- */
+  .tabbar{ position: sticky; top: 0; z-index: 20; display: flex; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: 0 2px 6px rgba(34,48,58,0.05); }
+  .tab{ flex: 1; appearance: none; border: none; background: transparent; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 12.5px; color: var(--ink-faint); padding: 14px 2px 12px; position: relative; cursor: pointer; }
+  .tab.active{ color: var(--teal); }
+  .tab.active::after{ content: ""; position: absolute; left: 18%; right: 18%; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--teal); }
+
+  main{ max-width: 480px; margin: 0 auto; padding: 0 16px; }
+  .tab-panel{ display: none; }
+  .tab-panel.active{ display: block; animation: fadein .25s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(4px);} to{ opacity:1; transform: translateY(0);} }
+
+  /* ---------- TODAY CARD ---------- */
+  .today-wrap{ margin: 6px 6px 8px; padding-bottom: 22px; border-bottom: 1px dashed var(--line); }
+  .today-label{ display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 16px; color: var(--warn); margin: 18px 0 14px; }
+  .today-label .dot-live{ width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+  .today-wrap .timeline{ display: none; }
+  .today-wrap .day{ padding-left: 0; margin-bottom: 0; }
+  .today-wrap .day-dot{ display: none; }
+  .today-wrap .card{ border: 2px solid var(--warn); box-shadow: 0 4px 14px rgba(173,76,60,0.14); }
+
+  /* ---------- SEGMENT LABEL ---------- */
+  .segment-label{ display: flex; align-items: center; gap: 10px; margin: 26px 6px 14px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .segment-label:first-child{ margin-top: 22px; }
+  .segment-label .dot{ width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .segment-label .rule{ flex: 1; height: 1px; background: var(--line); }
+  .seg-a .dot{ background: var(--clay); }
+  .seg-b .dot{ background: var(--teal); }
+
+  /* ---------- TIMELINE / DAY CARD ---------- */
+  .timeline{ position: relative; }
+  .timeline::before{ content: ""; position: absolute; left: 21px; top: 6px; bottom: 6px; width: 2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
+  .day{ position: relative; padding-left: 46px; margin-bottom: 18px; }
+  .day-dot{ position: absolute; left: 14px; top: 22px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--clay); z-index: 2; }
+  .day.seg-b .day-dot{ border-color: var(--teal); }
+
+  .card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; box-shadow: 0 1px 2px rgba(34,48,58,0.04); }
+  .card-head{ display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  .card-head-left{ display: flex; flex-direction: column; }
+  .day-num{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; color: var(--ink); }
+  .day-date{ font-size: 12.5px; color: var(--ink-soft); font-weight: 600; }
+
+  .transport-badge{ display: flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; background: var(--clay-soft); color: var(--clay); }
+  .transport-badge svg{ width: 12px; height: 12px; }
+  .day.seg-b .transport-badge{ background: var(--teal-soft); color: var(--teal); }
+
+  .weather{ display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 0; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; cursor: pointer; }
+  .day.seg-a .weather{ background: var(--clay-soft); }
+  .day.seg-b .weather{ background: var(--teal-soft); }
+  .weather .weather-icon{ order: 1; font-size: 18px; line-height: 1; flex-shrink: 0; }
+  .weather .temp{ order: 2; font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .weather[data-weather] .temp::after{ content: "(예상)"; font-size: 9.5px; font-weight: 600; color: var(--ink-faint); margin-left: 4px; }
+  .weather .more{ order: 3; margin-left: auto; font-size: 10.5px; font-weight: 700; color: var(--ink-faint); white-space: nowrap; }
+  .weather .outfit{ order: 4; flex: 0 0 100%; width: 100%; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(34,48,58,0.12); color: var(--ink-soft); font-weight: 500; line-height: 1.5; }
+
+  .stay{ margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); line-height: 1.55; }
+  .stay svg{ width: 13px; height: 13px; opacity: 0.75; display: inline-block; vertical-align: -2px; margin-right: 5px; }
+  .stay .stay-name{ color: var(--ink); font-weight: 700; text-decoration: none; }
+
+  .schedule{ list-style: none; margin: 0; padding: 0; }
+  .schedule li{ position: relative; padding: 6px 0 6px 16px; font-size: 13.5px; color: var(--ink); line-height: 1.45; }
+  .schedule li::before{ content: ""; position: absolute; left: 0; top: 14px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink-faint); }
+  .schedule li.flight{ font-weight: 700; }
+  .schedule li.flight::before{ background: var(--warn); }
+  .schedule li.transit::before{ background: var(--teal); }
+  .schedule li.flight .tag{ display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; color: var(--warn); background: var(--warn-soft); padding: 1px 6px; border-radius: 5px; margin-left: 6px; vertical-align: middle; }
+
+  .meal-btn{ display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 14px; padding: 10px 12px; border-radius: 10px; border: 1px dashed var(--line); background: #FBFAF6; color: var(--ink-soft); font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 12.5px; cursor: pointer; }
+  .meal-btn svg{ width: 14px; height: 14px; }
+  .meal-btn:active{ background: var(--accent-soft); color: var(--ink); }
+
+  /* ---------- TIP MODAL (재사용: 날씨/짐/쇼핑) ---------- */
+  .tip-modal{ position: fixed; inset: 0; z-index: 60; background: rgba(34,48,58,0.55); display: none; align-items: flex-end; justify-content: center; }
+  .tip-modal.open{ display: flex; }
+  .tip-sheet{ background: var(--surface); width: 100%; max-width: 480px; max-height: 88vh; border-radius: 18px 18px 0 0; display: flex; flex-direction: column; animation: sheetup .25s ease; }
+  @keyframes sheetup{ from{ transform: translateY(28px); opacity: .5; } to{ transform: translateY(0); opacity: 1; } }
+  .tip-head{ display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 18px 13px; border-bottom: 1px solid var(--line); flex-shrink: 0; }
+  .tip-head h3{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; margin: 0; color: var(--ink); }
+  .tip-close{ width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .tip-close svg{ width: 15px; height: 15px; color: var(--ink-soft); }
+  .tip-body{ overflow-y: auto; padding: 16px 18px 10px; -webkit-overflow-scrolling: touch; }
+  .tip-foot{ padding: 12px 18px 20px; flex-shrink: 0; border-top: 1px solid var(--line); }
+  .tip-foot button{ width: 100%; padding: 13px; border-radius: 10px; border: none; background: var(--teal); color: #F3F5F6; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 13.5px; cursor: pointer; }
+  .tip-foot button:active{ opacity: 0.8; }
+
+  /* ---------- OFFLINE BAR ---------- */
+  #offlineBar{ display: none; position: sticky; top: 0; z-index: 30; background: var(--accent-soft); color: var(--accent); font-size: 11.5px; font-weight: 800; text-align: center; padding: 8px 12px; line-height: 1.45; }
+  body.is-offline #offlineBar{ display: block; }
+
+  /* ---------- WEATHER DETAIL SHEET ---------- */
+  .wx-sum{ display: flex; gap: 8px; margin-bottom: 16px; }
+  .wx-sum > div{ flex: 1; background: var(--bg); border-radius: 10px; padding: 10px 12px; }
+  .wx-sum .k{ font-size: 10px; font-weight: 800; color: var(--ink-faint); letter-spacing: .04em; }
+  .wx-sum .v{ font-size: 15.5px; font-weight: 800; color: var(--ink); margin-top: 3px; }
+  .wx-outfit{ background: var(--teal-soft); border-radius: 10px; padding: 11px 13px; font-size: 12.5px; color: var(--ink); line-height: 1.5; margin-bottom: 16px; }
+  .wx-row{ display: flex; align-items: center; gap: 9px; padding: 8px 0; border-top: 1px solid var(--line); }
+  .wx-row:first-of-type{ border-top: none; }
+  .wx-row .t{ width: 42px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+  .wx-row .ic{ width: 20px; text-align: center; font-size: 15px; }
+  .wx-row .tp{ width: 38px; font-size: 13px; font-weight: 800; color: var(--ink); }
+  .wx-row .ppbar{ flex: 1; height: 5px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .wx-row .ppbar i{ display: block; height: 100%; background: var(--teal); }
+  .wx-row .ppv{ width: 36px; text-align: right; font-size: 11.5px; font-weight: 700; color: var(--teal); }
+  .wx-row.rain .ppv{ color: var(--warn); }
+  .wx-row.rain .ppbar i{ background: var(--warn); }
+  .wx-msg{ text-align: center; padding: 36px 10px; color: var(--ink-faint); font-size: 13px; line-height: 1.6; }
+  .wx-src{ font-size: 10.5px; color: var(--ink-faint); text-align: center; margin: 14px 0 2px; }
+
+  /* ---------- PACKING / SHOPPING CHECKLIST ---------- */
+  .pack-btn{ display: flex; align-items: center; justify-content: center; gap: 7px; width: calc(100% - 12px); margin: 20px 6px 4px; padding: 13px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--teal); font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .pack-btn svg{ width: 15px; height: 15px; }
+  .pack-btn:active{ background: var(--teal-soft); }
+  .pack-btn + .pack-btn{ margin-top: 8px; }
+  .pack-bar i.shop{ background: var(--warn); }
+  .pack-item input.shop{ accent-color: var(--warn); }
+  .pack-progress{ padding: 13px 18px 2px; flex-shrink: 0; }
+  .pack-progress span{ font-size: 11.5px; font-weight: 800; color: var(--ink-soft); }
+  .pack-bar{ height: 5px; border-radius: 3px; background: var(--line); margin-top: 6px; overflow: hidden; }
+  .pack-bar i{ display: block; height: 100%; width: 0; background: var(--teal); transition: width .2s ease; }
+  .pack-sec{ margin-bottom: 20px; }
+  .pack-sec h4{ font-size: 12.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px; }
+  .pack-note{ font-size: 11.5px; color: var(--warn); line-height: 1.55; margin: 4px 0 8px; font-weight: 600; }
+  .pack-item{ display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--line); cursor: pointer; }
+  .pack-sec .pack-item:first-of-type{ border-top: none; }
+  .pack-item input{ width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--teal); flex-shrink: 0; }
+  .pack-item span{ font-size: 13px; line-height: 1.5; color: var(--ink); }
+  .pack-item.done span{ color: var(--ink-faint); text-decoration: line-through; }
+  .pack-sec.sub h4{ font-size: 11.5px; color: var(--ink-faint); font-weight: 800; }
+  .pack-ref{ font-size: 11.5px; color: var(--ink-soft); line-height: 1.55; padding: 6px 0; border-top: 1px solid var(--line); }
+  .pack-sec.sub .pack-ref:first-of-type{ border-top: none; }
+  .pack-ref b{ color: var(--ink); font-weight: 700; }
+
+  /* ---------- MEAL PAGE (slide-over) ---------- */
+  .meal-page{ position: fixed; inset: 0; z-index: 50; background: var(--bg); transform: translateX(100%); transition: transform .28s ease; overflow-y: auto; }
+  .meal-page.open{ transform: translateX(0); }
+  .meal-page-head{ position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); padding: 16px 16px 14px; display: flex; align-items: center; gap: 12px; }
+  .meal-back{ width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .meal-back svg{ width: 16px; height: 16px; color: var(--ink); }
+  .meal-page-head-text .m-day{ font-family:'Fraunces', serif; font-weight:600; font-size:17px; color: var(--ink); }
+  .meal-page-head-text .m-date{ font-size: 12px; color: var(--ink-soft); font-weight: 600; }
+  .meal-body{ max-width: 480px; margin: 0 auto; padding: 20px 16px 60px; }
+  .meal-slot{ background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  .meal-slot-title{ display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+  .meal-slot-title svg{ width: 15px; height: 15px; color: var(--accent); }
+  .meal-empty{ font-size: 12.5px; color: var(--ink-faint); line-height: 1.6; }
+  .meal-link{ display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--teal); font-weight: 700; text-decoration: none; }
+  .meal-link svg{ width: 12px; height: 12px; flex-shrink: 0; opacity: 0.8; }
+  .meal-pick .meal-desc{ display: block; font-size: 11.5px; color: var(--ink-soft); margin-top: 3px; line-height: 1.5; }
+  .meal-pick .meal-plain{ font-size: 13px; font-weight: 700; color: var(--ink); }
+
+  /* ---------- 식사 TAB ---------- */
+  .mealday{ background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  .mealday-head{ display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .mealday-head .d{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .mealday-head .t{ font-size: 11.5px; font-weight: 700; color: var(--ink-faint); }
+  .mealday.seg-a .mealday-head .d{ color: var(--clay); }
+  .mealday.seg-b .mealday-head .d{ color: var(--teal); }
+  .mealday-row{ display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+  .mealday-row:first-of-type{ border-top: none; }
+  .mealday-row .k{ flex: 0 0 32px; font-size: 11px; font-weight: 800; color: var(--ink-faint); padding-top: 3px; }
+  .mealday-row .v{ flex: 1; min-width: 0; font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+
+  /* ---------- ROUTE MAP TAB ---------- */
+  .map-card{ margin-top: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 12px 20px; overflow: hidden; }
+  .map-title{ font-family:'Fraunces', serif; font-weight: 600; font-size: 17px; margin: 4px 8px 14px; color: var(--ink); }
+  .map-legend{ display: flex; gap: 18px; margin: 14px 8px 0; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; flex-wrap: wrap; }
+  .map-legend span{ display:flex; align-items:center; gap:6px; }
+  .legend-line{ width: 18px; height: 0; border-top: 2px solid var(--ink-soft); }
+  .legend-line.dashed{ border-top-style: dashed; }
+
+  .route-list{ margin: 20px 4px 4px; }
+  .route-step{ display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+  .route-step:first-child{ border-top: none; }
+  .route-step .icon{ width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--teal-soft); color: var(--teal); }
+  .route-step .icon svg{ width: 15px; height: 15px; }
+  .route-step .txt{ font-size: 13px; color: var(--ink); line-height: 1.4; padding-top: 4px; }
+  .route-step .txt b{ font-weight: 700; }
+  .route-step .txt span{ display:block; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
+
+  /* ---------- DAILY ROUTE DIAGRAM (real map) ---------- */
+  .daily-route-card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px 14px; margin-top: 12px; }
+  .daily-route-head{ display:flex; align-items:baseline; gap:8px; margin-bottom: 12px; }
+  .daily-route-head .d-day{ font-family:'Fraunces', serif; font-weight:600; font-size:15.5px; color: var(--ink); }
+  .daily-route-head .d-date{ font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
+
+  .drd-map{ width:100%; height:230px; display:block; margin-bottom: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); position: relative; z-index: 0; overflow: hidden; cursor: zoom-in; }
+  .drd-tiles{ position:absolute; inset:0; }
+  .drd-tiles img{ position:absolute; width:256px; height:256px; border:0; }
+  .drd-ov{ position:absolute; inset:0; width:100%; height:100%; }
+  .drd-attr{ position:absolute; right:0; bottom:0; z-index:2; font-size: 9px; line-height:1.4; padding: 1px 5px; background: rgba(255,255,255,.8); color: var(--ink-soft); border-top-left-radius: 6px; }
+  .drd-attr a{ color: inherit; }
+  .drd-zoom{ position:absolute; right:8px; top:8px; z-index:3; display:flex; align-items:center; gap:4px; padding: 5px 9px; border-radius: 999px; background: rgba(255,255,255,.92); border: 1px solid var(--line); font-size: 11px; font-weight: 800; color: var(--teal); }
+  .drd-zoom svg{ width: 12px; height: 12px; }
+
+  .mapfull{ position: fixed; inset: 0; z-index: 90; display: none; background: var(--bg); flex-direction: column; }
+  .mapfull.on{ display: flex; }
+  .mapfull-bar{ display:flex; align-items:center; gap:10px; padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  .mapfull-bar .t{ font-size: 14px; font-weight: 800; color: var(--ink); flex:1; }
+  .mapfull-bar button{ width: 36px; height: 36px; border-radius: 50%; flex-shrink:0; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font-size: 17px; font-weight: 800; line-height: 1; cursor: pointer; }
+  .mapfull-bar button:focus-visible{ outline: 2px solid var(--teal); outline-offset: 2px; }
+  .mapfull-cv{ flex: 1; position: relative; overflow: hidden; touch-action: none; background: var(--bg); cursor: grab; }
+  .mapfull-cv:active{ cursor: grabbing; }
+  .mapfull-hint{ padding: 9px 14px; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; text-align:center; border-top: 1px solid var(--line); background: var(--surface); }
+  .drd-dir{ display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom: 16px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 12.5px; font-weight: 700; color: var(--teal); text-decoration: none; background: var(--bg); }
+  .drd-dir svg{ width: 14px; height: 14px; flex-shrink:0; }
+
+  .drd{ position: relative; padding-left: 26px; }
+  .drd::before{ content:""; position:absolute; left:8px; top:10px; bottom:10px; width:2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
+  .drd-stop{ position: relative; margin-bottom: 2px; }
+  .drd-stop .dot{ position:absolute; left:-25px; top:0; width:18px; height:18px; border-radius:50%; background: var(--teal); border: 2px solid var(--surface); z-index:1; color:#fff; font-size:10px; font-weight:800; line-height:1; display:flex; align-items:center; justify-content:center; font-variant-numeric: tabular-nums; }
+  .drd-stop:first-child .dot{ background:#3F8470; }
+  .drd-stop:last-of-type .dot{ background:#AD4C3C; }
+  .drd-stop .label{ font-size: 13px; font-weight: 700; color: var(--ink); padding-top: 0; }
+  .drd-connector{ position: relative; margin: 3px 0 14px; padding-left: 2px; display:flex; align-items:center; gap:6px; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
+  .drd-connector svg{ width: 12px; height: 12px; opacity: 0.75; flex-shrink:0; }
+
+  /* ---------- BUDGET TAB ---------- */
+  .budget-summary{ margin-top: 22px; background: var(--teal); border-radius: 18px; padding: 20px 20px 18px; color: #F3F5F6; }
+  .budget-summary .total-label{ font-size: 12px; letter-spacing: 0.06em; color: #C9DED5; font-weight: 700; text-transform: uppercase; }
+  .budget-summary .split{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .budget-summary .split div{ flex: 1; min-width: 130px; background: rgba(255,255,255,0.08); border-radius: 12px; padding: 10px 12px; }
+  .budget-summary .split .k{ font-size: 11px; color: #C9DED5; font-weight: 700; margin-bottom: 3px; }
+  .budget-summary .split .v{ font-size: 16px; font-weight: 700; }
+  .budget-note{ font-size: 11px; color: var(--ink-faint); margin: 10px 4px 0; line-height: 1.5; }
+
+  .budget-day{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 14px; }
+  .budget-day-head{ display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+  .budget-day-head .b-day{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; color: var(--ink); }
+  .cost-row{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 13px; border-top: 1px dashed var(--line); }
+  .cost-row:first-of-type{ border-top: none; }
+  .cost-row .cost-label{ color: var(--ink-soft); font-weight: 600; }
+  .cost-row .cost-label small{ display:block; font-size: 10.5px; color: var(--ink-faint); font-weight: 500; margin-top: 1px; }
+  .cost-row .cost-amount{ font-weight: 800; white-space: nowrap; }
+  .cost-amount.planned{ color: #AD4C3C; }
+  .cost-amount.muted{ color: var(--ink-faint); font-weight: 600; }
+
+  /* ---------- BOOKING TAB ---------- */
+  .booking-group{ margin-top: 26px; }
+  .booking-group:first-child{ margin-top: 22px; }
+  .booking-card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 12px; }
+  .booking-card-head{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .booking-title{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 15.5px; color: var(--ink); line-height: 1.35; }
+  .booking-sub{ font-size: 12px; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
+  .booking-code{ flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; background: var(--accent-soft); color: var(--accent); padding: 4px 8px; border-radius: 7px; white-space: nowrap; text-align: right; }
+  .booking-rows{ margin-top: 10px; }
+  .booking-row{ display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; font-size: 12.5px; border-top: 1px dashed var(--line); }
+  .booking-row:first-child{ border-top: none; }
+  .booking-row .k{ color: var(--ink-soft); font-weight: 600; }
+  .booking-row .v{ color: var(--ink); font-weight: 700; text-align: right; }
+  .booking-note{ margin-top: 10px; font-size: 11.5px; color: var(--ink-soft); line-height: 1.6; }
+
+  footer{ max-width: 480px; margin: 40px auto 0; padding: 0 24px; text-align: center; }
+  footer p{ font-size: 11px; color: var(--ink-faint); line-height: 1.6; }
+
+  .schedule a, .drd-stop a, .booking-row .v a, .stay a{ color: var(--teal); font-weight: 700; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+  .meal-g{ display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 700; color: var(--ink-faint); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; vertical-align: 1px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Family Trip · 2026.10.03 – 10.05</p>
+  <h1 class="hero-title">2026<br><em>GYEONGJU</em></h1>
+  <div class="hero-meta">
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      경주 · 소노캄 경주
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3v4M7 3v4M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+      2박 3일
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><circle cx="18" cy="8" r="2.2"/><path d="M23 20c0-2.6-2.1-4.7-4.7-5"/></svg>
+      성인 2 · 아이 1 (만 4세)
+    </span>
+  </div>
+</div>
+
+<div id="offlineBar">📴 오프라인 — 일정·예약·비용은 그대로 보입니다. 지도와 실시간 날씨만 표시되지 않아요.</div>
+
+<div class="tabbar">
+  <button class="tab active" data-tab="itinerary">일정</button>
+  <button class="tab" data-tab="route">동선</button>
+  <button class="tab" data-tab="meals">식사</button>
+  <button class="tab" data-tab="budget">비용</button>
+  <button class="tab" data-tab="booking">예약사항</button>
+</div>
+
+<main>
+
+  <!-- ============ 일정 TAB ============ -->
+  <section class="tab-panel active" id="tab-itinerary">
+
+    <div id="todayCard"></div>
+
+    <button class="pack-btn" onclick="openPack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 6h16v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/></svg>
+      짐 체크리스트
+    </button>
+    <button class="pack-btn" onclick="openShop()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      기념품 후보
+    </button>
+
+    <p class="budget-note" style="margin:16px 6px 0;">10.3(토)은 개천절, 10.5(월)은 대체공휴일인 연휴예요. 보문단지 일대가 붐비고 식당 대기가 길 수 있으니 식당은 미리 예약하고 이동은 여유 있게 잡아 주세요. 라라랜드·화랑숲 운영시간은 방문 전 확인을 권장합니다.</p>
+
+      <div class="timeline">
+
+      <div class="day seg-a" data-date="2026-10-03">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 01</span><span class="day-date">10.3 (토)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l2-4M15 21l-2-4"/></svg>KTX + 렌터카</span>
+          </div>
+          <div class="weather" data-weather="sunny" data-lat="35.8562" data-lon="129.2247" data-city="경주">
+            <span class="weather-icon">☀️</span><span class="temp">23–24° / 13–15°</span>
+            <span class="outfit">낮엔 가벼운 긴팔, 아침저녁은 선선하니 아이 겉옷 챙기기</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">소노캄 경주</span> 1박 · 디럭스 A 뷰프리 (체크인 15:00~)
+          </div>
+          <ul class="schedule">
+            <li class="flight">09:33 서울 출발 <span class="tag">KTX산천 023</span></li>
+            <li>14호차 6A · 7A · 7B (3석)</li>
+            <li class="flight">11:49 신경주역(경주) 도착</li>
+            <li class="transit">12:00 렌터카 인수 — 신경주역 제일고속철 주차장 지상 1층 쏘카 지정주차면 (더 뉴 아반떼) · 지참한 카시트 바로 장착</li>
+            <li class="transit">12:20 황리단길로 이동 (신경주역에서 차로 약 35분)</li>
+            <li>13:00 점심: 이사부피자 (황리단길 · 유아의자 있음 · 캐치테이블 예약 가능)</li>
+            <li class="transit">14:15 소노캄 경주로 이동 (차로 약 20분)</li>
+            <li>14:30 짐 풀기 — 체크인은 15:00부터라 얼리 체크인 가능 여부 프런트 문의, 어려우면 짐 맡기고 보문호 산책 또는 카페 오롯 쿠폰 사용</li>
+            <li>15:00 체크인 후 휴식</li>
+            <li class="transit">17:30 시내로 이동 (차로 약 20분)</li>
+            <li>18:00 저녁: 진가네대구갈비 본점 (돼지갈비찜·볶음밥 · 예약·포장 가능 · 21:00 영업 종료)</li>
+            <li>19:30 호텔 복귀</li>
+            <li>20:30 야간 풀앤스파 (1박차 예약 혜택 · 성인 2 + 소인 1, 1회) — 스파 운영시간·소인 이용 가능 시간 확인</li>
+            <li>22:00 야식: 불날개 (닭요리 · 18:30 영업 시작 · 포장·배달 가능 — 저녁 때 포장하거나 호텔 배달 가능 여부 전화 문의)</li>
+          </ul>
+          <button class="meal-btn" onclick="openMeal('day1','10.3 (토) · 도착·야간스파')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v6a2 2 0 0 0 4 0V3M9 9v12M17 3c-1.5 3-1.5 6 0 8v10"/></svg>
+            오늘 뭐 먹지?
+          </button>
+        </div>
+      </div>
+
+      <div class="day seg-b" data-date="2026-10-04">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 02</span><span class="day-date">10.4 (일)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6h14l2 6v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg>렌터카</span>
+          </div>
+          <div class="weather" data-weather="sunny" data-lat="35.8562" data-lon="129.2247" data-city="경주">
+            <span class="weather-icon">☀️</span><span class="temp">23–24° / 13–15°</span>
+            <span class="outfit">낮에는 걷기 편한 옷차림, 저녁 화랑숲은 겉옷 필수</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">소노캄 경주</span> 1박 · 두 번째 예약 (연박 처리 · 체크인 15:00~)
+          </div>
+          <ul class="schedule">
+            <li class="transit">08:00 호텔 출발 → 경주 원조콩국 (첨성로 113 · 차로 약 20분)</li>
+            <li>08:30 아침: 경주 원조콩국 (제값 결제 · 1인 ₩8,000 안팎) — 검색 정보상 일요일 휴무·브레이크 10:30~11:30라 방문 전 전화 확인 (054-743-9644)</li>
+            <li>10:00 라라랜드 스쿠터대여점 (보문로 545-14, 보문단지 내) — 아이 자동차 타기 · 운영시간·요금은 방문 전 전화/현장 확인</li>
+            <li>※ 11:00 체크아웃 시점에 프런트에서 연박 처리(객실 유지) 해 주기로 함</li>
+            <li>12:00 점심: 소바카게 경주점 (황리단길 · 마지막 주문 20:00 · 예약·주차 가능)</li>
+            <li>13:30 예쁜 카페: 신라당 (황리단길·대릉원 한옥카페 · 점심 장소에서 가까움) — 대안은 식사 탭 참고</li>
+            <li class="transit">15:00 소노캄 경주 복귀 · 체크인</li>
+            <li>15:30 낮잠/휴식</li>
+            <li>17:30 저녁: 아리랑 (보문단지 입구 숲머리 · 닭코스요리 · 마지막 주문 19:30 · 예약 권장)</li>
+            <li class="transit">18:40 경주엑스포대공원으로 이동 (보문단지 내)</li>
+            <li>19:00 화랑숲 야간 체험 (운영 18:00~22:00, 마지막 입장 21:00)</li>
+            <li>21:00 호텔 복귀 · 휴식</li>
+          </ul>
+          <button class="meal-btn" onclick="openMeal('day2','10.4 (일) · 라라랜드·화랑숲 야간')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v6a2 2 0 0 0 4 0V3M9 9v12M17 3c-1.5 3-1.5 6 0 8v10"/></svg>
+            오늘 뭐 먹지?
+          </button>
+        </div>
+      </div>
+
+      <div class="day seg-a" data-date="2026-10-05">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 03</span><span class="day-date">10.5 (월)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l2-4M15 21l-2-4"/></svg>렌터카 + KTX</span>
+          </div>
+          <div class="weather" data-weather="sunny" data-lat="35.8562" data-lon="129.2247" data-city="경주">
+            <span class="weather-icon">☀️</span><span class="temp">23–24° / 13–15°</span>
+            <span class="outfit">가벼운 긴팔 + 얇은 겉옷, 낮엔 선선하고 쾌적한 날씨</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">소노캄 경주</span> 레이트 체크아웃 12:00 (사전 신청)
+          </div>
+          <ul class="schedule">
+            <li>※ 레이트 체크아웃(12:00) 미리 신청 — 10.5 체크아웃 기준 무료 혜택</li>
+            <li>08:30 호텔 조식 셰프스키친 담음 (사전 예약 · 투숙객 할인 20% 적용 시 약 ₩100,000)</li>
+            <li>09:30 오전 물놀이 — 풀앤스파 (2박차 예약 혜택 · 성인 2 + 소인 1, 1회)</li>
+            <li>11:00 샤워 · 짐 정리 후 체크아웃 (레이트 12:00까지 여유)</li>
+            <li class="transit">11:15 황남우엉김밥으로 출발 (차로 약 20분) — 연휴라 황리단길 주차·대기 혼잡, 전화 사전 주문 가능한지 확인</li>
+            <li>11:45 황남우엉김밥 픽업 (우엉김밥 3줄 ₩14,000 안팎) — 점심은 KTX 안에서</li>
+            <li class="transit">12:00 신경주역으로 출발 (차로 약 30분)</li>
+            <li>12:35 신경주역 도착 → 렌터카 반납 (마감 13:00, 같은 쏘카 지정주차면)</li>
+            <li class="flight">13:38 경주(신경주) 출발 <span class="tag">KTX산천 038</span></li>
+            <li>4호차 6B · 7A · 7B (3석)</li>
+            <li class="flight">15:47 서울 도착</li>
+          </ul>
+          <button class="meal-btn" onclick="openMeal('day3','10.5 (월) · 물놀이·귀가')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v6a2 2 0 0 0 4 0V3M9 9v12M17 3c-1.5 3-1.5 6 0 8v10"/></svg>
+            오늘 뭐 먹지?
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============ 동선 TAB ============ -->
+  <section class="tab-panel" id="tab-route">
+    <div class="map-card">
+      <p class="map-title">경주 한눈에 보기</p>
+      <div id="overviewMap"></div>
+      <div class="map-legend"><span><span class="legend-line dashed" style="border-top-color:var(--teal);"></span> 방문 순서 (직선 연결, 실제 도로와 다름)</span></div>
+    </div>
+
+    <div class="route-list">
+      <div class="route-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l2-4M15 21l-2-4"/></svg></div><div class="txt"><b>서울 → 신경주역</b><span>KTX산천 023 · 10.3(토) 09:33 → 11:49</span></div></div>
+      <div class="route-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6h14l2 6v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg></div><div class="txt"><b>렌터카 인수</b><span>10.3(토) 12:00 · 신경주역 제일고속철 주차장 1층 쏘카 지정주차면</span></div></div>
+      <div class="route-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6h14l2 6v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg></div><div class="txt"><b>신경주역 → 소노캄 경주</b><span>첫날 · 점심 후 이동 약 40분</span></div></div>
+      <div class="route-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></div><div class="txt"><b>소노캄 경주 2박</b><span>10.3(토) ~ 10.5(월) · 체크인 15:00 / 체크아웃 11:00 (3일차 레이트 신청)</span></div></div>
+      <div class="route-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6h14l2 6v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg></div><div class="txt"><b>라라랜드 · 예쁜 카페 · 경주엑스포대공원 화랑숲</b><span>10.4(일) · 낮 라라랜드·카페, 저녁 화랑숲 (18~22시)</span></div></div>
+      <div class="route-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6h14l2 6v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg></div><div class="txt"><b>소노캄 경주 → 황남우엉김밥 → 신경주역</b><span>10.5(월) · 11:15 출발, 김밥 픽업 후 렌터카 반납 마감 13:00</span></div></div>
+      <div class="route-step"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l2-4M15 21l-2-4"/></svg></div><div class="txt"><b>신경주역 → 서울</b><span>KTX산천 038 · 10.5(월) 13:38 → 15:47</span></div></div>
+    </div>
+
+    <p class="map-title" style="margin-top:36px;">일자별 상세 동선</p>
+    <div class="map-legend" style="margin:0 8px 4px;">
+      <span><span class="legend-line" style="border-top-color:var(--teal);"></span> 렌터카 · 도보 이동</span>
+    </div>
+    <div id="dailyRouteList"></div>
+  </section>
+
+  <!-- ============ 식사 TAB ============ -->
+  <section class="tab-panel" id="tab-meals">
+    <div id="mealsAll"></div>
+  </section>
+
+  <!-- ============ 비용 TAB ============ -->
+  <section class="tab-panel" id="tab-budget">
+
+
+    <div class="budget-summary">
+      <div class="total-label">예약 · 예상 합계</div>
+      <div class="split">
+        <div><div class="k">숙박 2박 (확정)</div><div class="v">₩888,600</div></div>
+        <div><div class="k">교통 (KTX 왕복 + 쏘카)</div><div class="v">₩341,750</div></div>
+        <div><div class="k">식사 예상 (조식·김밥·아리랑·콩국)</div><div class="v">₩197,000</div></div>
+        <div><div class="k">합계</div><div class="v">₩1,427,350</div></div>
+      </div>
+    </div>
+    <p class="budget-note">숙박·KTX·쏘카는 예약 금액이고, 3일차 담음 조식은 2026.2.1 인상 가격(성인 5만·어린이 3만·유아 2.5만 원, 보도 기준)에 투숙객 할인을 적용한 계산값이라 현장 가격과 다를 수 있습니다. 나머지 식비·입장료·주유 등은 확정 전이라 합계에 포함하지 않았습니다.</p>
+
+    <div class="budget-day">
+      <div class="budget-day-head"><span class="b-day">숙박</span></div>
+      <div class="cost-row"><div class="cost-label">소노캄 경주 · 10.3(토) ~ 10.4(일)<small>디럭스 A 뷰프리(클린) · 1박 2일</small></div><div class="cost-amount planned">₩444,300</div></div>
+      <div class="cost-row"><div class="cost-label">소노캄 경주 · 10.4(일) ~ 10.5(월)<small>디럭스 A 뷰프리(클린) · 1박 2일</small></div><div class="cost-amount planned">₩444,300</div></div>
+    </div>
+
+    <div class="budget-day">
+      <div class="budget-day-head"><span class="b-day">교통</span></div>
+      <div class="cost-row"><div class="cost-label">KTX 서울 → 경주<small>KTX산천 023 · 성인 ₩44,100 × 2 + 아이 ₩11,000</small></div><div class="cost-amount planned">₩99,200</div></div>
+      <div class="cost-row"><div class="cost-label">KTX 경주 → 서울<small>KTX산천 038 · 성인 ₩44,100 × 2 + 아이 ₩11,000</small></div><div class="cost-amount planned">₩99,200</div></div>
+      <div class="cost-row"><div class="cost-label">렌터카 (쏘카 더 뉴 아반떼)<small>10.3 12:00 ~ 10.5 13:00</small></div><div class="cost-amount planned">₩143,350</div></div>
+    </div>
+
+    <div class="budget-day">
+      <div class="budget-day-head"><span class="b-day">호텔 혜택 (패키지 포함)</span></div>
+      <div class="cost-row"><div class="cost-label">5천 원 할인 쿠폰<small>오픈런 혜택</small></div><div class="cost-amount muted">포함</div></div>
+      <div class="cost-row"><div class="cost-label">카페 오롯 월명 케이크 + 음료 2잔<small>아메리카노 또는 복숭아 에이드 택 1</small></div><div class="cost-amount muted">포함</div></div>
+      <div class="cost-row"><div class="cost-label">풀앤스파 성인 2 + 소인 1<small>1회 이용</small></div><div class="cost-amount muted">포함</div></div>
+    </div>
+
+    <div class="budget-day">
+      <div class="budget-day-head"><span class="b-day">식사 · 기타</span></div>
+      <div class="cost-row"><div class="cost-label">레이트 체크아웃 (3일차 12:00)<small>10.5 체크아웃 기준 무료 혜택</small></div><div class="cost-amount muted">무료</div></div>
+      <div class="cost-row"><div class="cost-label">3일차 담음 조식 (성인 2 + 유아 1)<small>정가 ₩125,000 (성인 2×₩50,000 + 유아 ₩25,000) − 투숙객 할인 20%<br>※ 주중 25% 적용 시 ₩93,750</small></div><div class="cost-amount planned">₩100,000</div></div>
+      <div class="cost-row"><div class="cost-label">3일차 황남우엉김밥<small>우엉김밥 3줄 기준 · 매장 가격 확인</small></div><div class="cost-amount planned">₩14,000</div></div>
+      <div class="cost-row"><div class="cost-label">2일차 저녁 아리랑 닭코스요리 (3인)<small>간판 표기 기준 · 예약 시 확인</small></div><div class="cost-amount planned">₩59,000</div></div>
+      <div class="cost-row"><div class="cost-label">2일차 경주 원조콩국 (3인 기준)<small>1인 ₩8,000 안팎 · 제값 결제 · 일요일 휴무 여부 확인</small></div><div class="cost-amount planned">₩24,000</div></div>
+      <div class="cost-row"><div class="cost-label">그 외 식비 (점심·저녁·야식·카페)<small>식당 후보 확정 후 입력</small></div><div class="cost-amount muted">-</div></div>
+      <div class="cost-row"><div class="cost-label">라라랜드 · 화랑숲 체험 요금<small>현장/공식 안내 확인</small></div><div class="cost-amount muted">-</div></div>
+      <div class="cost-row"><div class="cost-label">주유·통행료·주차비<small>렌터카 반납 규정은 앱에서 확인</small></div><div class="cost-amount muted">-</div></div>
+    </div>
+
+  </section>
+
+  <!-- ============ 예약사항 TAB ============ -->
+  <section class="tab-panel" id="tab-booking">
+
+
+    <div class="booking-group">
+      <div class="segment-label seg-b" style="margin-top:0;"><span class="dot"></span>기차 (KTX)<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">서울 → 경주</div><div class="booking-sub">KTX산천 023</div></div>
+          <div class="booking-code">10.3 (토)</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">출발</span><span class="v">09:33 서울</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">11:49 경주(신경주역)</span></div>
+          <div class="booking-row"><span class="k">신경주역</span><span class="v"><a href="https://map.naver.com/p/search/%EC%8B%A0%EA%B2%BD%EC%A3%BC%EC%97%AD" target="_blank" rel="noopener">네이버 지도 열기</a></span></div>
+          <div class="booking-row"><span class="k">좌석</span><span class="v">14호차 6A · 7A · 7B</span></div>
+          <div class="booking-row"><span class="k">승차권</span><span class="v">3매 · ₩99,200 (성인 ₩44,100 × 2 + 아이 ₩11,000)</span></div>
+        </div>
+      </div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">경주 → 서울</div><div class="booking-sub">KTX산천 038</div></div>
+          <div class="booking-code">10.5 (월)</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">출발</span><span class="v">13:38 경주(신경주역)</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">15:47 서울</span></div>
+          <div class="booking-row"><span class="k">좌석</span><span class="v">4호차 6B · 7A · 7B</span></div>
+          <div class="booking-row"><span class="k">승차권</span><span class="v">3매 · ₩99,200 (성인 ₩44,100 × 2 + 아이 ₩11,000)</span></div>
+        </div>
+        <div class="booking-note">렌터카 반납 마감(13:00)과 출발(13:38) 사이가 짧으니 반납은 12:35경 끝내는 일정입니다. 점심은 황남우엉김밥을 포장해 열차 안에서 먹습니다.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-a"><span class="dot"></span>렌터카<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">더 뉴 아반떼</div><div class="booking-sub">쏘카 · 예약 완료</div></div>
+          <div class="booking-code">2박 3일</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">대여</span><span class="v">10.3(토) 12:00</span></div>
+          <div class="booking-row"><span class="k">반납</span><span class="v">10.5(월) 13:00</span></div>
+          <div class="booking-row"><span class="k">대여 장소</span><span class="v">신경주역(KTX) 제일고속철 주차장 지상 1층 쏘카 지정주차면</span></div>
+          <div class="booking-row"><span class="k">지도</span><span class="v"><a href="https://map.naver.com/p/search/%EC%8B%A0%EA%B2%BD%EC%A3%BC%EC%97%AD%20%EC%A0%9C%EC%9D%BC%EA%B3%A0%EC%86%8D%EC%B2%A0%EC%A3%BC%EC%B0%A8%EC%9E%A5" target="_blank" rel="noopener">네이버 지도 열기</a></span></div>
+          <div class="booking-row"><span class="k">반납 장소</span><span class="v">대여 장소와 동일 (다음 예약 전까지 변경 가능)</span></div>
+          <div class="booking-row"><span class="k">금액</span><span class="v">₩143,350</span></div>
+          <div class="booking-row"><span class="k">스마트키</span><span class="v">앱 &quot;내 예약&quot; 화면에서 사용</span></div>
+        </div>
+        <div class="booking-note">신경주역 도착(11:49) 후 12:00 대여 시작이라 주차장까지 이동 시간이 빠듯할 수 있어요. 카시트는 직접 가져가서 장착합니다. 차량 인수 전 외관 사진 촬영도 권장합니다.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-b"><span class="dot"></span>숙소<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">소노캄 경주</div><div class="booking-sub">디럭스 A 1박 (오롯한 경주의 시그니처 PKG | 오픈런)</div></div>
+          <div class="booking-code">1박차</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">지도</span><span class="v"><a href="https://map.naver.com/p/search/%EC%86%8C%EB%85%B8%EC%BA%84%20%EA%B2%BD%EC%A3%BC" target="_blank" rel="noopener">네이버 지도 열기</a></span></div>
+          <div class="booking-row"><span class="k">예약번호</span><span class="v">2607231201033644</span></div>
+          <div class="booking-row"><span class="k">숙박</span><span class="v">10.3(토) ~ 10.4(일), 1박 2일</span></div>
+          <div class="booking-row"><span class="k">객실</span><span class="v">디럭스 A 뷰프리(클린) · 미취사형</span></div>
+          <div class="booking-row"><span class="k">인원</span><span class="v">기준 3인 · 최대 4인</span></div>
+          <div class="booking-row"><span class="k">체크인/아웃</span><span class="v">15:00 / 11:00</span></div>
+          <div class="booking-row"><span class="k">금액</span><span class="v">₩444,300 (예약완료)</span></div>
+        </div>
+        <div class="booking-note">예약일 2026.7.23</div>
+      </div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">소노캄 경주</div><div class="booking-sub">디럭스 A 1박 (오롯한 경주의 시그니처 PKG | 오픈런)</div></div>
+          <div class="booking-code">2박차</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">지도</span><span class="v"><a href="https://map.naver.com/p/search/%EC%86%8C%EB%85%B8%EC%BA%84%20%EA%B2%BD%EC%A3%BC" target="_blank" rel="noopener">네이버 지도 열기</a></span></div>
+          <div class="booking-row"><span class="k">예약번호</span><span class="v">2607231201503701</span></div>
+          <div class="booking-row"><span class="k">숙박</span><span class="v">10.4(일) ~ 10.5(월), 1박 2일</span></div>
+          <div class="booking-row"><span class="k">객실</span><span class="v">디럭스 A 뷰프리(클린) · 미취사형</span></div>
+          <div class="booking-row"><span class="k">인원</span><span class="v">기준 3인 · 최대 4인</span></div>
+          <div class="booking-row"><span class="k">체크인/아웃</span><span class="v">15:00 / 11:00</span></div>
+          <div class="booking-row"><span class="k">금액</span><span class="v">₩444,300 (예약완료)</span></div>
+        </div>
+        <div class="booking-note">1박씩 분리된 예약이지만 프런트에서 연박 처리(객실 유지)를 해 주기로 했습니다.</div>
+      </div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">패키지 혜택</div><div class="booking-sub">예약 상품 설명 기준</div></div>
+        </div>
+        <div class="booking-note" style="margin-top:0;"><b style="color:var(--ink)">오픈런</b> · 5천 원 할인 쿠폰 · 카페 오롯 APEC 오찬 디저트 월명 케이크 + 음료 2잔 (아메리카노 또는 복숭아 에이드)<br><b style="color:var(--ink)">프리즘 단독</b> · 풀앤스파 성인 2 + 소인 1, 1회 이용 · 최대 인원까지 인원 추가비 무료(침구 별도)<br><b style="color:var(--ink)">부대시설 할인권</b> · 1매 4인: 풀앤스파 35% · 담음(조식) 주중 25%, 주말·연휴 20% · 카페 오롯 10% · 식객 10% · 소담 10% (주류 제외)<br><b style="color:var(--ink)">12시 레이트 체크아웃</b> · 일~목 체크인 대상 · 10.5 체크아웃 기준 무료 (신청 시 적용 확인)
+        </div>
+        <div class="booking-note">예약이 2건이라 풀앤스파 1회권이 1박차(1일차 야간)·2박차(3일차 오전)로 하나씩 쓰이는지 체크인 때 확인하세요. 담음 조식은 연휴 기준 20% 할인으로 계산했습니다. 상품 설명에 10.4가 제외일로 적혀 있어, 레이트 체크아웃 신청 때 10.5 체크아웃 기준으로 무료 적용되는지 한 번 확인하면 안전합니다.</div>
+      </div>
+    </div>
+
+  </section>
+
+
+</main>
+
+<!-- ============ WEATHER DETAIL SHEET ============ -->
+<div class="tip-modal" id="wxModal" onclick="if(event.target===this) closeWx()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3 id="wxTitle">날씨</h3>
+      <div class="tip-close" onclick="closeWx()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+    </div>
+    <div class="tip-body" id="wxBody"></div>
+    <div class="tip-foot"><button onclick="closeWx()">닫기</button></div>
+  </div>
+</div>
+
+<!-- ============ PACK / SHOP MODALS ============ -->
+<div class="tip-modal" id="packModal" onclick="if(event.target===this) closePack()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3>짐 체크리스트</h3>
+      <div class="tip-close" onclick="closePack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+    </div>
+    <div class="pack-progress"><span id="packCount">0 / 0</span><div class="pack-bar"><i id="packBar"></i></div></div>
+    <div class="tip-body" id="packBody"></div>
+    <div class="tip-foot"><button onclick="closePack()">닫기</button></div>
+  </div>
+</div>
+
+<div class="tip-modal" id="shopModal" onclick="if(event.target===this) closeShop()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3>기념품 후보</h3>
+      <div class="tip-close" onclick="closeShop()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+    </div>
+    <div class="pack-progress"><span id="shopCount">0 / 0</span><div class="pack-bar"><i class="shop" id="shopBar"></i></div></div>
+    <div class="tip-body" id="shopBody"></div>
+    <div class="tip-foot"><button onclick="closeShop()">닫기</button></div>
+  </div>
+</div>
+
+<!-- ============ MEAL SLIDE-OVER PAGE ============ -->
+<div class="meal-page" id="mealPage">
+  <div class="meal-page-head">
+    <div class="meal-back" onclick="closeMeal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></div>
+    <div class="meal-page-head-text"><div class="m-day" id="mealDayLabel">Day 01</div><div class="m-date" id="mealDateLabel">5.7 (금)</div></div>
+  </div>
+  <div class="meal-body">
+    <div class="meal-slot">
+      <div class="meal-slot-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>아침</div>
+      <p class="meal-empty" id="mealBreakfast">미정</p>
+    </div>
+    <div class="meal-slot">
+      <div class="meal-slot-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v10M6 12h12l-1 8H7l-1-8z"/></svg>점심</div>
+      <p class="meal-empty" id="mealLunch">미정</p>
+    </div>
+    <div class="meal-slot">
+      <div class="meal-slot-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 1 1-8-8c0 3 2 5 4 5s4-2 4-5c2 2 0 5 0 8z"/></svg>저녁</div>
+      <p class="meal-empty" id="mealDinner">미정</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>이 페이지는 개인 여행 일정 정리용입니다. 관람지 운영시간·휴무와 식당 영업 여부는 방문 전 확인해 주세요.<br>날씨는 10월 초 경주 평년 기준 예상이며, 여행 5일 전부터 실시간 예보로 바뀝니다.</p>
+</footer>
+
+<script>
+  // 탭 전환
+  document.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'instant'});
+    });
+  });
+
+  // 일자별 식사 정보 (문자열 = 자유식사/포함식사 안내, {name,place} = 구글맵 링크)
+  const mealData = {
+    day1: {
+      b: "KTX 탑승 전 서울에서 간단히 (열차 09:33 출발)",
+      l: [
+        { name:"이사부피자 (추천)", place:"경북 경주시 포석로 1064-6 이사부피자", desc:"피자 · 황리단길 메인도로(사시스세소 옆 골목) · 유아의자·포장 · 21:00 영업 종료 · 캐치테이블 예약 · 0507-1401-1447" },
+        { name:"(후보) 소바카게 경주점", place:"경북 경주시 첨성로99번길 25-5 소바카게 경주점", desc:"이사부피자와 같은 황리단길권 — 대기가 길면 서로 바꿔서 이용" }
+      ],
+      d: [
+        { name:"진가네대구갈비 본점 (추천)", place:"경북 경주시 북정로 5 진가네대구갈비 본점", desc:"돼지갈비찜·볶음밥 · 최영화빵(구 황남빵) 맞은편 · 21:00 영업 종료 · 예약·포장·단체 · 054-772-1384" },
+        { name:"(후보) 포항물회", place:"경북 경주시 봉황로 56 포항물회", desc:"생선회·물회 · 마지막 주문 19:20 · 예약·단체·주차·포장 · 054-772-3195 · 아이 먹을 메뉴 확인" },
+        { name:"(후보) 충효닭집 본점", place:"경북 경주시 원효로51번길 5 충효닭집 본점", desc:"후라이드·닭강정 · 마지막 주문 19:30 · 054-749-1743" },
+        { name:"카페 오롯", place:"소노캄 경주 카페 오롯", desc:"오픈런 혜택: 월명 케이크 + 음료 2잔 (아메리카노 또는 복숭아 에이드)" },
+        { name:"불날개 (야식 추천)", place:"경북 경주시 동대로12번길 2 불날개", desc:"닭요리 · 동대사거리 세븐일레븐 맞은편 골목 · 18:30 영업 시작 · 포장·배달 · 054-774-9982" }
+      ]
+    },
+    day2: {
+      b: [
+        { name:"경주 원조콩국 (제값 결제)", place:"경북 경주시 첨성로 113 경주 원조콩국", desc:"콩국 1인 ₩8,000 안팎 · 05:00~20:00 (브레이크 10:30~11:30) · 일요일 휴무로 안내됨 — 10.4가 일요일이라 전화 확인 054-743-9644" }
+      ],
+      l: [
+        { name:"소바카게 경주점 (추천)", place:"경북 경주시 첨성로99번길 25-5 소바카게 경주점", desc:"일식(나고야식 마제소바) · 황남동 주민자치센터 뒷편 공터 · 마지막 주문 20:00 · 예약·포장·주차 · 0507-1327-6332" },
+        { name:"카페: 신라당 (추천)", place:"경주 신라당 카페 황리단길", desc:"황리단길·대릉원 한옥카페 · 연못·다리 정원 · 소바카게와 가까움" },
+        { name:"(후보) 박신우제면소", place:"경북 경주시 원효로 130 박신우제면소", desc:"우동·소바(간장비빔우동) · 경주중심상가공영주차장 정문 근처 · 10:00 영업 시작 · 캐치테이블 예약 · 054-776-6252" },
+        { name:"(대안 카페) 노경보차라파", place:"경주 노경보차라파", desc:"남산 한옥카페 · 영상에 닭 등 동물 구경 장면 — 아이 동행 후기 · 위치 확인 필요" },
+        { name:"(대안 카페) 경주의 시간", place:"경주 경주의 시간 카페 오릉", desc:"오릉 일대 통창 뷰 카페 · 위치 확인 필요" }
+      ],
+      d: [
+        { name:"아리랑 (추천)", place:"경북 경주시 숲머리길 197 아리랑", desc:"닭코스요리(샤브샤브·백숙·영양누룽지) 3인 기준 ₩59,000(간판 표기) · 보문단지 입구 숲머리 먹거리촌 · 마지막 주문 19:30 · 예약·포장 · 054-777-4343" },
+        { name:"(후보) 충효닭집 본점", place:"경북 경주시 원효로51번길 5 충효닭집 본점", desc:"후라이드·닭강정 · 마지막 주문 19:30 · 054-749-1743" },
+        { name:"(후보) 조돌칼국수", place:"경주 조돌칼국수", desc:"조개 칼국수 · 후기 영상에서 추천된 곳 — 위치·영업시간 확인 필요" }
+      ]
+    },
+    day3: {
+      b: [
+        { name:"셰프스키친 담음 (호텔 조식뷔페, LL층)", place:"소노캄 경주", desc:"사전 예약 · 성인 2 + 유아 1 정가 ₩125,000 → 투숙객 할인 20% 적용 시 ₩100,000" }
+      ],
+      l: [
+        { name:"황남우엉김밥 (포장 → KTX 안에서)", place:"황남우엉김밥 경주시 포석로 1074", desc:"09:00~20:00 연중무휴 · 우엉김밥 3줄 ₩14,000 안팎 · 0507-1429-1344" }
+      ],
+      d: "서울 도착(15:47) 후 자유식사"
+    }
+  };
+  function mealPickHTML(item){
+    const desc = item.desc ? `<span class="meal-desc">${item.desc}</span>` : '';
+    if (!item.place) return `<div class="meal-pick"><span class="meal-plain">${item.name}</span>${desc}</div>`;
+    const q = encodeURIComponent(item.place);
+    return `<div class="meal-pick"><a class="meal-link" href="https://map.naver.com/p/search/${q}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        ${item.name}
+      </a><a class="meal-g" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">구글지도</a>${desc}</div>`;
+  }
+  function mealSlotHTML(entry, empty){
+    if (Array.isArray(entry)) return `<div class="meal-picks">${entry.map(mealPickHTML).join('')}</div>`;
+    if (entry && typeof entry === 'object' && entry.place) return mealPickHTML(entry);
+    return `<span class="meal-empty">${entry || empty}</span>`;
+  }
+  function renderMealSlot(el, entry){ el.innerHTML = mealSlotHTML(entry, '미정'); }
+
+  // 식사 탭 — 전체 일자
+  const MEAL_DAYS = [
+    { k:'day1', n:'Day 01', t:'10.3 (토) · 도착·야간스파',       seg:'seg-a' },
+    { k:'day2', n:'Day 02', t:'10.4 (일) · 라라랜드·화랑숲 야간', seg:'seg-b' },
+    { k:'day3', n:'Day 03', t:'10.5 (월) · 물놀이·귀가',       seg:'seg-a' }
+  ];
+  function renderMealsTab(){
+    const host = document.getElementById('mealsAll');
+    if (!host) return;
+    host.innerHTML = MEAL_DAYS.map(function(d){
+      const m = mealData[d.k] || {};
+      const row = function(label, entry){
+        return '<div class="mealday-row"><span class="k">' + label + '</span><div class="v">' + mealSlotHTML(entry, '미정') + '</div></div>';
+      };
+      return '<div class="mealday ' + d.seg + '"><div class="mealday-head"><span class="d">' + d.n + '</span><span class="t">' + d.t + '</span></div>' +
+             row('아침', m.b) + row('점심', m.l) + row('저녁', m.d) + '</div>';
+    }).join('');
+  }
+  renderMealsTab();
+
+  // 식사 슬라이드오버 페이지
+  function openMeal(dayKey, date){
+    const labelMap = {day1:'Day 01',day2:'Day 02',day3:'Day 03'};
+    document.getElementById('mealDayLabel').textContent = labelMap[dayKey] || dayKey;
+    document.getElementById('mealDateLabel').textContent = date;
+    const m = mealData[dayKey];
+    renderMealSlot(document.getElementById('mealBreakfast'), m && m.b);
+    renderMealSlot(document.getElementById('mealLunch'), m && m.l);
+    renderMealSlot(document.getElementById('mealDinner'), m && m.d);
+    document.getElementById('mealPage').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMeal(){
+    document.getElementById('mealPage').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // 날씨 상세 시트: 날씨 칸을 누르면 시간별 기온·강수확률 (일자별 좌표 사용)
+  function closeWx(){
+    document.getElementById('wxModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  async function openWx(day){
+    const dateStr = day.dataset.date;
+    const w = day.querySelector('.weather[data-lat]');
+    const ddate = day.querySelector('.day-date');
+    document.getElementById('wxTitle').textContent = (ddate ? ddate.textContent : dateStr) + (w && w.dataset.city ? ' · ' + w.dataset.city : '');
+    const body = document.getElementById('wxBody');
+    body.innerHTML = '<div class="wx-msg">불러오는 중…</div>';
+    document.getElementById('wxModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (!w){ body.innerHTML = '<div class="wx-msg">이 날짜는 예보 대상이 아닙니다.</div>'; return; }
+    const lat = w.dataset.lat, lon = w.dataset.lon;
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&hourly=temperature_2m,precipitation_probability,precipitation,weathercode' +
+      '&daily=temperature_2m_max,temperature_2m_min&timezone=auto&start_date=' + dateStr + '&end_date=' + dateStr;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw 0;
+      const j = await res.json();
+      if (!j.hourly || !j.hourly.time || !j.hourly.time.length) throw 0;
+      const outfitEl = day.querySelector('.outfit');
+      const tmax = Math.round(j.daily.temperature_2m_max[0]);
+      const tmin = Math.round(j.daily.temperature_2m_min[0]);
+      let maxPop = 0, sumMm = 0;
+      j.hourly.precipitation_probability.forEach(function(v){ if (v > maxPop) maxPop = v; });
+      j.hourly.precipitation.forEach(function(v){ sumMm += (v || 0); });
+      let html = '<div class="wx-sum">' +
+        '<div><div class="k">최고 / 최저</div><div class="v">' + tmax + '° / ' + tmin + '°</div></div>' +
+        '<div><div class="k">강수확률 최대</div><div class="v">' + maxPop + '%</div></div>' +
+        '<div><div class="k">예상 강수량</div><div class="v">' + (Math.round(sumMm * 10) / 10) + 'mm</div></div></div>';
+      if (outfitEl) html += '<div class="wx-outfit">👕 ' + outfitEl.textContent + '</div>';
+      for (let i = 0; i < j.hourly.time.length; i++){
+        const hh = parseInt(j.hourly.time[i].slice(11, 13), 10);
+        if (hh < 6 || hh > 21) continue;
+        const pop = j.hourly.precipitation_probability[i] || 0;
+        html += '<div class="wx-row' + (pop >= 50 ? ' rain' : '') + '">' +
+          '<span class="t">' + String(hh).padStart(2, '0') + ':00</span>' +
+          '<span class="ic">' + weatherEmoji(j.hourly.weathercode[i]) + '</span>' +
+          '<span class="tp">' + Math.round(j.hourly.temperature_2m[i]) + '°</span>' +
+          '<span class="ppbar"><i style="width:' + pop + '%"></i></span>' +
+          '<span class="ppv">' + pop + '%</span></div>';
+      }
+      html += '<div class="wx-src">06~21시 · 출처 Open-Meteo</div>';
+      body.innerHTML = html;
+    } catch (e) {
+      body.innerHTML = '<div class="wx-msg">아직 예보가 나오지 않았습니다.<br>보통 방문일 2주 전부터 조회됩니다.</div>';
+    }
+  }
+  document.addEventListener('click', function(e){
+    const w = e.target.closest('.weather');
+    if (!w || !w.dataset.lat) return;
+    const day = w.closest('.day[data-date]');
+    if (day) openWx(day);
+  });
+  document.querySelectorAll('#tab-itinerary .day[data-date] .weather[data-lat]').forEach(function(w){
+    const hint = document.createElement('span');
+    hint.className = 'more';
+    hint.textContent = '시간별 ›';
+    w.appendChild(hint);
+  });
+
+  // 짐 체크리스트 (체크 상태는 이 기기에 저장됩니다)
+  const packData = [
+    { h:'🔴 없으면 여행이 안 되는 것', items:[
+      'KTX 모바일 승차권 (코레일톡) — 가는 편·오는 편',
+      '운전자 운전면허증 + 쏘카 앱 로그인 확인',
+      '카시트 (직접 지참 · 인수 즉시 장착)',
+      '소노캄 예약번호 2건 (2607231201033644 / 2607231201503701)'
+    ]},
+    { h:'아이 동반 (만 4세)', items:[
+      '간식 · 물 (KTX·차량 이동용)',
+      '아이 겉옷 (아침저녁 선선)',
+      '장난감 · 책 (이동 시간 대비)',
+      '여벌 옷 · 물티슈 · 비닐봉지',
+      '수영복·수모·아쿠아슈즈 (1일차 야간스파 + 3일차 물놀이)', '비닐백 (젖은 수영복) · 김밥 먹을 물티슈'
+    ]},
+    { h:'날씨 · 일정', items:[
+      '얇은 겉옷 (화랑숲 야간)',
+      '편한 운동화 (라라랜드·화랑숲)',
+      '우산 · 선크림',
+      '보조배터리 · 차량용 충전 케이블 · 폰 거치대'
+    ]}
+  ];
+  const shopData = [
+    { h:'경주 기념품 후보', items:[
+      '황남빵 (황리단길 본점)',
+      '경주빵 · 찰보리빵',
+      '경주 기념 소품 (엑스포대공원·호텔 매점)'
+    ]}
+  ];
+  const PACK_KEY = 'pack2026gj';
+  const SHOP_KEY = 'shop2026gj';
+  function packStrip(t){ return t.replace(/<[^>]+>/g, '').trim(); }
+  function packLoad(){ try{ return JSON.parse(localStorage.getItem(PACK_KEY) || '[]'); }catch(e){ return []; } }
+  function packSave(a){ try{ localStorage.setItem(PACK_KEY, JSON.stringify(a)); }catch(e){} }
+  function packCount(){
+    const boxes = document.querySelectorAll('#packBody input[type=checkbox]');
+    const done = document.querySelectorAll('#packBody input[type=checkbox]:checked').length;
+    document.getElementById('packCount').textContent = done + ' / ' + boxes.length;
+    document.getElementById('packBar').style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
+  }
+  function packRender(){
+    const done = packLoad();
+    let html = '';
+    packData.forEach(sec => {
+      html += '<div class="pack-sec"><h4>' + sec.h + '</h4>';
+      if (sec.note) html += '<p class="pack-note">' + sec.note + '</p>';
+      sec.items.forEach(it => {
+        const k = packStrip(it);
+        const on = done.indexOf(k) !== -1;
+        html += '<label class="pack-item' + (on ? ' done' : '') + '"><input type="checkbox" data-k="' + k.replace(/"/g, '&quot;') + '"' + (on ? ' checked' : '') + '><span>' + it + '</span></label>';
+      });
+      html += '</div>';
+    });
+    document.getElementById('packBody').innerHTML = html;
+    packCount();
+  }
+  document.addEventListener('change', function(e){
+    if (!e.target.matches('#packBody input[type=checkbox]')) return;
+    const k = e.target.dataset.k;
+    let done = packLoad();
+    if (e.target.checked){ if (done.indexOf(k) === -1) done.push(k); }
+    else { done = done.filter(function(x){ return x !== k; }); }
+    packSave(done);
+    e.target.closest('.pack-item').classList.toggle('done', e.target.checked);
+    packCount();
+  });
+  function shopLoad(){ try{ return JSON.parse(localStorage.getItem(SHOP_KEY) || '[]'); }catch(e){ return []; } }
+  function shopSave(a){ try{ localStorage.setItem(SHOP_KEY, JSON.stringify(a)); }catch(e){} }
+  function shopCount(){
+    const boxes = document.querySelectorAll('#shopBody input[type=checkbox]');
+    const done = document.querySelectorAll('#shopBody input[type=checkbox]:checked').length;
+    document.getElementById('shopCount').textContent = done + ' / ' + boxes.length;
+    document.getElementById('shopBar').style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
+  }
+  function shopRender(){
+    const done = shopLoad();
+    let html = '';
+    shopData.forEach(sec => {
+      html += '<div class="pack-sec' + (sec.plain ? ' sub' : '') + '"><h4>' + sec.h + '</h4>';
+      if (sec.note) html += '<p class="pack-note">' + sec.note + '</p>';
+      if (sec.plain){
+        sec.items.forEach(it => { html += '<div class="pack-ref">' + it + '</div>'; });
+        html += '</div>';
+        return;
+      }
+      sec.items.forEach(it => {
+        const k = packStrip(it);
+        const on = done.indexOf(k) !== -1;
+        html += '<label class="pack-item' + (on ? ' done' : '') + '"><input type="checkbox" class="shop" data-k="' + k.replace(/"/g, '&quot;') + '"' + (on ? ' checked' : '') + '><span>' + it + '</span></label>';
+      });
+      html += '</div>';
+    });
+    document.getElementById('shopBody').innerHTML = html;
+    shopCount();
+  }
+  document.addEventListener('change', function(e){
+    if (!e.target.matches('#shopBody input[type=checkbox]')) return;
+    const k = e.target.dataset.k;
+    let done = shopLoad();
+    if (e.target.checked){ if (done.indexOf(k) === -1) done.push(k); }
+    else { done = done.filter(function(x){ return x !== k; }); }
+    shopSave(done);
+    e.target.closest('.pack-item').classList.toggle('done', e.target.checked);
+    shopCount();
+  });
+  function openShop(){ shopRender(); document.getElementById('shopModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeShop(){ document.getElementById('shopModal').classList.remove('open'); document.body.style.overflow = ''; }
+  function openPack(){ packRender(); document.getElementById('packModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closePack(){ document.getElementById('packModal').classList.remove('open'); document.body.style.overflow = ''; }
+
+  // 실시간 날씨: 여행일 기준 5일 이내로 다가오면 Open-Meteo(무료·API키 불필요)로 실제 예보 표시 (일자별 좌표 사용)
+  function weatherEmoji(code){
+    if (code === 0) return '☀️';
+    if (code === 1) return '🌤️';
+    if (code === 2) return '⛅';
+    if (code === 3) return '☁️';
+    if ([45,48].includes(code)) return '🌫️';
+    if ([51,53,55,56,57,80,81,82].includes(code)) return '🌦️';
+    if ([61,63,65,66,67].includes(code)) return '🌧️';
+    if ([71,73,75,77,85,86].includes(code)) return '❄️';
+    if ([95,96,99].includes(code)) return '⛈️';
+    return '⛅';
+  }
+  async function updateLiveWeather(){
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const days = Array.from(document.querySelectorAll('#tab-itinerary .day[data-date]'));
+    await Promise.all(days.map(async day => {
+      const w = day.querySelector('.weather[data-lat]');
+      if (!w) return;
+      const [y,m,d] = day.dataset.date.split('-').map(Number);
+      const diff = Math.round((new Date(y, m-1, d) - today) / 86400000);
+      if (diff < 0 || diff > 5) return;
+      const lat = w.dataset.lat, lon = w.dataset.lon;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&start_date=${day.dataset.date}&end_date=${day.dataset.date}`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const json = await res.json();
+        if (!json.daily || !json.daily.time.length) return;
+        const tempEl = w.querySelector('.temp');
+        const iconEl = w.querySelector('.weather-icon');
+        if (!tempEl) return;
+        w.removeAttribute('data-weather');
+        if (iconEl) iconEl.textContent = weatherEmoji(json.daily.weathercode[0]);
+        const tmax = Math.round(json.daily.temperature_2m_max[0]);
+        const tmin = Math.round(json.daily.temperature_2m_min[0]);
+        tempEl.innerHTML = tmax + '° / ' + tmin + '° <span style="font-size:9.5px;font-weight:600;color:var(--teal);">(실시간)</span>';
+        const pop = json.daily.precipitation_probability_max ? json.daily.precipitation_probability_max[0] : 0;
+        const outfitEl = day.querySelector('.outfit');
+        if (pop >= 50 && outfitEl && !outfitEl.querySelector('.rain-note')){
+          const note = document.createElement('b');
+          note.className = 'rain-note';
+          note.style.cssText = 'display:block;color:var(--warn);margin-top:3px;font-weight:800;';
+          note.textContent = '☔ 강수확률 ' + pop + '% — 우산 준비';
+          outfitEl.appendChild(note);
+        }
+      } catch (e) { /* 네트워크 오류 시 기존 예상 날씨 유지 */ }
+    }));
+  }
+
+  // 오늘의 일정: 기기 날짜가 여행 기간 중 하나와 맞으면 상단에 카드 복제해서 보여줌
+  function initTodayCard(){
+    const now = new Date();
+    const todayStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+    const days = document.querySelectorAll('#tab-itinerary .day[data-date]');
+    let match = null;
+    days.forEach(day => { if (day.dataset.date === todayStr) match = day; });
+    if (!match) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'today-wrap';
+    const label = document.createElement('div');
+    label.className = 'today-label';
+    label.innerHTML = '<span class="dot-live"></span>오늘의 일정';
+    wrap.appendChild(label);
+    wrap.appendChild(match.cloneNode(true));
+    document.getElementById('todayCard').appendChild(wrap);
+  }
+  updateLiveWeather().finally(initTodayCard);
+
+  // 일자별 상세 동선 (미니 경로도)
+  const routeIcons = {
+    car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6h14l2 6v5h-3v-2H6v2H3z"/><circle cx="7.5" cy="13.5" r="1"/><circle cx="16.5" cy="13.5" r="1"/></svg>',
+    walk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13" cy="4" r="2"/><path d="M8 21l3-7 3 2v5M11 14l-1-5 4-1 2 4"/></svg>',
+    train: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l2-4M15 21l-2-4"/></svg>'
+  };
+  // 경유지 좌표 (OpenStreetMap 기준, 근사치)
+  const GEO = {
+    'Singyeongju KTX Station'          : [35.7983, 129.1388],
+        'Sono Calm Gyeongju'               : [35.8400, 129.2880],
+    'Gyeongju Expo Park'               : [35.8335, 129.2900],
+    'Hwangnam Burdock Gimbap, Gyeongju': [35.8386, 129.2098],
+    'Isabu Pizza, Gyeongju'            : [35.8385, 129.2103]
+  };
+  function shortName(n){ return n.replace(/,.*$/, ''); }
+  function mapFrame(locs, opts){
+    opts = opts || {};
+    const pts = locs.filter(function(l){ return GEO[l]; });
+    let html = '<div class="drd-map drd-map-ph" data-title="' + (opts.title || '동선') + '" data-pts="'
+             + encodeURIComponent(JSON.stringify(pts)) + '">지도 불러오는 중…</div>';
+    const dl = opts.dir === null ? [] : (opts.dir || locs);
+    if (dl.length >= 2){
+      const o = encodeURIComponent(dl[0]);
+      const d = encodeURIComponent(dl[dl.length - 1]);
+      const w = dl.slice(1, -1).map(encodeURIComponent).join('%7C');
+      html += '<a class="drd-dir" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1'
+            + '&origin=' + o + '&destination=' + d + (w ? '&waypoints=' + w : '')
+            + '&travelmode=' + (opts.mode || 'driving') + '">'
+            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>'
+            + '구글 지도로 길찾기</a>';
+    }
+    return html;
+  }
+  // ── OpenStreetMap 타일을 직접 그린다 (외부 라이브러리·API 키 없음) — 엔진은 그대로 복사 ──
+  const TS = 256;
+  function lon2px(lon, z){ return (lon + 180) / 360 * Math.pow(2, z) * TS; }
+  function lat2px(lat, z){
+    const r = lat * Math.PI / 180;
+    return (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * Math.pow(2, z) * TS;
+  }
+  function fitMap(pts, W, H, pad){
+    pad = pad || 34;
+    let z = 16;
+    for (; z > 1; z--){
+      const xs = pts.map(function(p){ return lon2px(p[1], z); });
+      const ys = pts.map(function(p){ return lat2px(p[0], z); });
+      if (Math.max.apply(null, xs) - Math.min.apply(null, xs) <= W - pad * 2 &&
+          Math.max.apply(null, ys) - Math.min.apply(null, ys) <= H - pad * 2) break;
+    }
+    if (pts.length === 1) z = Math.min(z, 13);
+    const xs = pts.map(function(p){ return lon2px(p[1], z); });
+    const ys = pts.map(function(p){ return lat2px(p[0], z); });
+    return { z: z,
+      cx: (Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2,
+      cy: (Math.min.apply(null, ys) + Math.max.apply(null, ys)) / 2 };
+  }
+  function paintMap(el, pts, st, W, H){
+    const ox = st.cx - W / 2, oy = st.cy - H / 2, n = Math.pow(2, st.z);
+    let tiles = '';
+    for (let ty = Math.floor(oy / TS); ty <= Math.floor((oy + H) / TS); ty++){
+      if (ty < 0 || ty >= n) continue;
+      for (let tx = Math.floor(ox / TS); tx <= Math.floor((ox + W) / TS); tx++){
+        const wx = ((tx % n) + n) % n;
+        tiles += '<img alt="" src="https://tile.openstreetmap.org/' + st.z + '/' + wx + '/' + ty + '.png"'
+               + ' style="left:' + (tx * TS - ox) + 'px;top:' + (ty * TS - oy) + 'px">';
+      }
+    }
+    const sx = pts.map(function(p){ return (lon2px(p[1], st.z) - ox).toFixed(1); });
+    const sy = pts.map(function(p){ return (lat2px(p[0], st.z) - oy).toFixed(1); });
+    let ov = '<svg class="drd-ov" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">';
+    if (pts.length > 1){
+      const d = sx.map(function(v, i){ return (i ? 'L' : 'M') + v + ' ' + sy[i]; }).join(' ');
+      ov += '<path d="' + d + '" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>'
+          + '<path d="' + d + '" fill="none" stroke="#2E6B5A" stroke-width="2.6" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round"/>';
+    }
+    sx.forEach(function(v, i){
+      const fill = i === 0 ? '#3F8470' : (i === sx.length - 1 ? '#AD4C3C' : '#2E6B5A');
+      ov += '<circle cx="' + v + '" cy="' + sy[i] + '" r="11" fill="' + fill + '" stroke="#fff" stroke-width="2.5"/>'
+          + '<text x="' + v + '" y="' + (parseFloat(sy[i]) + 4) + '" text-anchor="middle"'
+          + ' font-size="12" font-weight="800" fill="#fff" font-family="Manrope,sans-serif">' + (i + 1) + '</text>';
+    });
+    ov += '</svg>';
+    el.innerHTML = '<div class="drd-tiles">' + tiles + '</div>' + ov
+      + '<div class="drd-attr">&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></div>';
+  }
+  function buildRouteMap(el){
+    let names;
+    try { names = JSON.parse(decodeURIComponent(el.dataset.pts)); } catch(e){ return; }
+    const pts = names.map(function(n){ return GEO[n]; }).filter(Boolean);
+    if (!pts.length) return;
+    el.removeAttribute('data-pts');
+    const W = el.clientWidth || 340, H = el.clientHeight || 230;
+    el.classList.remove('drd-map-ph');
+    paintMap(el, pts, fitMap(pts, W, H), W, H);
+    el.insertAdjacentHTML('beforeend',
+      '<span class="drd-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>크게 보기</span>');
+    el.addEventListener('click', function(){ openMapFull(pts, el.dataset.title || '동선'); });
+  }
+  let MF = null;
+  function openMapFull(pts, title){
+    if (!MF){
+      MF = document.createElement('div');
+      MF.className = 'mapfull';
+      MF.innerHTML = '<div class="mapfull-bar"><span class="t"></span>'
+        + '<button type="button" data-a="out" aria-label="축소">−</button>'
+        + '<button type="button" data-a="in" aria-label="확대">+</button>'
+        + '<button type="button" data-a="fit" aria-label="전체 보기">⤢</button>'
+        + '<button type="button" data-a="close" aria-label="닫기">×</button></div>'
+        + '<div class="mapfull-cv"></div>'
+        + '<div class="mapfull-hint">손가락으로 끌어 이동 · 두 손가락으로 확대</div>';
+      document.body.appendChild(MF);
+    }
+    const bar = MF.querySelector('.mapfull-bar'), cv = MF.querySelector('.mapfull-cv');
+    MF.querySelector('.t').textContent = title;
+    MF.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    const W = () => cv.clientWidth, H = () => cv.clientHeight;
+    let st = fitMap(pts, W(), H(), 48);
+    const draw = () => paintMap(cv, pts, st, W(), H());
+    draw();
+    const zoom = (d) => {
+      const nz = Math.max(2, Math.min(17, st.z + d));
+      if (nz === st.z) return;
+      const f = Math.pow(2, nz - st.z);
+      st = { z: nz, cx: st.cx * f, cy: st.cy * f };
+      draw();
+    };
+    bar.onclick = (e) => {
+      const a = e.target.closest('button') && e.target.closest('button').dataset.a;
+      if (a === 'in') zoom(1);
+      else if (a === 'out') zoom(-1);
+      else if (a === 'fit'){ st = fitMap(pts, W(), H(), 48); draw(); }
+      else if (a === 'close'){ MF.classList.remove('on'); document.body.style.overflow = ''; }
+    };
+    const ptr = new Map();
+    let base = 0;
+    cv.onpointerdown = (e) => { cv.setPointerCapture(e.pointerId); ptr.set(e.pointerId, e); base = 0; };
+    cv.onpointermove = (e) => {
+      if (!ptr.has(e.pointerId)) return;
+      const prev = ptr.get(e.pointerId);
+      ptr.set(e.pointerId, e);
+      if (ptr.size === 1){
+        st.cx -= e.clientX - prev.clientX;
+        st.cy -= e.clientY - prev.clientY;
+        draw();
+      } else if (ptr.size === 2){
+        const [a, b] = [...ptr.values()];
+        const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+        if (!base) { base = d; return; }
+        if (d / base > 1.55){ zoom(1); base = d; }
+        else if (d / base < 0.65){ zoom(-1); base = d; }
+      }
+    };
+    const end = (e) => { ptr.delete(e.pointerId); base = 0; };
+    cv.onpointerup = end; cv.onpointercancel = end;
+  }
+  function initRouteMaps(){
+    const nodes = document.querySelectorAll('.drd-map[data-pts]');
+    if (!nodes.length) return;
+    if (!('IntersectionObserver' in window)){ nodes.forEach(buildRouteMap); return; }
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        buildRouteMap(e.target);
+      });
+    }, { rootMargin: '250px' });
+    nodes.forEach(function(n){ io.observe(n); });
+  }
+  const dayRouteData = [
+    { day:'Day 01', date:'10.3(토)', seg:'seg-a', stops:['신경주역 (렌터카 인수)','이사부피자 (황리단길 점심)','소노캄 경주 (체크인·휴식)','진가네대구갈비 (저녁)','소노캄 경주 (야간스파·야식)'],
+      connectors:[{icon:'car',text:'차로 약 35분'},{icon:'car',text:'차로 약 20분'},{icon:'car',text:'차로 약 20분'},{icon:'car',text:'차로 약 20분'}],
+      map: mapFrame(['Singyeongju KTX Station','Isabu Pizza, Gyeongju','Sono Calm Gyeongju']) },
+    { day:'Day 02', date:'10.4(일)', seg:'seg-b', stops:['소노캄 경주','경주 원조콩국 (아침)','라라랜드','소바카게 경주점 (황리단길 점심)','신라당 (카페)','소노캄 경주 (휴식)','아리랑 (저녁)','경주엑스포대공원 화랑숲 (야간)','소노캄 경주'],
+      connectors:[{icon:'car',text:'차로 약 20분'},{icon:'car',text:'차로 약 20분 (보문단지 내)'},{icon:'car',text:'차로 약 20분'},{icon:'walk',text:'도보 또는 차로 가까움'},{icon:'car',text:'차로 약 20분'},{icon:'car',text:'차로 약 10분'},{icon:'car',text:'차로 약 10분'},{icon:'car',text:'차로 약 10분'}],
+      map: mapFrame(['Sono Calm Gyeongju','Gyeongju Expo Park','Sono Calm Gyeongju']) },
+    { day:'Day 03', date:'10.5(월)', seg:'seg-a', stops:['소노캄 경주 (물놀이·체크아웃)','황남우엉김밥 (픽업)','신경주역 (렌터카 반납)'],
+      connectors:[{icon:'car',text:'차로 약 20분'},{icon:'car',text:'차로 약 30분'}],
+      map: mapFrame(['Sono Calm Gyeongju','Hwangnam Burdock Gimbap, Gyeongju','Singyeongju KTX Station']) }
+  ];
+  function renderDailyRoutes(){
+    const container = document.getElementById('dailyRouteList');
+    let html = '';
+    dayRouteData.forEach(d => {
+      let drd = '<div class="drd">';
+      d.stops.forEach((stop, i) => {
+        drd += `<div class="drd-stop"><span class="dot">${i + 1}</span><span class="label">${stop}</span></div>`;
+        if (d.connectors[i]){
+          drd += `<div class="drd-connector">${routeIcons[d.connectors[i].icon]}<span>${d.connectors[i].text}</span></div>`;
+        }
+      });
+      drd += '</div>';
+      html += `<div class="daily-route-card ${d.seg}"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div>${d.map.replace('data-title="동선"', `data-title="${d.day} · ${d.date}"`)}${drd}</div>`;
+    });
+    container.innerHTML = html;
+    initRouteMaps();
+  }
+  document.getElementById('overviewMap').innerHTML = mapFrame(['Singyeongju KTX Station','Sono Calm Gyeongju','Gyeongju Expo Park','Hwangnam Burdock Gimbap, Gyeongju'], { title:'경주 방문 장소', dir:null });
+  renderDailyRoutes();
+
+  // 상호명에 네이버 지도 검색 링크 자동 연결 (카드/동선 단위로 첫 등장 1회)
+  const MAP_LINKS = [
+    ['경주엑스포대공원 화랑숲','경주엑스포대공원 화랑숲'], ['화랑숲','경주엑스포대공원 화랑숲'],
+    ['진가네대구갈비 본점','경북 경주시 북정로 5 진가네대구갈비 본점'], ['소바카게 경주점','경북 경주시 첨성로99번길 25-5 소바카게 경주점'],
+    ['경주 원조콩국','경북 경주시 첨성로 113 경주원조콩국'], ['라라랜드 스쿠터대여점','경북 경주시 보문로 545-14 라라랜드 스쿠터대여점'], ['라라랜드','경북 경주시 보문로 545-14 라라랜드 스쿠터대여점'],
+    ['이사부피자','경북 경주시 포석로 1064-6 이사부피자'], ['불날개','경북 경주시 동대로12번길 2 불날개'], ['아리랑','경북 경주시 숲머리길 197 아리랑'],
+    ['신라당','신라당 경주'], ['황남우엉김밥','경북 경주시 포석로 1074 황남우엉김밥'], ['신경주역','신경주역'],
+    ['소노캄 경주','소노캄 경주'], ['카페 오롯','소노캄 경주 카페 오롯'], ['셰프스키친 담음','소노캄 경주 셰프스키친 담음'], ['충효닭집 본점','경북 경주시 원효로51번길 5 충효닭집 본점'], ['포항물회','경북 경주시 봉황로 56 포항물회']
+  ];
+  function linkifyContainer(root){
+    const map = {}; MAP_LINKS.forEach(function(m){ map[m[0]] = m[1]; });
+    const names = MAP_LINKS.map(function(m){ return m[0]; }).sort(function(a,b){ return b.length - a.length; });
+    const re = new RegExp(names.map(function(n){ return n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|'), 'g');
+    const seen = {};
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const nodes = []; let n; while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach(function(tn){
+      if (tn.parentNode.closest('a, button, .tag')) return;
+      const txt = tn.nodeValue; let last = 0, m, frag = null; re.lastIndex = 0;
+      while ((m = re.exec(txt))){
+        const key = map[m[0]];
+        if (seen[key]) continue;
+        seen[key] = 1;
+        if (!frag) frag = document.createDocumentFragment();
+        frag.appendChild(document.createTextNode(txt.slice(last, m.index)));
+        const a = document.createElement('a');
+        a.href = 'https://map.naver.com/p/search/' + encodeURIComponent(key);
+        a.target = '_blank'; a.rel = 'noopener'; a.textContent = m[0];
+        frag.appendChild(a); last = m.index + m[0].length;
+      }
+      if (frag){ frag.appendChild(document.createTextNode(txt.slice(last))); tn.parentNode.replaceChild(frag, tn); }
+    });
+  }
+  document.querySelectorAll('#tab-itinerary .day .card').forEach(linkifyContainer);
+  document.querySelectorAll('#dailyRouteList .drd').forEach(linkifyContainer);
+
+  // 오프라인 대비: 한 번이라도 온라인으로 열어두면 통신이 끊겨도 일정이 열립니다
+  if ('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('gyeongju-sw.js', { scope: './2026gyeongju.html' }).catch(function(){});
+    });
+  }
+  function syncOnlineState(){ document.body.classList.toggle('is-offline', !navigator.onLine); }
+  window.addEventListener('online', syncOnlineState);
+  window.addEventListener('offline', syncOnlineState);
+  syncOnlineState();
+</script>
+
+</body>
+</html>
