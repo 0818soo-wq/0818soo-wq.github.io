@@ -1,6 +1,6 @@
 // 오프라인 대비 캐시 (2026 HOKKAIDO)
 // 온라인이면 항상 최신을 받아오고, 통신이 끊겼을 때만 캐시된 일정을 보여줍니다.
-var CACHE = 'hk2026-v2';
+var CACHE = 'hk2026-v3';
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
