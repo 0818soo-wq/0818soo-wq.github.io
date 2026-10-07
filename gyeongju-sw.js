@@ -1,11 +1,12 @@
-// 오프라인 대비 캐시 (2026 HOKKAIDO)
+// 오프라인 대비 캐시 (2026 GYEONGJU 전용 — 이 페이지에만 적용되도록 좁은 scope로 등록됨)
+// 이동 중 통신이 불안정할 수 있습니다.
 // 온라인이면 항상 최신을 받아오고, 통신이 끊겼을 때만 캐시된 일정을 보여줍니다.
-var CACHE = 'hk2026-v11';
+var CACHE = 'gyeongju2026-v1';
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE)
-      .then(function (c) { return c.addAll(['./2026hokkaido.html']); })
+      .then(function (c) { return c.addAll(['./2026gyeongju.html']); })
       .then(function () { return self.skipWaiting(); })
       .catch(function () {})
   );
@@ -42,7 +43,7 @@ self.addEventListener('fetch', function (e) {
       return res;
     }).catch(function () {
       return caches.match(req).then(function (r) {
-        return r || caches.match('./2026hokkaido.html');
+        return r || caches.match('./2026gyeongju.html');
       });
     })
   );

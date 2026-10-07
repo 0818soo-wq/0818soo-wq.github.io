@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>2027 BALI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4F3EE;
+    --surface: #FFFFFF;
+    --ink: #22303A;
+    --ink-soft: #66727A;
+    --ink-faint: #9BA7AC;
+    --line: #E4E1D8;
+
+    --air: #5B6B78;      --air-soft: #E3E8EC;
+    --sanur: #1F6C8C;    --sanur-soft: #DCEBF2;
+    --gili: #14868A;     --gili-soft: #D8EEEE;
+    --ubud: #4E7D3A;     --ubud-soft: #E4EEDB;
+    --tab: #8A6A3D;      --tab-soft: #F1E7D6;
+    --sem: #C1532E;      --sem-soft: #F6E4DA;
+    --accent: #B3893F;   --accent-soft: #F1E6D2;
+    --warn: #AD4C3C;     --warn-soft: #F5E5E1;
+    --ok: #3E7D4F;      --ok-soft: #E1EFE4;
+  }
+
+  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body{ margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+  body{ padding-bottom: 64px; }
+
+  /* ---------- HERO ---------- */
+  .hero{ position: relative; padding: 48px 24px 26px; background: linear-gradient(180deg, #0E3B3A 0%, #1B6B5E 55%, #3A9578 100%); color: #F3F5F6; overflow: hidden; }
+  .hero::after{ content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(232,196,110,0.4) 0%, rgba(232,196,110,0) 70%); }
+  .hero-eyebrow{ font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #CFE8DA; margin: 0 0 14px; font-weight: 600; }
+  .hero-title{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 34px; line-height: 1.18; margin: 0 0 18px; letter-spacing: -0.01em; }
+  .hero-title em{ font-style: italic; font-weight: 400; color: #F0DDA5; }
+  .hero-meta{ display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: 13px; color: #E6F0EC; }
+  .hero-meta span{ display: flex; align-items: center; gap: 6px; }
+  .hero-meta svg{ width: 14px; height: 14px; opacity: 0.85; }
+
+  /* ---------- TABS ---------- */
+  .tabbar{ position: sticky; top: 0; z-index: 20; display: flex; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: 0 2px 6px rgba(34,48,58,0.05); }
+  .tab{ flex: 1; appearance: none; border: none; background: transparent; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 12.5px; color: var(--ink-faint); padding: 14px 2px 12px; position: relative; cursor: pointer; }
+  .tab.active{ color: var(--gili); }
+  .tab.active::after{ content: ""; position: absolute; left: 18%; right: 18%; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--gili); }
+
+  main{ max-width: 480px; margin: 0 auto; padding: 0 16px; }
+  .tab-panel{ display: none; }
+  .tab-panel.active{ display: block; animation: fadein .25s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(4px);} to{ opacity:1; transform: translateY(0);} }
+
+  /* ---------- OFFLINE BAR ---------- */
+  #offlineBar{ display: none; position: sticky; top: 0; z-index: 30; background: var(--accent-soft); color: var(--accent); font-size: 11.5px; font-weight: 800; text-align: center; padding: 8px 12px; line-height: 1.45; }
+  body.is-offline #offlineBar{ display: block; }
+
+  /* ---------- TODAY / D-DAY ---------- */
+  .dday{ margin: 22px 6px 0; padding: 12px 14px; border-radius: 12px; background: var(--gili-soft); color: var(--gili); font-size: 13px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .dday small{ font-size: 11px; font-weight: 700; opacity: .8; }
+  .today-wrap{ margin: 6px 6px 8px; padding-bottom: 22px; border-bottom: 1px dashed var(--line); }
+  .today-label{ display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 16px; color: var(--warn); margin: 18px 0 14px; }
+  .today-label .dot-live{ width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+  .today-wrap .day{ padding-left: 0; margin-bottom: 0; }
+  .today-wrap .day-dot{ display: none; }
+  .today-wrap .card{ border: 2px solid var(--warn); box-shadow: 0 4px 14px rgba(173,76,60,0.14); }
+
+  .note-box{ margin: 18px 6px 0; padding: 12px 14px; border-radius: 12px; background: var(--accent-soft); color: var(--ink); font-size: 12.5px; line-height: 1.6; }
+  .note-box b{ font-weight: 800; }
+
+  /* ---------- SEGMENT LABEL ---------- */
+  .segment-label{ display: flex; align-items: center; gap: 10px; margin: 26px 6px 14px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; color: var(--ink); }
+  .segment-label .dot{ width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--seg, var(--air)); }
+  .segment-label .rule{ flex: 1; height: 1px; background: var(--line); }
+
+  /* ---------- TIMELINE / DAY CARD ---------- */
+  .seg-air{ --seg: var(--air); --seg-soft: var(--air-soft); }
+  .seg-sanur{ --seg: var(--sanur); --seg-soft: var(--sanur-soft); }
+  .seg-gili{ --seg: var(--gili); --seg-soft: var(--gili-soft); }
+  .seg-ubud{ --seg: var(--ubud); --seg-soft: var(--ubud-soft); }
+  .seg-tab{ --seg: var(--tab); --seg-soft: var(--tab-soft); }
+  .seg-sem{ --seg: var(--sem); --seg-soft: var(--sem-soft); }
+
+  .timeline{ position: relative; }
+  .timeline::before{ content: ""; position: absolute; left: 21px; top: 6px; bottom: 6px; width: 2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
+  .day{ position: relative; padding-left: 46px; margin-bottom: 18px; }
+  .day-dot{ position: absolute; left: 14px; top: 22px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--seg); z-index: 2; }
+
+  .card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; box-shadow: 0 1px 2px rgba(34,48,58,0.04); }
+  .card-head{ display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  .card-head-left{ display: flex; flex-direction: column; }
+  .day-num{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; color: var(--ink); }
+  .day-date{ font-size: 12.5px; color: var(--ink-soft); font-weight: 600; }
+
+  .transport-badge{ display: flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; background: var(--seg-soft); color: var(--seg); }
+  .transport-badge svg{ width: 12px; height: 12px; }
+
+  .stay{ margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); line-height: 1.55; }
+  .stay svg{ width: 13px; height: 13px; opacity: 0.75; display: inline-block; vertical-align: -2px; margin-right: 5px; }
+  .stay .stay-name{ color: var(--ink); font-weight: 700; text-decoration: none; }
+  .pill{ display: inline-block; font-size: 10.5px; font-weight: 800; padding: 1px 7px; border-radius: 6px; margin-left: 4px; vertical-align: middle; }
+  .pill.tbd{ background: var(--warn-soft); color: var(--warn); }
+  .pill.ok{ background: var(--ok-soft); color: var(--ok); }
+
+  .schedule{ list-style: none; margin: 0; padding: 0; }
+  .schedule li{ position: relative; padding: 6px 0 6px 16px; font-size: 13.5px; color: var(--ink); line-height: 1.45; }
+  .schedule li::before{ content: ""; position: absolute; left: 0; top: 14px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink-faint); }
+  .schedule li.flight{ font-weight: 700; }
+  .schedule li.flight::before{ background: var(--warn); }
+  .schedule li.transit::before{ background: var(--sanur); }
+  .schedule li.opt{ color: var(--ink-soft); }
+  .schedule li.opt::before{ background: var(--line); }
+  .schedule li .tag{ display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; color: var(--warn); background: var(--warn-soft); padding: 1px 6px; border-radius: 5px; margin-left: 6px; vertical-align: middle; }
+  .schedule a, .stay a{ color: var(--sanur); font-weight: 700; text-decoration: none; }
+
+  .tipline{ margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--seg-soft); font-size: 12px; line-height: 1.55; color: var(--ink); }
+  .tipline b{ font-weight: 800; }
+
+  /* ---------- BOOKING / STAY CARDS ---------- */
+  .booking-group{ margin-top: 26px; }
+  .booking-group:first-child{ margin-top: 22px; }
+  .booking-card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 12px; }
+  .booking-card-head{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .booking-title{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 15.5px; color: var(--ink); line-height: 1.35; }
+  .booking-sub{ font-size: 12px; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
+  .booking-code{ flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; background: var(--accent-soft); color: var(--accent); padding: 4px 8px; border-radius: 7px; white-space: nowrap; text-align: right; }
+  .booking-code.ok{ background: var(--ok-soft); color: var(--ok); }
+  .booking-code.no{ background: var(--warn-soft); color: var(--warn); }
+  .booking-rows{ margin-top: 10px; }
+  .booking-row{ display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; font-size: 12.5px; border-top: 1px dashed var(--line); }
+  .booking-row:first-child{ border-top: none; }
+  .booking-row .k{ color: var(--ink-soft); font-weight: 600; flex-shrink: 0; }
+  .booking-row .v{ color: var(--ink); font-weight: 700; text-align: right; }
+  .booking-note{ margin-top: 10px; font-size: 11.5px; color: var(--ink-soft); line-height: 1.6; }
+  .booking-note a{ color: var(--sanur); font-weight: 700; text-decoration: none; }
+  .opt-table a, .booking-title a{ color: var(--sanur); font-weight: 700; text-decoration: none; }
+  .opt-table a::after, .booking-title a::after{ content: " ↗"; font-size: 10px; opacity: .7; }
+  .booking-note.warn{ color: var(--warn); font-weight: 600; }
+
+  /* ---------- CHECKLIST ---------- */
+  .pack-progress{ margin: 22px 6px 0; }
+  .pack-progress span{ font-size: 11.5px; font-weight: 800; color: var(--ink-soft); }
+  .pack-bar{ height: 5px; border-radius: 3px; background: var(--line); margin-top: 6px; overflow: hidden; }
+  .pack-bar i{ display: block; height: 100%; width: 0; background: var(--gili); transition: width .2s ease; }
+  .pack-sec{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 18px 8px; margin-top: 14px; }
+  .pack-sec h4{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 14.5px; color: var(--ink); margin: 0 0 4px; }
+  .pack-note{ font-size: 11.5px; color: var(--warn); line-height: 1.55; margin: 4px 0 8px; font-weight: 600; }
+  .pack-item{ display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px solid var(--line); cursor: pointer; }
+  .pack-sec h4 + .pack-item, .pack-note + .pack-item{ border-top: none; }
+  .pack-item input{ width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--gili); flex-shrink: 0; }
+  .pack-item span{ font-size: 13px; line-height: 1.5; color: var(--ink); }
+  .pack-item span small{ display: block; font-size: 11px; color: var(--ink-faint); font-weight: 600; margin-top: 1px; }
+  .pack-item.done span{ color: var(--ink-faint); text-decoration: line-through; }
+
+  /* ---------- COMPARE TABLE (rooms) ---------- */
+  .opt-table{ width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+  .opt-table th{ text-align: left; font-weight: 800; color: var(--ink-faint); font-size: 10.5px; padding: 4px 6px 4px 0; letter-spacing: .03em; }
+  .opt-table td{ padding: 7px 6px 7px 0; border-top: 1px dashed var(--line); vertical-align: top; line-height: 1.45; color: var(--ink); }
+  .opt-table td:first-child{ font-weight: 700; }
+
+  footer{ max-width: 480px; margin: 40px auto 0; padding: 0 24px; text-align: center; }
+  footer p{ font-size: 11px; color: var(--ink-faint); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Family Trip · 2027.10.02 – 10.10</p>
+  <h1 class="hero-title">2027<br><em>BALI</em></h1>
+  <div class="hero-meta">
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      인도네시아 · 발리 · 길리
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3v4M7 3v4M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+      7박 9일
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><circle cx="18" cy="8" r="2.2"/><path d="M23 20c0-2.6-2.1-4.7-4.7-5"/></svg>
+      성인 2 · 소아 1 (만 5세)
+    </span>
+  </div>
+</div>
+
+<div id="offlineBar">📴 오프라인 — 일정·예약·준비물은 그대로 보입니다. 지도 링크만 열리지 않아요.</div>
+
+<div class="tabbar">
+  <button class="tab active" data-tab="itinerary">일정</button>
+  <button class="tab" data-tab="stay">숙소</button>
+  <button class="tab" data-tab="booking">예약</button>
+  <button class="tab" data-tab="pack">준비물</button>
+</div>
+
+<main>
+
+  <!-- ============ 일정 TAB ============ -->
+  <section class="tab-panel active" id="tab-itinerary">
+
+    <div id="todayCard"></div>
+    <div class="dday" id="ddayBox"><span id="ddayText">D-day 계산 중</span><small>10.2 (토) 출발</small></div>
+
+    <div class="note-box">
+      <b>10월 발리 날씨</b> 낮 30~32°C · 밤 24~25°C, 건기 끝 무렵이라 맑은 날이 많지만 오후 스콜이 올 수 있어요. 얇은 겉옷·우산(우비)·선크림을 챙기세요.<br>
+      <b>시차</b> 한국보다 1시간 늦어요 (발리 = 한국 −1시간).
+    </div>
+
+    <div class="segment-label seg-air"><span class="dot"></span>출국 · 공항 근처 1박<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-air" data-date="2027-10-02">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 01</span><span class="day-date">10.2 (토)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>항공 대한항공</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">공항 근처 호텔</span> 1박 (<a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bali+hotels" target="_blank" rel="noopener">짐바란</a> 또는 <a href="https://www.google.com/maps/search/?api=1&query=Kuta+Bali+hotels" target="_blank" rel="noopener">꾸따</a>) <span class="pill tbd">미정</span>
+          </div>
+          <ul class="schedule">
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Incheon+International+Airport+Terminal+2" target="_blank" rel="noopener">인천공항 T2</a> 출발 2~3시간 전 도착 (대한항공)</li>
+            <li class="flight">16:20 인천(ICN) 출발 <span class="tag">KE431</span></li>
+            <li class="flight">22:25 <a href="https://www.google.com/maps/search/?api=1&query=Ngurah+Rai+International+Airport+Bali" target="_blank" rel="noopener">발리(DPS)</a> 도착 <span class="tag">약 7시간</span></li>
+            <li class="transit">입국심사·짐 찾기 후 예약해 둔 차량으로 호텔 (10~20분)</li>
+          </ul>
+          <div class="tipline"><b>미리 준비</b> 도착비자·관광세, 온라인 세관신고는 출발 전에 끝내두세요. 밤 도착이라 픽업 차량(카시트)을 꼭 예약하세요.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment-label seg-sanur"><span class="dot"></span>사누르 · 안다즈 2박<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-sanur" data-date="2027-10-03">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 02</span><span class="day-date">10.3 (일)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg>사누르 이동</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali (안다즈 발리)</a> 1박째 <span class="pill tbd">미예약</span>
+          </div>
+          <ul class="schedule">
+            <li>늦은 조식 → 체크아웃 → <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Bali" target="_blank" rel="noopener">사누르</a>로 이동 (공항 근처에서 약 30분)</li>
+            <li>얼리 체크인 요청, 오후는 수영장·해변 산책로</li>
+            <li>키즈클럽 이용 (투숙객 하루 2시간 무료 · 후기 기준)</li>
+            <li>저녁: 사누르 해변 식당, 일찍 쉬기</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="day seg-sanur" data-date="2027-10-04">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 03</span><span class="day-date">10.4 (월)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>휴식의 날</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali</a> 2박째
+          </div>
+          <ul class="schedule">
+            <li>오전: 키즈클럽 · 수영 · 조식</li>
+            <li>오후: <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Beach+Bali" target="_blank" rel="noopener">사누르 해변</a> 자전거·산책 (선택)</li>
+            <li class="opt">길리로 가져갈 짐만 챙기기 — 큰 캐리어는 안다즈에 맡길 수 있는지 문의</li>
+            <li>저녁: 사누르 석양 · 내일 아침 보트 준비 (<a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르 항구</a> 위치 확인)</li>
+          </ul>
+          <div class="tipline"><b>팁</b> 10/7 길리에서 돌아오는 보트가 사누르 항구 도착이면 캐리어를 안다즈에서 받아 우붓으로 갈 수 있어요. 도착 항구는 보트 예약 시 확인하세요.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment-label seg-gili"><span class="dot"></span>길리 2박<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-gili" data-date="2027-10-05">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 04</span><span class="day-date">10.5 (화)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 18l2-8h16l2 8"/><path d="M12 10V4l4 3"/><path d="M2 18c2 2 4 2 6 0s4-2 6 0 4 2 6 0"/></svg>패스트보트 → 길리</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name"><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">길리 에어</a> (추천) 또는 <a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">길리 트라왕안</a></span> 1박째 <span class="pill tbd">미정</span>
+          </div>
+          <ul class="schedule">
+            <li class="transit">오전 <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르 항구</a> 출발, 패스트보트 약 2시간 (아이 구명조끼 · 멀미약)</li>
+            <li>길리 도착 → 숙소 체크인, 점심</li>
+            <li>오후: 해변 · 수영장 (아이 수영장 있는 곳)</li>
+            <li>저녁: 해변 식당에서 석양</li>
+          </ul>
+          <div class="tipline"><b>숙소 후보 (미정)</b><br>· 에어: <a href="https://www.google.com/maps/search/?api=1&query=Dolcemare+Resort+Gili+Air" target="_blank" rel="noopener">Dolcemare Resort</a> · <a href="https://www.google.com/maps/search/?api=1&query=Gili+Air+Bungalows" target="_blank" rel="noopener">Gili Air Bungalows</a> · <a href="https://www.google.com/maps/search/?api=1&query=Chill+Out+Bungalows+Gili+Air" target="_blank" rel="noopener">Chill Out Bungalows</a><br>· 트라왕안: <a href="https://www.google.com/maps/search/?api=1&query=Aston+Sunset+Beach+Resort+Gili+Trawangan" target="_blank" rel="noopener">Aston Sunset Beach Resort</a> · <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Ombak+Sunset+Gili+Trawangan" target="_blank" rel="noopener">Hotel Ombak Sunset</a></div>
+          <div class="tipline"><b>이동</b> 길리는 자동차가 없어요. 숙소까지는 마차(치도모)나 도보로 이동합니다. 보트는 사전 예약 필수, 파도가 높으면 결항될 수 있어요.</div>
+        </div>
+      </div>
+
+      <div class="day seg-gili" data-date="2027-10-06">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 05</span><span class="day-date">10.6 (수)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12c3-4 6-4 9 0s6 4 9 0"/><path d="M3 17c3-4 6-4 9 0s6 4 9 0"/></svg>스노클링</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name">길리 숙소</span> 2박째 (Day 04 후보 참고)
+          </div>
+          <ul class="schedule">
+            <li>오전: 프라이빗 보트 스노클링 (거북이 포인트, 반나절)</li>
+            <li class="opt">아이가 무서워하면 숙소 앞 얕은 해안 스노클링부터</li>
+            <li>낮: 숙소 수영장에서 휴식·낮잠</li>
+            <li>저녁: 해변 식사 · 석양</li>
+          </ul>
+          <div class="tipline"><b>거북이</b> 길리 3개 섬(트라왕안·메노·에어) 모두 거북이 포인트가 있고, 보트 투어는 대부분 여러 포인트를 돌아요.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment-label seg-ubud"><span class="dot"></span>우붓 1박<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-ubud" data-date="2027-10-07">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 06</span><span class="day-date">10.7 (목)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 18l2-8h16l2 8"/><path d="M12 10V4l4 3"/><path d="M2 18c2 2 4 2 6 0s4-2 6 0 4 2 6 0"/></svg>보트 → 우붓</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <a href="https://www.google.com/maps/search/?api=1&query=Bambu+Indah+Ubud" target="_blank" rel="noopener">Bambu Indah</a> 또는 <a href="https://www.google.com/maps/search/?api=1&query=Hideout+Eco+Bamboo+House+Bali+Selat" target="_blank" rel="noopener">Hideout Bali</a> (트리하우스) <span class="pill tbd">미정</span>
+          </div>
+          <ul class="schedule">
+            <li class="transit">오전 보트로 <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a>(또는 <a href="https://www.google.com/maps/search/?api=1&query=Padang+Bai+Harbour+Bali" target="_blank" rel="noopener">빠당바이</a>) 도착 → 차량으로 우붓 (약 1시간 30분~2시간)</li>
+            <li>숙소 체크인 · 점심</li>
+            <li>늦은 오후: <a href="https://www.google.com/maps/search/?api=1&query=Ubud+Monkey+Forest" target="_blank" rel="noopener">몽키포레스트</a> · 우붓 시내 (선택)</li>
+            <li>저녁: 우붓 식당</li>
+          </ul>
+          <div class="tipline"><b>주의</b> 보트가 늦어질 수 있어요. 이날은 일정을 넉넉히 잡고, 트리하우스형 방은 계단·난간이 아이에게 위험할 수 있으니 방 타입을 꼭 확인하세요.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment-label seg-tab"><span class="dot"></span>따바난 lodgeinthewoods 1박<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-tab" data-date="2027-10-08">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 07</span><span class="day-date">10.8 (금)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg>따바난 이동</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <a href="https://www.google.com/maps/search/?api=1&query=lodgeinthewoods+Kaba-Kaba+Tabanan" target="_blank" rel="noopener">lodgeinthewoods</a> (Kaba-Kaba, 따바난) 1박 <span class="pill tbd">미예약</span>
+          </div>
+          <ul class="schedule">
+            <li>오전: 우붓에서 조식 · 쿠킹클래스 또는 <a href="https://www.google.com/maps/search/?api=1&query=Tegallalang+Rice+Terrace+Ubud" target="_blank" rel="noopener">뜨갈랄랑 계단식 논</a> (선택)</li>
+            <li class="transit">점심 후 lodgeinthewoods로 이동 (우붓에서 약 1시간~1시간 15분)</li>
+            <li>오후~저녁: 숲속 숙소에서 휴식, 저녁은 숙소 식사</li>
+          </ul>
+          <div class="tipline"><b>확인</b> 수영장이 깊고 울타리가 없어 보여요. 아이 동반 가능 여부와 안전(수영장 깊이·계단)을 예약 전에 꼭 문의하세요. 외진 곳이라 근처 식당이 적을 수 있어요.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="segment-label seg-sem"><span class="dot"></span>스미냑·꾸따 · 산타이 라운지 · 귀국<span class="rule"></span></div>
+    <div class="timeline">
+
+      <div class="day seg-sem" data-date="2027-10-09">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 08</span><span class="day-date">10.9 (토)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg>산타이 라운지</span>
+          </div>
+          <div class="stay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+            <span class="stay-name"><a href="https://www.google.com/maps/search/?api=1&query=Santai+Lounge+Bali" target="_blank" rel="noopener">Santai Lounge Bali</a></span> (공항에서 약 5분 · 숙박 없음) <span class="pill tbd">확인 필요</span>
+          </div>
+          <ul class="schedule">
+            <li class="transit">오전 lodgeinthewoods 체크아웃 → <a href="https://www.google.com/maps/search/?api=1&query=Seminyak+Bali" target="_blank" rel="noopener">스미냑</a>·<a href="https://www.google.com/maps/search/?api=1&query=Kuta+Bali" target="_blank" rel="noopener">꾸따</a> (약 1시간) · 짐은 기사 차량에 두기</li>
+            <li>낮~오후: 점심 · 해변 · 마사지 · 마지막 쇼핑 (스미냑·꾸따에서 놀기)</li>
+            <li class="transit">18:00쯤 산타이 라운지 도착 (공항에서 약 5분)</li>
+            <li>1층 기념품 쇼핑 · 샤워 · 짐 보관 / 2층 카페테리아 (라면·짜파게티·닭죽·소고기죽·커피) / 3층 쉬고 눕는 공간</li>
+            <li>저녁 식사 → 샤워 · 잠옷 갈아입기 → 3층에서 휴식</li>
+            <li class="transit">21:45쯤 공항으로 이동 (약 5분)</li>
+            <li class="flight">22:30~23:00 발리 공항 도착 · 체크인 <span class="tag">새벽 01:20 출발</span></li>
+          </ul>
+          <div class="tipline"><b>정보 출처</b> 인스타그램 후기 게시물(balimanyu) 기준이에요. <b>아이 동반 가능 여부, 3층 이용료·시간, 샤워·짐 보관 요금</b>은 아직 확인하지 못했어요. 안 되면 데이유즈(Peppers Seminyak · Hotel Nikko Benoa)가 대안이에요.</div>
+        </div>
+      </div>
+
+      <div class="day seg-sem" data-date="2027-10-10">
+        <span class="day-dot"></span>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-left"><span class="day-num">Day 09</span><span class="day-date">10.10 (일)</span></div>
+            <span class="transport-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>항공 대한항공</span>
+          </div>
+          <ul class="schedule">
+            <li class="flight">01:20 발리(DPS) 출발 <span class="tag">KE434</span></li>
+            <li class="flight">09:20 인천(ICN) 도착</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============ 숙소 TAB ============ -->
+  <section class="tab-panel" id="tab-stay">
+
+    <div class="booking-group">
+      <div class="segment-label seg-air" style="margin-top:0;"><span class="dot"></span>숙소 한눈에 (7박)<span class="rule"></span></div>
+      <div class="booking-card">
+        <table class="opt-table">
+          <tr><th>날짜</th><th>지역</th><th>숙소</th><th>상태</th></tr>
+          <tr><td>10/2</td><td>공항 근처</td><td><a href="https://www.google.com/maps/search/?api=1&query=Jimbaran+Bali+hotels" target="_blank" rel="noopener">짐바란</a>·<a href="https://www.google.com/maps/search/?api=1&query=Kuta+Bali+hotels" target="_blank" rel="noopener">꾸따</a> 호텔</td><td>미정</td></tr>
+          <tr><td>10/3~4</td><td>사누르</td><td><a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali</a> (2박)</td><td>미예약</td></tr>
+          <tr><td>10/5~6</td><td>길리</td><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a>(추천) · <a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">트라왕안</a></td><td>미정</td></tr>
+          <tr><td>10/7</td><td>우붓</td><td><a href="https://www.google.com/maps/search/?api=1&query=Bambu+Indah+Ubud" target="_blank" rel="noopener">Bambu Indah</a> / <a href="https://www.google.com/maps/search/?api=1&query=Hideout+Eco+Bamboo+House+Bali+Selat" target="_blank" rel="noopener">Hideout</a></td><td>미정</td></tr>
+          <tr><td>10/8</td><td>따바난</td><td><a href="https://www.google.com/maps/search/?api=1&query=lodgeinthewoods+Kaba-Kaba+Tabanan" target="_blank" rel="noopener">lodgeinthewoods</a></td><td>미예약</td></tr>
+          <tr><td>10/9</td><td>스미냑·꾸따 → 공항 근처</td><td><a href="https://www.google.com/maps/search/?api=1&query=Santai+Lounge+Bali" target="_blank" rel="noopener">Santai Lounge Bali</a> (숙박 없음)</td><td>확인 필요</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-sanur"><span class="dot"></span>사누르<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=Andaz+Bali+Sanur" target="_blank" rel="noopener">Andaz Bali</a></div><div class="booking-sub">사누르 · 2박 (10/3~10/5)</div></div>
+          <div class="booking-code no">미예약</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">특징</span><span class="v">키즈클럽 · 넓은 잔디밭 · 조용한 해변</span></div>
+          <div class="booking-row"><span class="k">키즈클럽</span><span class="v">투숙객 하루 2시간 무료 (후기 기준)</span></div>
+          <div class="booking-row"><span class="k">추가 시간</span><span class="v">시간당 약 85,000 IDR (후기 기준)</span></div>
+        </div>
+        <div class="booking-note">사누르 항구에서 길리행 패스트보트가 출발해 다음 날 이동이 편해요. 요금은 예약 시 다시 확인하세요.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-gili"><span class="dot"></span>길리 (2박)<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">길리 숙소 후보</div><div class="booking-sub">아이와 가기 좋은 곳 (Booking·Tripadvisor 기준)</div></div>
+          <div class="booking-code">미정</div>
+        </div>
+        <table class="opt-table">
+          <tr><th>섬</th><th>숙소</th><th>특징</th></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Dolcemare+Resort+Gili+Air" target="_blank" rel="noopener">Dolcemare Resort</a></td><td>27m 수영장 · 별도 아이 수영장 · 폭포 · 큰 정원</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air+Bungalows" target="_blank" rel="noopener">Gili Air Bungalows</a></td><td>평점 9.6 · 아이 수영장 · 유아 침대 무료</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Air" target="_blank" rel="noopener">에어</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Chill+Out+Bungalows+Gili+Air" target="_blank" rel="noopener">Chill Out Bungalows</a></td><td>평점 10.0 · 아이용 수영장</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">트라왕안</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Aston+Sunset+Beach+Resort+Gili+Trawangan" target="_blank" rel="noopener">Aston Sunset Beach Resort</a></td><td>평점 10.0 · 놀이터 · 아이 수영장 · 아이용 조식</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">트라왕안</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+Ombak+Sunset+Gili+Trawangan" target="_blank" rel="noopener">Hotel Ombak Sunset</a></td><td>평점 9.6 · 아이 수영장 · 베이비시터</td></tr>
+        </table>
+        <div class="booking-note">조용하게 쉬려면 <b>길리 에어</b>, 식당·놀이터가 더 필요하면 <b>트라왕안</b>. 평점·요금은 예약 시점에 바뀌니 다시 확인하세요.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-ubud"><span class="dot"></span>우붓 트리하우스 (1박)<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">Bambu Indah vs Hideout Bali</div><div class="booking-sub">10/7 우붓 1박 후보</div></div>
+          <div class="booking-code">결정 필요</div>
+        </div>
+        <table class="opt-table">
+          <tr><th></th><th><a href="https://www.google.com/maps/search/?api=1&query=Bambu+Indah+Ubud" target="_blank" rel="noopener">Bambu Indah</a></th><th><a href="https://www.google.com/maps/search/?api=1&query=Hideout+Eco+Bamboo+House+Bali+Selat" target="_blank" rel="noopener">Hideout Bali</a></th></tr>
+          <tr><td>위치</td><td>우붓 외곽 (시내 가까움)</td><td>동부 발리 (한적, 우붓에서 멂)</td></tr>
+          <tr><td>건물</td><td>앤티크 티크 목조 하우스</td><td>대나무집 14채 (강가 트리하우스~가족용 집)</td></tr>
+          <tr><td>수영장</td><td>샘물 수영장</td><td>객실 전용 풀</td></tr>
+          <tr><td>아이</td><td>트리하우스보다 안전</td><td>밀폐형 가족용 집 권장</td></tr>
+          <tr><td>참고 요금</td><td>평균 약 $315, 낮은 경우 약 $212</td><td>가족용 Horizon(2베드룸) 약 $178~ · 조식 포함</td></tr>
+        </table>
+        <div class="booking-note">요금은 2026년 검색 기준이며 2027년 10월과 다를 수 있어요. 트리하우스형 방은 가파른 계단·낮은 난간이 있을 수 있어 <b>만 5세 투숙 가능 여부와 안전한 방 타입</b>을 문의하세요.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-tab"><span class="dot"></span>따바난 (1박)<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=lodgeinthewoods+Kaba-Kaba+Tabanan" target="_blank" rel="noopener">lodgeinthewoods</a></div><div class="booking-sub">Kaba-Kaba, 따바난 · 10/8 1박</div></div>
+          <div class="booking-code no">미예약</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">규모</span><span class="v">객실 6개 (후기 기준)</span></div>
+          <div class="booking-row"><span class="k">특징</span><span class="v">숲속 · 마그네슘 수영장 · 유기농 식사 · 농장 동물</span></div>
+          <div class="booking-row"><span class="k">사이트</span><span class="v">lodgeinthewoods.com</span></div>
+        </div>
+        <div class="booking-note warn">문의 필요: 아이 동반 가능 여부, 수영장 깊이와 울타리, 아이용 침구, 저녁 식사 가능 여부.</div>
+      </div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=Ulaman+Eco+Luxury+Resort+Bali" target="_blank" rel="noopener">Ulaman Eco Luxury Resort</a></div><div class="booking-sub">같은 Kaba-Kaba 마을</div></div>
+          <div class="booking-code no">제외</div>
+        </div>
+        <div class="booking-note warn">공식 약관(검색 요약 기준)에 &quot;만 6세 미만은 적합·안전하지 않음, 만 6세 이상은 성인 간주&quot;라고 안내돼요. 아이가 2022년 4월생이라 2027년 10월엔 만 5세(6세 생일 2028.4)라 기준에 못 미쳐 제외했어요. 예약 사이트(Booking·Expedia)는 &quot;성인 전용&quot;으로 표기돼요. 공식 사이트는 직접 열어 보지 못했으니, 꼭 가고 싶다면 예외 가능 여부를 서면으로 문의하세요.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-sem"><span class="dot"></span>10/9 산타이 라운지 · 데이유즈 대안<span class="rule"></span></div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=Santai+Lounge+Bali" target="_blank" rel="noopener">Santai Lounge Bali</a></div><div class="booking-sub">공항에서 약 5분 · 3층 라운지 건물</div></div>
+          <div class="booking-code">확인 필요</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">1층</span><span class="v">기념품 쇼핑 · 샤워 · 짐 보관</span></div>
+          <div class="booking-row"><span class="k">2층</span><span class="v">카페테리아 (라면·짜파게티·닭죽·소고기죽·커피)</span></div>
+          <div class="booking-row"><span class="k">3층</span><span class="v">쉬고 눕는 공간 (후기상 이용료 저렴)</span></div>
+        </div>
+        <div class="booking-note warn">후기 게시물 기준 정보예요. <b>아이 동반 가능 여부</b>(게시물 댓글에도 같은 질문이 있었고 답은 확인 못 함), 이용 시간, 요금을 미리 문의하세요.</div>
+      </div>
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">대안: 데이유즈 · 데이패스 후보</div><div class="booking-sub">낮 12시 ~ 밤 9시 30분쯤 이용</div></div>
+          <div class="booking-code">대안</div>
+        </div>
+        <table class="opt-table">
+          <tr><th>호텔</th><th>내용</th></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Peppers+Seminyak" target="_blank" rel="noopener">Peppers Seminyak</a></td><td>데이패스(웰컴드링크·수영장·샤워·수건), 6~12세 50% 할인, 레이트 체크아웃 약 $25</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Hotel+Nikko+Bali+Benoa+Beach" target="_blank" rel="noopener">Hotel Nikko Bali Benoa Beach</a></td><td>키즈클럽 포함 데이패스, 성인 약 250,000 IDR · 12세 미만 무료 (공항 가까움)</td></tr>
+          <tr><td><a href="https://www.google.com/maps/search/?api=1&query=Breezes+Seminyak" target="_blank" rel="noopener">Breezes Seminyak</a></td><td>투숙객 가족·지인 1인 약 100,000 IDR (객실 여유 있을 때)</td></tr>
+        </table>
+        <div class="booking-note">데이패스는 수영장만 되는 경우가 있어요. 낮잠·샤워를 위한 <b>객실 시간제(데이유즈 룸)</b>인지 확인하세요. 요금은 예약 시 다시 확인하세요.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ 예약 TAB ============ -->
+  <section class="tab-panel" id="tab-booking">
+
+    <div class="booking-group">
+      <div class="segment-label seg-air" style="margin-top:0;"><span class="dot"></span>항공 · 대한항공 직항<span class="rule"></span></div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">인천 → 발리</div><div class="booking-sub">KE431 · 대한항공</div></div>
+          <div class="booking-code no">미예약</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">출발</span><span class="v">10.2(토) 16:20 인천</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">10.2(토) 22:25 발리</span></div>
+          <div class="booking-row"><span class="k">마일리지 오픈</span><span class="v">2026.10.7(수) 09:00</span></div>
+          <div class="booking-row"><span class="k">인원</span><span class="v">성인 2 · 소아 1 (만 5세)</span></div>
+        </div>
+      </div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">발리 → 인천</div><div class="booking-sub">KE434 · 대한항공</div></div>
+          <div class="booking-code no">미예약</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">출발</span><span class="v">10.10(일) 01:20 발리</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">10.10(일) 09:20 인천</span></div>
+          <div class="booking-row"><span class="k">마일리지 오픈</span><span class="v">2026.10.15(목) 09:00</span></div>
+        </div>
+        <div class="booking-note">10/9(토) 밤 22:30~23:00까지 공항에 도착해야 해요. 소아 마일리지 공제와 3석 동시 확보 여부는 예약 화면에서 확인하세요.</div>
+      </div>
+    </div>
+
+    <div class="booking-group">
+      <div class="segment-label seg-gili"><span class="dot"></span>이동 · 투어<span class="rule"></span></div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title"><a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a> ↔ <a href="https://www.google.com/maps/search/?api=1&query=Gili+Trawangan" target="_blank" rel="noopener">길리</a> 패스트보트</div><div class="booking-sub">왕복 · 성인 2 + 아이 1</div></div>
+          <div class="booking-code no">미예약</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">가는 편</span><span class="v">10.5(화) 오전 <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a> → 길리</span></div>
+          <div class="booking-row"><span class="k">오는 편</span><span class="v">10.7(목) 오전 길리 → <a href="https://www.google.com/maps/search/?api=1&query=Sanur+Harbour+Bali+fast+boat" target="_blank" rel="noopener">사누르</a>(또는 <a href="https://www.google.com/maps/search/?api=1&query=Padang+Bai+Harbour+Bali" target="_blank" rel="noopener">빠당바이</a>)</span></div>
+          <div class="booking-row"><span class="k">소요</span><span class="v">약 2시간</span></div>
+        </div>
+        <div class="booking-note">운항사·시간표는 예약 시 확인하세요. 아이 구명조끼와 멀미약을 챙기고, 오는 편 도착 항구를 확인해 우붓 이동 차량과 맞추세요.</div>
+      </div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">프라이빗 차량 (기사 포함)</div><div class="booking-sub">카시트 요청 필수</div></div>
+          <div class="booking-code no">미예약</div>
+        </div>
+        <div class="booking-rows">
+          <div class="booking-row"><span class="k">10/2</span><span class="v">공항 → 공항 근처 호텔</span></div>
+          <div class="booking-row"><span class="k">10/3</span><span class="v">공항 근처 → 사누르</span></div>
+          <div class="booking-row"><span class="k">10/7</span><span class="v">보트 항구 → 우붓</span></div>
+          <div class="booking-row"><span class="k">10/8</span><span class="v">우붓 → 따바난</span></div>
+          <div class="booking-row"><span class="k">10/9</span><span class="v">따바난 → 스미냑·꾸따 → 산타이 라운지 → 공항</span></div>
+        </div>
+      </div>
+
+      <div class="booking-card">
+        <div class="booking-card-head">
+          <div><div class="booking-title">길리 스노클링 투어</div><div class="booking-sub">프라이빗 보트 반나절 · 10/6</div></div>
+          <div class="booking-code no">미예약</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pack-progress"><span id="todoCount">0 / 0</span><div class="pack-bar"><i id="todoBar"></i></div></div>
+
+    <div class="pack-sec" id="todoList">
+      <h4>예약 · 할 일 체크리스트</h4>
+      <label class="pack-item"><input type="checkbox" data-k="todo-ke431"><span>2026.10.7(수) 09:00 KE431 마일리지 좌석 예약 (가는 편)<small>오픈 시각에 맞춰 3석 동시 확인</small></span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-ke434"><span>2026.10.15(목) 09:00 KE434 마일리지 좌석 예약 (오는 편)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-air-hotel"><span>10/2 공항 근처 호텔 예약 (밤 도착 · 픽업 요청)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-andaz"><span>Andaz Bali 2박 예약 (10/3~10/5)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-boat"><span>사누르 ↔ 길리 패스트보트 왕복 예약</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-gili-stay"><span>길리 숙소 2박 예약 (에어 or 트라왕안 결정)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-snorkel"><span>길리 스노클링 투어 예약 (10/6)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-ubud"><span>우붓 숙소 결정 · 예약 (Bambu Indah / Hideout)<small>아이 동반·방 타입 문의</small></span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-lodge"><span>lodgeinthewoods 문의·예약 (10/8)<small>아이 가능 여부 · 수영장 안전 확인</small></span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-dayuse"><span>10/9 산타이 라운지 문의 (아이 동반·이용료·짐 보관) — 안 되면 데이유즈 예약</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-car"><span>기사 포함 차량 예약 (카시트 포함)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-visa"><span>도착비자·관광세, 온라인 세관신고<small>출발 전 최신 규정 확인</small></span></label>
+      <label class="pack-item"><input type="checkbox" data-k="todo-ins"><span>여행자보험 가입</span></label>
+    </div>
+
+  </section>
+
+  <!-- ============ 준비물 TAB ============ -->
+  <section class="tab-panel" id="tab-pack">
+
+    <div class="pack-progress"><span id="packCount">0 / 0</span><div class="pack-bar"><i id="packBar"></i></div></div>
+
+    <div class="pack-sec" id="packList">
+      <h4>🔴 없으면 여행이 안 되는 것</h4>
+      <label class="pack-item"><input type="checkbox" data-k="pk-passport"><span>여권 3명 (유효기간 6개월 이상)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-eticket"><span>항공권 e-티켓 (KE431 · KE434)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-hotelconf"><span>숙소 · 보트 예약확인서</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-visa"><span>도착비자·관광세 결제 준비 / 세관신고 QR</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-ins"><span>여행자보험 증서</span></label>
+    </div>
+
+    <div class="pack-sec" id="packList2">
+      <h4>발리 · 날씨 대비</h4>
+      <label class="pack-item"><input type="checkbox" data-k="pk-sun"><span>선크림 · 모자 · 선글라스</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-mosq"><span>모기 기피제 (아이용)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-rain"><span>얇은 우비 · 접이식 우산 (오후 스콜)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-swim"><span>수영복 · 래쉬가드 · 아쿠아슈즈 (스노클링)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-thin"><span>저녁용 얇은 겉옷 (에어컨 · 숲속 숙소)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-adapter"><span>멀티 어댑터 (C/F형 220V)</span></label>
+    </div>
+
+    <div class="pack-sec" id="packList3">
+      <h4>아이 동반 (만 5세)</h4>
+      <label class="pack-item"><input type="checkbox" data-k="pk-life"><span>아이 구명조끼 (보트·스노클링) <small>현지 대여 가능 여부 확인</small></span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-motion"><span>멀미약 (패스트보트)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-med"><span>상비약: 해열제 · 지사제(정로환 등) · 밴드 · 물티슈</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-snack"><span>간식 · 장난감 · 태블릿 (비행 · 차량 이동)</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-pj"><span>잠옷 (10/9 밤 공항 이동용) · 여벌 옷</span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-water"><span>생수만 마시기 · 물병</span></label>
+    </div>
+
+    <div class="pack-sec" id="packList4">
+      <h4>길리 이동용 짐</h4>
+      <label class="pack-item"><input type="checkbox" data-k="pk-small"><span>작은 가방 하나로 2박 준비 <small>큰 캐리어는 안다즈에 맡기기 (문의)</small></span></label>
+      <label class="pack-item"><input type="checkbox" data-k="pk-dry"><span>방수팩 · 지퍼백</span></label>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>2027 BALI · 가족여행 일정표<br>요금·시간은 예약 전 추정이며 예약 시 다시 확인하세요.</p>
+</footer>
+
+<script>
+  // 탭 전환
+  document.querySelectorAll('.tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'instant'});
+    });
+  });
+
+  // 체크리스트 (예약 할 일 / 준비물) — 이 기기에 저장됩니다
+  var CHK_KEY = 'chk2027bali';
+  function chkLoad(){ try{ return JSON.parse(localStorage.getItem(CHK_KEY) || '[]'); }catch(e){ return []; } }
+  function chkSave(a){ try{ localStorage.setItem(CHK_KEY, JSON.stringify(a)); }catch(e){} }
+  function chkProgress(panelId, countId, barId){
+    var boxes = document.querySelectorAll('#' + panelId + ' input[type=checkbox]');
+    var done = document.querySelectorAll('#' + panelId + ' input[type=checkbox]:checked').length;
+    document.getElementById(countId).textContent = done + ' / ' + boxes.length;
+    document.getElementById(barId).style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
+  }
+  function chkRefresh(){
+    chkProgress('todoList', 'todoCount', 'todoBar');
+    chkProgress('tab-pack', 'packCount', 'packBar');
+  }
+  (function chkInit(){
+    var done = chkLoad();
+    document.querySelectorAll('.pack-item input[type=checkbox]').forEach(function(cb){
+      var on = done.indexOf(cb.dataset.k) !== -1;
+      cb.checked = on;
+      cb.closest('.pack-item').classList.toggle('done', on);
+    });
+    chkRefresh();
+  })();
+  document.addEventListener('change', function(e){
+    if (!e.target.matches('.pack-item input[type=checkbox]')) return;
+    var k = e.target.dataset.k;
+    var done = chkLoad();
+    if (e.target.checked){ if (done.indexOf(k) === -1) done.push(k); }
+    else { done = done.filter(function(x){ return x !== k; }); }
+    chkSave(done);
+    e.target.closest('.pack-item').classList.toggle('done', e.target.checked);
+    chkRefresh();
+  });
+
+  // D-day + 오늘의 일정
+  function pad(n){ return String(n).padStart(2, '0'); }
+  (function initToday(){
+    var now = new Date();
+    var todayStr = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+    var start = new Date(2027, 9, 2), end = new Date(2027, 9, 10);
+    var today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var diff = Math.round((start - today0) / 86400000);
+    var el = document.getElementById('ddayText');
+    if (diff > 0) el.textContent = 'D-' + diff;
+    else if (today0 <= end) el.textContent = '여행 중 · ' + (Math.round((today0 - start) / 86400000) + 1) + '일째';
+    else el.textContent = '여행 끝 · 다녀왔어요 🌴';
+
+    var match = null;
+    document.querySelectorAll('#tab-itinerary .day[data-date]').forEach(function(day){
+      if (day.dataset.date === todayStr) match = day;
+    });
+    if (!match) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'today-wrap';
+    var label = document.createElement('div');
+    label.className = 'today-label';
+    label.innerHTML = '<span class="dot-live"></span>오늘의 일정';
+    wrap.appendChild(label);
+    wrap.appendChild(match.cloneNode(true));
+    document.getElementById('todayCard').appendChild(wrap);
+  })();
+
+  // 오프라인 대비: 한 번이라도 온라인으로 열어두면 통신이 끊겨도 일정이 열립니다
+  if ('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('bali-sw.js', { scope: './2027bali.html' }).catch(function(){});
+    });
+  }
+  function syncOnlineState(){ document.body.classList.toggle('is-offline', !navigator.onLine); }
+  window.addEventListener('online', syncOnlineState);
+  window.addEventListener('offline', syncOnlineState);
+  syncOnlineState();
+</script>
+
+</body>
+</html>
