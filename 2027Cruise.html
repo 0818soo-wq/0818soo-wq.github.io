@@ -357,7 +357,10 @@
             <li>인천공항 T1, 출발 2~3시간 전 도착 권장</li>
             <li class="flight">11:50 인천(ICN) 출발 <span class="tag">OZ511</span></li>
             <li class="flight">19:10 바르셀로나(BCN) 도착 (무경유, 비행 14시간20분)</li>
-            <li>짐 보관 후 호텔 체크인</li>
+            <li class="transit">19:10 입국심사·수하물 수취: 약 30~40분</li>
+            <li class="transit">공항 → 호텔: 공항철도(Aerobús/R2 Nord) 또는 택시 약 30분</li>
+            <li>20:30경 호텔 체크인</li>
+            <li>21:00~22:00 호텔 인근 타파스바에서 늦은 저녁 (장거리 비행 후라 무리한 외출은 비권장)</li>
           </ul>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -386,7 +389,17 @@
             <span class="stay-name">바르셀로나 시내 호텔</span> 자유일정 (호텔 미확정)
           </div>
           <ul class="schedule">
-            <li>하루 종일 바르셀로나 시내 자유관광 (사그라다 파밀리아 등)</li>
+            <li>사그라다 파밀리아는 공식 홈페이지 기준 방문 약 2개월 전부터 예약 가능 — 성수기(4~10월)는 2~4주 전 마감되는 경우가 많아 조기 예약 필수</li>
+            <li>09:30~11:30 사그라다 파밀리아 관람 (사전예약 타임 티켓)</li>
+            <li class="transit">11:30 사그라다 파밀리아 → 구엘공원: 지하철+도보 또는 택시 약 20~25분</li>
+            <li>구엘공원 모뉴멘탈 존도 타임 예약제 — 성수기 주말은 3~5일 전에도 매진 사례 있어 1~2주 전 예약 권장</li>
+            <li>12:00~14:00 구엘공원 관람 — 몬타냐 펠라다 전망대에서 바르셀로나 시내 파노라마 인생샷</li>
+            <li>14:00~15:00 점심 (그라시아 지구)</li>
+            <li class="transit">15:00 그라시아 → 고딕지구: 지하철 약 20분</li>
+            <li>15:30~17:30 고딕지구 자유산책 — 바르셀로나 대성당, 포르탈 델 안젤 거리, 보른지구</li>
+            <li>17:30~18:30 보케리아 시장(라 보케리아) 간식 투어</li>
+            <li>18:30~20:00 람블라스 거리 산책 및 저녁식사</li>
+            <li class="transit">20:00 람블라스 → 호텔: 도보 또는 택시 약 15~20분</li>
           </ul>
           <button class="meal-btn" onclick="openMeal('day2','5.8 (토) · 바르셀로나')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v6a2 2 0 0 0 4 0V3M9 9v12M17 3c-1.5 3-1.5 6 0 8v10"/></svg>
@@ -411,7 +424,14 @@
             <span class="stay-name">크루즈선 (Legend of the Seas)</span> 승선 · Day 1
           </div>
           <ul class="schedule">
-            <li>오전: 구엘공원 또는 람블라스 거리 자유 관광</li>
+            <li>09:00 호텔 체크아웃 (짐은 호텔 또는 역 보관함에 맡기고 이동 권장)</li>
+            <li>09:30~10:30 파세이그 데 그라시아 산책 — 카사 바트요·카사 밀라 외관 (내부 입장은 생략, 외관만)</li>
+            <li class="transit">10:30 그라시아 → 바르셀로네타: 지하철 약 20분</li>
+            <li>11:00~12:30 바르셀로네타 해변 산책 및 마지막 자유시간</li>
+            <li>12:30~13:30 해산물 점심 (바르셀로네타 해변가 레스토랑)</li>
+            <li class="transit">13:30 짐 찾아 크루즈터미널로 이동: 택시 약 15~20분</li>
+            <li>승선 수속은 보통 출항 2~3시간 전부터 가능 — 14:00경 터미널 도착 권장</li>
+            <li>14:00~16:00 크루즈 터미널 체크인 및 승선 수속</li>
             <li>17:00 크루즈 출항 (Legend of the Seas)</li>
           </ul>
           <button class="meal-btn" onclick="openMeal('day3','5.9 (일) · 바르셀로나→승선')">
@@ -645,8 +665,15 @@
             <span class="outfit">가벼운 자켓 · 편한 신발, 저녁 비행 대비 얇은 겉옷</span>
           </div>
           <ul class="schedule">
-            <li>05:00 바르셀로나 항구 도착, 하선</li>
-            <li>짐은 항구/시내 짐보관소(Luggage storage)에 맡기고 시내 자유일정 (숙소 없음, 당일 귀국이라 호텔 미예약)</li>
+            <li>05:00 바르셀로나 항구 입항(접안)</li>
+            <li>실제 하선 시작은 통관·수속 때문에 보통 07:00~08:00경부터 (선실 등급·하선조에 따라 상이)</li>
+            <li class="transit">하선 후 → 항구/시내 짐보관소(Luggage storage)에 짐 맡기기 (숙소 없음, 당일 귀국이라 호텔 미예약)</li>
+            <li>09:00~11:00 고딕지구 기념품 쇼핑 및 못 가본 골목 마저 산책 (장거리 비행 전이라 무리한 일정은 비권장)</li>
+            <li>11:00~13:00 바르셀로네타 해변에서 마지막 휴식</li>
+            <li>13:00~14:30 점심 및 카페에서 여유있게 휴식</li>
+            <li>14:30~16:00 짐 찾아 호텔/역 보관소 → 공항 이동 전 마지막 자유시간</li>
+            <li class="transit">16:00 시내 → 공항: 공항철도/택시 약 30분</li>
+            <li>16:30~20:50 공항 도착, 출국수속 (오후 출발편이라 여유있게 2~3시간 전 도착)</li>
             <li class="flight">20:50 바르셀로나(BCN) 출발 <span class="tag">OZ512</span></li>
           </ul>
           <button class="meal-btn" onclick="openMeal('day10','5.16 (일) · 바르셀로나→귀국')">
@@ -727,34 +754,36 @@
   <section class="tab-panel" id="tab-budget">
 
     <div class="budget-summary">
-      <div class="total-label">예약 기준 예상 비용</div>
+      <div class="total-label">확정 항목 합계 (항공+크루즈+팁)</div>
       <div class="split">
-        <div><div class="k">항공 (3인 왕복, 아시아나 직항 확정)</div><div class="v">약 ₩5,380,800</div></div>
-        <div><div class="k">크루즈 (3인, 세금·항구료 포함)</div><div class="v">US$4,937.76</div></div>
-        <div><div class="k">크루즈 잔금 (~2027.02.08)</div><div class="v">US$4,187.76</div></div>
+        <div><div class="k">총 예상 비용 (3인)</div><div class="v">약 ₩12,540,000</div></div>
+        <div><div class="k">1인당 환산</div><div class="v">약 ₩4,180,000</div></div>
       </div>
     </div>
-    <p class="budget-note">S클래스 예약 시 3인 왕복 약 3만5,844마일이 대한항공 스카이패스로 적립되어 뉴질랜드 25만 마일리지 목표에 보탬이 되는 걸 감안해 아시아나 직항으로 확정했습니다. 항공가는 2026.10 시점 하나투어 조회가(3인 합계, 5.7 출발/5.16 하선당일 귀국 기준) — 실제 결제 시점 요금과 다를 수 있습니다. 크루즈 금액은 royalcaribbean.com 기준 1 Room · 3 Guests 선비이며, 팁·기항지 투어·음료 패키지는 포함되어 있지 않습니다.</p>
+    <p class="budget-note">환율은 2026.10.10 기준 $1≈₩1,344로 환산(실제 결제 시점에 따라 달라짐). 아래 "선택/미확정" 항목(호텔·투어·음료패키지)은 이 총액에 포함되어 있지 않습니다. 여행자보험은 두 분이 이미 비용 비교에서 빼기로 하셔서 목록에서 제외했습니다.</p>
 
     <div class="budget-day">
       <div class="budget-day-head"><span class="b-day">항공</span></div>
       <div class="cost-row"><div class="cost-label">인천 ↔ 바르셀로나 (아시아나항공, 3인 합계)<small>하나투어 조회가 2026.10 기준 (마이리얼트립 ₩5,415,200) · 무경유 왕복 · OZ511/OZ512</small></div><div class="cost-amount planned">₩5,380,800</div></div>
+      <div class="cost-row"><div class="cost-label">└ 1인당 환산</div><div class="cost-amount muted">약 ₩1,793,600</div></div>
       <div class="cost-row"><div class="cost-label">마일리지 적립 (S클래스 100%, 추정)<small>3인 왕복 합계 · 대한항공 스카이패스로 적립</small></div><div class="cost-amount muted">약 35,844마일</div></div>
     </div>
 
     <div class="budget-day">
       <div class="budget-day-head"><span class="b-day">크루즈</span></div>
-      <div class="cost-row"><div class="cost-label">Legend of the Seas 선비<small>1 Room, 3 Guests · 세금·항구료 포함</small></div><div class="cost-amount planned">US$4,937.76</div></div>
-      <div class="cost-row"><div class="cost-label">잔금<small>2027.02.08까지 납부</small></div><div class="cost-amount planned">US$4,187.76</div></div>
+      <div class="cost-row"><div class="cost-label">Legend of the Seas 선비<small>1 Room, 3 Guests · 세금·항구료 포함 (확인함, royalcaribbean.com)</small></div><div class="cost-amount planned">US$4,937.76</div></div>
+      <div class="cost-row"><div class="cost-label">└ 원화 환산<small>$1≈₩1,344 기준</small></div><div class="cost-amount muted">약 ₩6,636,500</div></div>
+      <div class="cost-row"><div class="cost-label">├ 기납부 예약금</div><div class="cost-amount muted">US$750.00</div></div>
+      <div class="cost-row"><div class="cost-label">└ 잔금 (2027.02.08까지)</div><div class="cost-amount planned">US$4,187.76</div></div>
+      <div class="cost-row"><div class="cost-label">선내 자동 팁(그라츄어티)<small>확인함 — $18.50/인/일(일반 객실), 아동도 동일 요율 · 3인×7박</small></div><div class="cost-amount planned">US$388.50</div></div>
+      <div class="cost-row"><div class="cost-label">└ 원화 환산</div><div class="cost-amount muted">약 ₩522,200</div></div>
     </div>
 
     <div class="budget-day">
-      <div class="budget-day-head"><span class="b-day">별도 확인 필요</span></div>
-      <div class="cost-row"><div class="cost-label">바르셀로나 사전 호텔(5.7~5.8, 2박)<small>숙소 미확정 · 하선일 당일귀국이라 사후 숙박 없음</small></div><div class="cost-amount muted">-</div></div>
-      <div class="cost-row"><div class="cost-label">크루즈 팁 (자동 청구)</div><div class="cost-amount muted">-</div></div>
-      <div class="cost-row"><div class="cost-label">기항지 투어</div><div class="cost-amount muted">-</div></div>
-      <div class="cost-row"><div class="cost-label">음료 패키지</div><div class="cost-amount muted">-</div></div>
-      <div class="cost-row"><div class="cost-label">여행자 보험</div><div class="cost-amount muted">-</div></div>
+      <div class="budget-day-head"><span class="b-day">선택 / 미확정 (총액 제외)</span></div>
+      <div class="cost-row"><div class="cost-label">바르셀로나 사전 호텔(5.7~5.8, 2박)<small>숙소 미확정 · 3성급 평균가 추정(€150~200/박 기준) · 하선일 당일귀국이라 사후 숙박 없음</small></div><div class="cost-amount muted">추정 €300~400</div></div>
+      <div class="cost-row"><div class="cost-label">음료 패키지 (성인 2인만 가입 가정)<small>추정 — Deluxe 패키지 $56~120/인/일(평균 ~$82), 18% 봉사료 별도 · 아동은 미성년 알코올 패키지 불가</small></div><div class="cost-amount muted">추정 $784~1,680</div></div>
+      <div class="cost-row"><div class="cost-label">기항지 투어<small>미정 — 참고로 1인당 1기항지 보통 $50~150대</small></div><div class="cost-amount muted">-</div></div>
     </div>
 
   </section>
@@ -903,15 +932,15 @@
   // 일자별 식사 정보 (문자열 = 자유식사/포함식사 안내, {name,place} = 구글맵 링크)
   const mealData = {
     day1:  { b: "-", l: "기내식 (아시아나 OZ511)", d: "기내식 (아시아나 OZ511) 또는 바르셀로나 도착 후 자유식사" },
-    day2:  { b: "호텔 조식 또는 자유식사", l: "바르셀로나 시내 자유식사", d: "바르셀로나 시내 자유식사" },
-    day3:  { b: "호텔 조식 또는 자유식사", l: "승선 전 바르셀로나 시내 자유식사", d: "크루즈 첫날 저녁 — 메인다이닝룸/뷔페 (선내 포함)" },
+    day2:  { b: "호텔 조식 또는 자유식사", l: "그라시아 지구 자유식사", d: "람블라스 거리 자유식사 (보케리아 시장 간식 포함)" },
+    day3:  { b: "호텔 조식 또는 자유식사", l: "바르셀로네타 해산물 점심", d: "크루즈 첫날 저녁 — 메인다이닝룸/뷔페 (선내 포함)" },
     day4:  { b: "크루즈 조식 뷔페 (선내 포함)", l: "팔마 시내 자유식사 또는 선내 복귀 후 점심", d: "크루즈 저녁 — 메인다이닝룸 (선내 포함)" },
     day5:  { b: "크루즈 조식 뷔페 (선내 포함)", l: "마르세유 시내 자유식사 또는 선내 복귀 후 점심", d: "크루즈 저녁 — 메인다이닝룸 (선내 포함)" },
     day6:  { b: "크루즈 조식 뷔페 (선내 포함)", l: "피사 인근 자유식사 또는 선내 복귀 후 점심", d: "크루즈 저녁 — 메인다이닝룸 (선내 포함)" },
     day7:  { b: "크루즈 조식 뷔페 (선내 포함)", l: "로마 시내 자유식사 또는 선내 복귀 후 점심", d: "크루즈 저녁 — 메인다이닝룸 (선내 포함)" },
     day8:  { b: "크루즈 조식 뷔페 (선내 포함)", l: "카프리 자유식사 또는 선내 복귀 후 점심", d: "크루즈 저녁 — 메인다이닝룸 (선내 포함)" },
     day9:  { b: "크루즈 조식 뷔페 (선내 포함)", l: "크루즈 점심 뷔페 (선내 포함)", d: "크루즈 저녁 — 메인다이닝룸 (선내 포함)" },
-    day10: { b: "크루즈 마지막 조식 (선내 포함)", l: "하선 후 바르셀로나 시내 자유식사", d: "기내식 (아시아나 OZ512)" },
+    day10: { b: "크루즈 마지막 조식 (선내 포함)", l: "바르셀로네타 해변 인근 자유식사", d: "기내식 (아시아나 OZ512)" },
     day11: { b: "기내식 (아시아나 OZ512)", l: "인천 도착 후 자유식사", d: "-" }
   };
   function mealPickHTML(item){
