@@ -1,12 +1,12 @@
-// 오프라인 대비 캐시 (2027 MEDITERRANEAN 전용 — 이 페이지에만 적용되도록 좁은 scope로 등록됨)
+// 오프라인 대비 캐시 (2027 CRUISE 전용 — 이 페이지에만 적용되도록 좁은 scope로 등록됨)
 // 크루즈 선상은 인터넷이 끊기거나 느릴 수 있습니다.
 // 온라인이면 항상 최신을 받아오고, 통신이 끊겼을 때만 캐시된 일정을 보여줍니다.
-var CACHE = 'med2027-v1';
+var CACHE = 'cruise2027-v2';
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE)
-      .then(function (c) { return c.addAll(['./2027mediterranean.html']); })
+      .then(function (c) { return c.addAll(['./2027Cruise.html']); })
       .then(function () { return self.skipWaiting(); })
       .catch(function () {})
   );
@@ -43,7 +43,7 @@ self.addEventListener('fetch', function (e) {
       return res;
     }).catch(function () {
       return caches.match(req).then(function (r) {
-        return r || caches.match('./2027mediterranean.html');
+        return r || caches.match('./2027Cruise.html');
       });
     })
   );

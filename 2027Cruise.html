@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>2027 MEDITERRANEAN</title>
+<title>2027 CRUISE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -300,7 +300,7 @@
 
 <div class="hero">
   <p class="hero-eyebrow">Family Trip · 2027.05.07 – 05.17</p>
-  <h1 class="hero-title">2027<br><em>MEDITERRANEAN</em></h1>
+  <h1 class="hero-title">2027<br><em>CRUISE</em></h1>
   <div class="hero-meta">
     <span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
@@ -1464,7 +1464,7 @@
   // 오프라인 대비: 한 번이라도 온라인으로 열어두면 통신이 끊겨도 일정이 열립니다
   if ('serviceWorker' in navigator){
     window.addEventListener('load', function(){
-      navigator.serviceWorker.register('mediterranean-sw.js', { scope: './2027mediterranean.html' }).catch(function(){});
+      navigator.serviceWorker.register('2027cruise-sw.js', { scope: './2027Cruise.html' }).catch(function(){});
     });
   }
   function syncOnlineState(){ document.body.classList.toggle('is-offline', !navigator.onLine); }
