@@ -453,6 +453,11 @@
       쇼핑리스트
     </button>
 
+    <button class="pack-btn" onclick="openCoupon()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41L13.42 20.58a2 2 0 0 1-2.83 0L2.59 12.58a2 2 0 0 1 0-2.83L9.76 2.58a2 2 0 0 1 2.83 0l7.99 7.99a2 2 0 0 1 0 2.84z"/><circle cx="8" cy="8" r="1.5"/></svg>
+      돈키호테 쿠폰
+    </button>
+
     <div class="segment-label seg-sapporo"><span class="dot"></span>삿포로 · 비에이<span class="rule"></span></div>
     <div class="timeline">
 
@@ -842,6 +847,28 @@
     </div>
     <div class="tip-body" id="wxBody"></div>
     <div class="tip-foot"><button onclick="closeWx()">닫기</button></div>
+  </div>
+</div>
+
+<div class="tip-modal" id="couponModal" onclick="if(event.target===this) closeCoupon()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3>돈키호테 쿠폰</h3>
+      <div class="tip-close" onclick="closeCoupon()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
+    </div>
+    <div class="tip-body" style="padding:16px 18px; font-size:13.5px; line-height:1.7; color:var(--ink);">
+      <p><b>① 외국인 관광객 공식 할인쿠폰 (5%)</b><br>
+      결제 <b>전</b>에 계산대 직원에게 쿠폰 화면을 보여줘야 적용됩니다 (결제 후엔 적용 안 됨). 여권 필요(면세용). 주류·담배 등 일부 품목 제외.<br>
+      <a href="https://japanportal.donki-global.com/coupon/cp001_ko.html" target="_blank" rel="noopener">쿠폰 페이지 바로가기 →</a></p>
+      <p><b>② 마이리얼트립 제휴 선착순 증정 이벤트</b><br>
+      조건·증정품·유효기간을 이 페이지들에서 직접 확인 못 했어요(접속 제한) — 방문 전 아래 링크에서 꼭 재확인하세요.<br>
+      <a href="https://www.donki.com/campaign/hikikae/myreal-trip.php" target="_blank" rel="noopener">교환 페이지 바로가기 →</a><br>
+      <a href="https://oy.run/xOClV0n0bKM1SW" target="_blank" rel="noopener">이벤트 단축링크 →</a></p>
+      <p style="color:var(--ink-soft); font-size:12px;">※ 쿠폰·이벤트 조건은 예고 없이 바뀔 수 있어서, 매장 가기 전에 링크에서 최신 내용을 다시 확인하는 걸 추천해요.</p>
+    </div>
+    <div class="tip-foot"><button onclick="closeCoupon()">닫기</button></div>
   </div>
 </div>
 
@@ -1646,6 +1673,14 @@
   }
   function closePack(){
     document.getElementById('packModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function openCoupon(){
+    document.getElementById('couponModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCoupon(){
+    document.getElementById('couponModal').classList.remove('open');
     document.body.style.overflow = '';
   }
 
